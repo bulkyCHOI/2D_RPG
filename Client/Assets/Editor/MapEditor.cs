@@ -16,6 +16,7 @@ public class MapEditor
 {
 #if UNITY_EDITOR
     //%Ctrl, #Shift, &Alt
+    //아래처럼 해주면 메뉴가 생긴다.
     [MenuItem("Tools/GenerateMap %#&g")]
     private static void GenerateMap()
     {
