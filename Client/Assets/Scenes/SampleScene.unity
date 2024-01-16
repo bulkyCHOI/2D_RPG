@@ -226,6 +226,7 @@ GameObject:
   - component: {fileID: 1148623013}
   - component: {fileID: 1148623012}
   - component: {fileID: 1148623011}
+  - component: {fileID: 1148623014}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -314,6 +315,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1148623014
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1148623010}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 95aaedb28fb426e42bdcbf169bb5bd85, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!156049354 &1931739992 stripped
 Grid:
   m_CorrespondingSourceObject: {fileID: 7879787756101186417, guid: 3fb5ef354c651c342a2b46e3b7d83050, type: 3}
