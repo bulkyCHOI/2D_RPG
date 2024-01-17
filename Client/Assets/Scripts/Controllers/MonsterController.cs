@@ -1,12 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using TreeEditor;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UIElements;
 using static Define;
 
-public class PlayerController : CreatureController
+public class MonsterController : CreatureController
 {
     //start, update는 CreatureController에 있으므로 실행이 된다.
     protected override void Init()
@@ -16,13 +13,8 @@ public class PlayerController : CreatureController
 
     protected override void UpdateController()
     {
-        GetDirInput();  //추가
+        //GetDirInput();  //추가
         base.UpdateController();
-    }
-
-    void LateUpdate() //카메라는 보통 LateUpdate
-    {
-        Camera.main.transform.position = new Vector3(transform.position.x, transform.position.y, -10);
     }
 
     //키보드입력 받아서 방향 설정
