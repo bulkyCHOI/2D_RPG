@@ -84,6 +84,11 @@ public class PlayerController : MonoBehaviour
         UpdateIsMoving();
     }
 
+    void LateUpdate() //카메라는 보통 LateUpdate
+    {
+        Camera.main.transform.position = new Vector3(transform.position.x, transform.position.y, -10);
+    }
+
     //키보드입력 받아서 방향 설정
     void GetDirInput()
     {
@@ -115,7 +120,7 @@ public class PlayerController : MonoBehaviour
         if (_isMoving == false)
             return;
 
-        Vector3 destPos = Managers.Map.CurrentGrid.CellToWorld(_cellPos) + new Vector3(0.5f, 0.5f);
+        Vector3 destPos = Managers.Map.CurrentGrid.CellToWorld(_cellPos) + new Vector3(0.5f, 0.5f, 0.5f);
         Vector3 moveDir = destPos - transform.position;
 
         //도착 여부 체크
@@ -135,26 +140,29 @@ public class PlayerController : MonoBehaviour
     //이동가능한 상태일때, 실제 좌표를 이동시켜줌
     void UpdateIsMoving()
     { 
-        if (_isMoving == false)
+        if (_isMoving == false && _dir != MoveDir.None)
         {
+            Vector3Int destPos = _cellPos;
             switch (_dir) 
             {
                 case MoveDir.Up:
-                    _cellPos += Vector3Int.up;
-                    _isMoving = true;
+                    destPos += Vector3Int.up;
                     break;
                 case MoveDir.Down:
-                    _cellPos += Vector3Int.down;
-                    _isMoving = true;
+                    destPos += Vector3Int.down;
                     break;
                 case MoveDir.Left:
-                    _cellPos += Vector3Int.left;
-                    _isMoving = true;
+                    destPos += Vector3Int.left;
                     break;
                 case MoveDir.Right:
-                    _cellPos += Vector3Int.right;
-                    _isMoving = true;
+                    destPos += Vector3Int.right;
                     break;
+            }
+
+            if (Managers.Map.CanGo(destPos))
+            {
+                _cellPos = destPos;
+                _isMoving = true;
             }
         }
     }
