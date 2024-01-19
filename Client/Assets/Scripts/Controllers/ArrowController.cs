@@ -62,8 +62,10 @@ public class ArrowController : CreatureController
                 }
                 else    //object가 있다면 피격됬다고 생각하고
                 {
-                    Debug.Log(go.name);
-                    Managers.Resource.Destroy(gameObject);  //소멸: 근데왜 이렇게 파괴하지?
+                    CreatureController cc = go.GetComponent<CreatureController>();
+                    if(cc!=null)
+                        cc.OnDamaged();
+                    Managers.Resource.Destroy(gameObject);  //소멸: 근데왜 이렇게 파괴하지? >> Managers에서 통합적으로 관리
                 }
 
             }
