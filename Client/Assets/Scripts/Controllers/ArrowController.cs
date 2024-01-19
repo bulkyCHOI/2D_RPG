@@ -22,6 +22,8 @@ public class ArrowController : CreatureController
                 transform.rotation = Quaternion.Euler(0, 0, -90);
                 break;
         }
+        State = CreatureState.Moving;
+        _speed = 15.0f;
         base.Init();
 
     }
@@ -31,48 +33,44 @@ public class ArrowController : CreatureController
 
     }
 
-    protected override void UpdateIdle()
+    protected override void MoveToNexPos()
     {
-        if (_dir != MoveDir.None)
+        Vector3Int destPos = CellPos;
+        switch (_dir)
         {
-            Vector3Int destPos = CellPos;
-            switch (_dir)
+            case MoveDir.Up:
+                destPos += Vector3Int.up;
+                break;
+            case MoveDir.Down:
+                destPos += Vector3Int.down;
+                break;
+            case MoveDir.Left:
+                destPos += Vector3Int.left;
+                break;
+            case MoveDir.Right:
+                destPos += Vector3Int.right;
+                break;
+        }
+
+        if (Managers.Map.CanGo(destPos))    //갈수있는지 검사
+        {
+            GameObject go = Managers.Object.Find(destPos);
+            if (go == null) //아무것도 없다면
             {
-                case MoveDir.Up:
-                    destPos += Vector3Int.up;
-                    break;
-                case MoveDir.Down:
-                    destPos += Vector3Int.down;
-                    break;
-                case MoveDir.Left:
-                    destPos += Vector3Int.left;
-                    break;
-                case MoveDir.Right:
-                    destPos += Vector3Int.right;
-                    break;
+                CellPos = destPos;  //이동
+            }
+            else    //object가 있다면 피격됬다고 생각하고
+            {
+                CreatureController cc = go.GetComponent<CreatureController>();
+                if(cc!=null)
+                    cc.OnDamaged();
+                Managers.Resource.Destroy(gameObject);  //소멸: 근데왜 이렇게 파괴하지? >> Managers에서 통합적으로 관리
             }
 
-            State = CreatureState.Moving;   //막혀도 애니메이션은 재생되어야 하니까
-            if (Managers.Map.CanGo(destPos))    //갈수있는지 검사
-            {
-                GameObject go = Managers.Object.Find(destPos);
-                if (go == null) //아무것도 없다면
-                {
-                    CellPos = destPos;  //이동
-                }
-                else    //object가 있다면 피격됬다고 생각하고
-                {
-                    CreatureController cc = go.GetComponent<CreatureController>();
-                    if(cc!=null)
-                        cc.OnDamaged();
-                    Managers.Resource.Destroy(gameObject);  //소멸: 근데왜 이렇게 파괴하지? >> Managers에서 통합적으로 관리
-                }
-
-            }
-            else //뭔가에 막히면(벽, 돌, 등)
-            {
-                Managers.Resource.Destroy(gameObject);  //소멸: 근데왜 이렇게 파괴하지?
-            }
+        }
+        else //뭔가에 막히면(벽, 돌, 등)
+        {
+            Managers.Resource.Destroy(gameObject);  //소멸: 근데왜 이렇게 파괴하지?
         }
     }
 }
