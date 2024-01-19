@@ -9,9 +9,9 @@ public class CreatureController : MonoBehaviour
 
     public Vector3Int CellPos { get; set; } = Vector3Int.zero;
     protected Animator _animator;
-    protected SpriteRenderer _sprite; 
+    protected SpriteRenderer _sprite;
 
-    CreatureState _state = CreatureState.Idle;
+    protected CreatureState _state = CreatureState.Idle;
     public CreatureState State 
     {  
         get { return _state; } 
@@ -24,8 +24,8 @@ public class CreatureController : MonoBehaviour
         }
     }
 
-    MoveDir _lastDir = MoveDir.None;    //idle 상태의 방향을 결정하기 위해
-    MoveDir _dir = MoveDir.None;
+    protected MoveDir _lastDir = MoveDir.None;    //idle 상태의 방향을 결정하기 위해
+    protected MoveDir _dir = MoveDir.None;
     public MoveDir Dir
     {
         get { return _dir; }

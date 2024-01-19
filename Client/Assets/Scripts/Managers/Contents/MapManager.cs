@@ -48,8 +48,8 @@ public class MapManager
         MinY = int.Parse(reader.ReadLine());
         MaxY = int.Parse(reader.ReadLine());
 
-        int xCount = MaxX - MinX;
-        int yCount = MaxY - MinY;
+        int xCount = MaxX - MinX + 1;
+        int yCount = MaxY - MinY + 1;
         _collision = new bool[yCount, xCount];
 
         for (int y = 0; y < yCount; y++)
