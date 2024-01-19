@@ -5,12 +5,14 @@ using static Define;
 
 public class CreatureController : MonoBehaviour
 {
+    [SerializeField]
     public float _speed = 5.0f;
 
     public Vector3Int CellPos { get; set; } = Vector3Int.zero;
     protected Animator _animator;
     protected SpriteRenderer _sprite;
 
+    [SerializeField]
     protected CreatureState _state = CreatureState.Idle;
     public virtual CreatureState State 
     {  
@@ -25,6 +27,7 @@ public class CreatureController : MonoBehaviour
     }
 
     protected MoveDir _lastDir = MoveDir.None;    //idle 상태의 방향을 결정하기 위해
+    [SerializeField]
     protected MoveDir _dir = MoveDir.None;
     public MoveDir Dir
     {
@@ -74,7 +77,7 @@ public class CreatureController : MonoBehaviour
                     _sprite.flipX = false; //원래상태
                     break;
                 case MoveDir.Down:
-                case MoveDir.None:
+                //case MoveDir.None:
                     _animator.Play("IDLE_FRONT");
                     _sprite.flipX = false; //원래상태
                     break;
