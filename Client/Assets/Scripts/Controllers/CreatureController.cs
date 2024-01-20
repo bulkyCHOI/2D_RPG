@@ -44,6 +44,21 @@ public class CreatureController : MonoBehaviour
         }
     }
 
+    public MoveDir GetDirFromVec(Vector3Int dirVec) //벡터를 받아서 방향을 반환
+    {
+        if (dirVec.x > 0)
+            return MoveDir.Right;
+        else if (dirVec.x < 0)
+            return MoveDir.Left;
+        else if (dirVec.y > 0)
+            return MoveDir.Up;
+        else if (dirVec.y < 0)
+            return MoveDir.Down;
+        else
+            return MoveDir.None;
+        
+    }
+
     public Vector3Int GetFrontCellPos()
     {
         Vector3Int cellPos = CellPos;
@@ -214,7 +229,8 @@ public class CreatureController : MonoBehaviour
         }
         Vector3Int destPos = CellPos;
         switch (_dir)
-        {
+        {   
+            //케이스 조건의 순서를 매번 변경하고 싶음
             case MoveDir.Up:
                 destPos += Vector3Int.up;
                 break;
@@ -247,6 +263,10 @@ public class CreatureController : MonoBehaviour
     }
     public virtual void OnDamaged()
     {
+        if(this is PlayerController)
+        {
+            return;
+        }
         GameObject effect = Managers.Resource.Instantiate("Effect/DieEffect");
         effect.transform.position = transform.position;
         effect.GetComponent<Animator>().Play("START");
