@@ -1,56 +1,66 @@
-﻿using ServerCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Text;
+using System.Net.Sockets;
+using System.Threading;
 using System.Threading.Tasks;
+using ServerCore;
+using System.Net;
+using Google.Protobuf.Protocol;
+using Google.Protobuf;
 
 namespace Server
 {
-    class ClientSession : PacketSession
-    {
-        public int SessionID { get; set; }
-        public GameRoom Room { get; set; }
-        public float PosX { get; set; }
-        public float PosY { get; set; }
-        public float PosZ { get; set; }
-        
-        public override void OnConnected(EndPoint endPoint)
-        {
-            Console.WriteLine($"OnConnected: {endPoint}");
-            Program.Room.Push(
-                () => Program.Room.Enter(this));
+	class ClientSession : PacketSession
+	{
+		public int SessionId { get; set; }
+
+		public void Send(IMessage packet)
+		{
+            ushort size = (ushort)packet.CalculateSize();
+            byte[] sendBuffer = new byte[size + 4];
+            Array.Copy(BitConverter.GetBytes(size + 4), 0, sendBuffer, 0, sizeof(ushort));
+            ushort protocolId = (ushort)MsgId.SChat;
+            Array.Copy(BitConverter.GetBytes(protocolId), 0, sendBuffer, 2, sizeof(ushort));
+            Array.Copy(packet.ToByteArray(), 0, sendBuffer, 4, size);
+
+            Send(new ArraySegment<byte>(sendBuffer));
         }
 
-        public override void OnDisconnected(EndPoint endPoint)
-        {
-            SessionManager.instance.Remove(this);
-            if(Room != null)
-            {
-                GameRoom room = Room;
-                room.Push(() => room.Leave(this));
-                Room = null;    //혹시라도 두번호출될 경우 대비
-            }
-            Console.WriteLine($"OnDisconnected: {endPoint}");
-        }
+		public override void OnConnected(EndPoint endPoint)
+		{
+			Console.WriteLine($"OnConnected : {endPoint}");
 
-        //PacketSession 클래스로 변경했고, OnRecv는 sealed로 봉인했기 때문에 사용 불가.
-        //public override int OnRecv(ArraySegment<byte> buffer)
-        //{
-        //    string recvData = Encoding.UTF8.GetString(buffer.Array, buffer.Offset, buffer.Count);
-        //    Console.WriteLine($"[From Client] {recvData}");
-        //    return buffer.Count;    //받은 버퍼만큼을 리턴해준다.
-        //}
+			// PROTO Test
+			S_Chat chat = new S_Chat()
+			{
+				Context = "안녕하세요"
+			};
 
-        public override void OnRecvPacket(ArraySegment<byte> buffer)
-        {
-            PacketManager.instance.OnRecvPacket(this, buffer);
-        }
+			Send(chat);
 
-        public override void OnSend(int numOfBytes)
-        {
-            //Console.WriteLine($"Transfered bytes: {numOfBytes}");
-        }
-    }
+			//S_Chat chat2 = new S_Chat();
+			//chat2.MergeFrom(sendBuffer, 4, sendBuffer.Length - 4);
+			//////////////////////////
+			//////////////////////////
+			//Program.Room.Push(() => Program.Room.Enter(this));
+		}
+
+		public override void OnRecvPacket(ArraySegment<byte> buffer)
+		{
+			PacketManager.Instance.OnRecvPacket(this, buffer);
+		}
+
+		public override void OnDisconnected(EndPoint endPoint)
+		{
+			SessionManager.Instance.Remove(this);
+
+			Console.WriteLine($"OnDisconnected : {endPoint}");
+		}
+
+		public override void OnSend(int numOfBytes)
+		{
+			Console.WriteLine($"Transferred bytes: {numOfBytes}");
+		}
+	}
 }
