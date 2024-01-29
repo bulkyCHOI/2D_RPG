@@ -5,12 +5,27 @@ import "google/protobuf/timestamp.proto";
 option csharp_namespace = "Google.Protobuf.Protocol";
 
 enum MsgId {
-	  S_ENTER_GAME = 0;
-	  S_LEAVE_GAME = 1;
-	  S_SPAWN = 2;
-	  S_DESPAWN = 3;
-	  C_MOVE = 4;
-	  S_MOVE = 5;
+	S_ENTER_GAME = 0;
+	S_LEAVE_GAME = 1;
+	S_SPAWN = 2;
+	S_DESPAWN = 3;
+	C_MOVE = 4;
+	S_MOVE = 5;
+}
+
+enum CreatureState{
+	IDLE = 0;
+	MOVING = 1;
+	SKILL = 2;
+	DEAD = 3;
+}
+
+enum MoveDir{
+	NONE = 0;
+	UP = 1;
+	DOWN = 2;
+	LEFT = 3;
+	RIGHT = 4;
 }
 
 message S_EnterGame {
@@ -20,8 +35,7 @@ message S_EnterGame {
 message PlayerInfo{
 	int32 playerId = 1;
 	string name = 2;
-	int32 posX = 3;
-	int32 posY = 4;
+	PositionInfo posInfo = 3;
 }
 
 message S_LeaveGame {
@@ -37,12 +51,17 @@ message S_Despawn {
 }
 
 message C_Move {
-	int32 posX = 1;
-	int32 posY = 2;
+	PositionInfo posInfo = 1;
 }
 
 message S_Move {
 	int32 playerId = 1;
-	int32 posX = 2;
-	int32 posY = 3;
+	PositionInfo posInfo = 2;
+}
+
+message PositionInfo{
+	CreatureState state = 1;
+	MoveDir moveDir = 2;
+	int32 posX = 3;
+	int32 posY = 4;
 }

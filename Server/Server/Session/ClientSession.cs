@@ -38,9 +38,11 @@ namespace Server
 			MyPlayer = PlayerManager.Instance.Add();	// 플레이어 생성
 			{ 
 				MyPlayer.Info.Name = $"Player_{MyPlayer.Info.PlayerId}";
-				MyPlayer.Info.PosX = 0;
-				MyPlayer.Info.PosY = 0;
-				MyPlayer.Session = this;
+				MyPlayer.Info.PosInfo.State = CreatureState.Idle;
+                MyPlayer.Info.PosInfo.MoveDir = MoveDir.None;
+				MyPlayer.Info.PosInfo.PosX = 0;
+				MyPlayer.Info.PosInfo.PosY = 0;
+                MyPlayer.Session = this;
 			}
 
 			RoomManager.Instance.Find(1).EnterRoom(MyPlayer);	// 방에 플레이어 입장
