@@ -10,6 +10,11 @@ public class ServerSession : PacketSession
 	public override void OnConnected(EndPoint endPoint)
 	{
 		Debug.Log($"OnConnected : {endPoint}");
+
+		PacketManager.Instance.CustomHandler = (s, m, i) =>	//메인 쓰레드에서 처리를 시켜주기 위해 PUSH
+		{
+			PacketQueue.Instance.Push(i, m);
+		};
 	}
 
 	public override void OnDisconnected(EndPoint endPoint)

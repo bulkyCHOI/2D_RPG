@@ -22,7 +22,7 @@ namespace Server.Game
             {
                 _players.Add(newPlayer);
                 newPlayer.Room = this;
-
+                Console.WriteLine($"입장: {newPlayer.Info.PlayerId}");
                 // 본인한테 정보 전송
                 { 
                     S_EnterGame enterPacket = new S_EnterGame();
@@ -32,7 +32,10 @@ namespace Server.Game
                     // 본인한테 다른 플레이어 정보 전송
                     S_Spawn spawnPacket = new S_Spawn();
                     foreach (Player p in _players)
-                        spawnPacket.Players.Add(p.Info);
+                    {
+                        if(p != newPlayer)  //위에서 한번 전송했으니까
+                            spawnPacket.Players.Add(p.Info);
+                    }    
                     newPlayer.Session.Send(spawnPacket);
                 }
                 // 다른 플레이어들에게 정보 전송
@@ -41,9 +44,8 @@ namespace Server.Game
                     spawnPacket.Players.Add(newPlayer.Info);
                     foreach (Player p in _players)  
                     {
-                        if (p == newPlayer) // 본인한테는 이미 전송했으니까
-                            continue;
-                        p.Session.Send(spawnPacket);
+                        if (p != newPlayer) // 본인한테는 이미 전송했으니까
+                            p.Session.Send(spawnPacket);
                     }
                 }
             }
@@ -67,7 +69,7 @@ namespace Server.Game
                 // 다른 플레이어들에게 정보 전송
                 {
                     S_Despawn despawnPacket = new S_Despawn();
-                    despawnPacket.PlayerId.Add(player.Info.PlayerId);
+                    despawnPacket.PlayerIds.Add(player.Info.PlayerId);
                     foreach (Player p in _players)
                     {
                         if(player == p) // 본인한테는 이미 전송했으니까
