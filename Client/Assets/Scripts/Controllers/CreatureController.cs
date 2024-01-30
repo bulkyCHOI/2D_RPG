@@ -12,6 +12,8 @@ public class CreatureController : MonoBehaviour
 	[SerializeField]
 	public float _speed = 5.0f;
 
+	protected bool _updated = false;	
+
 	PositionInfo _positionInfo = new PositionInfo();
 	public PositionInfo PosInfo	
 	{
@@ -22,8 +24,12 @@ public class CreatureController : MonoBehaviour
 			{
                 return;
 			}
-            _positionInfo = value;
-			UpdateAnimation();
+
+			CellPos = new Vector3Int(value.PosX, value.PosY, 0);
+			State = value.State;
+			Dir = value.MoveDir;
+			//_positionInfo = value;	// 이렇게 하면 안됨. 참조가 아니라 값 복사가 되어버림.
+			//UpdateAnimation();		
         }
     }
 
@@ -34,8 +40,11 @@ public class CreatureController : MonoBehaviour
 		}
 		set
 		{
+			if (PosInfo.PosX == value.x && PosInfo.PosY == value.y)
+                return;
 			PosInfo.PosX = value.x;
 			PosInfo.PosY = value.y;
+			_updated = true;
 		}
 	}
 
@@ -52,6 +61,7 @@ public class CreatureController : MonoBehaviour
 
             PosInfo.State = value;
 			UpdateAnimation();
+			_updated = true;
 		}
 	}
 
@@ -69,6 +79,7 @@ public class CreatureController : MonoBehaviour
 				_lastDir = value;
 
 			UpdateAnimation();
+			_updated = true;
 		}
 	}
 
@@ -246,37 +257,7 @@ public class CreatureController : MonoBehaviour
 
 	protected virtual void MoveToNextPos()
 	{
-		if (Dir == MoveDir.None)
-		{
-			State = CreatureState.Idle;
-			return;
-		}
-
-		Vector3Int destPos = CellPos;
-
-		switch (Dir)
-		{
-			case MoveDir.Up:
-				destPos += Vector3Int.up;
-				break;
-			case MoveDir.Down:
-				destPos += Vector3Int.down;
-				break;
-			case MoveDir.Left:
-				destPos += Vector3Int.left;
-				break;
-			case MoveDir.Right:
-				destPos += Vector3Int.right;
-				break;
-		}
-
-		if (Managers.Map.CanGo(destPos))
-		{
-			if (Managers.Object.Find(destPos) == null)
-			{
-				CellPos = destPos;
-			}
-		}
+		//내 플레이어가 아니면 움직이지 않는다.
 	}
 
 	protected virtual void UpdateSkill()
