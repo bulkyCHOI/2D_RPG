@@ -5,17 +5,18 @@ using UnityEngine;
 
 public class MultiplayerBuildAndRun
 {
-    [MenuItem("Tools/Build and Run/2 Players")]
+    [MenuItem("Tools/Build and Run/2 Players %#&2")]
+
     static void PerformWin64Build2()
     {
         PerformWin64Build(2);
     }
-    [MenuItem("Tools/Build and Run/3 Players")]
+    [MenuItem("Tools/Build and Run/3 Players %#&3")]
     static void PerformWin64Build3()
     {
         PerformWin64Build(3);
     }
-    [MenuItem("Tools/Build and Run/4 Players")]
+    [MenuItem("Tools/Build and Run/4 Players %#&4")]
     static void PerformWin64Build4()
     {
         PerformWin64Build(4);

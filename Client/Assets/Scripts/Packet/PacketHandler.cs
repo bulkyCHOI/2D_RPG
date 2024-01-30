@@ -47,10 +47,16 @@ class PacketHandler
     {
         S_Move movePacket = packet as S_Move;
         ServerSession serverSession = session as ServerSession;
-    
-        Debug.Log("S_MoveHandler");
-        Debug.Log(movePacket.PlayerId);
-        Debug.Log(movePacket.PosX);
-        Debug.Log(movePacket.PosY);
+
+        //서버에서 이동패킷이 왔을때 처리해주는 부분
+        GameObject go = Managers.Object.FindById(movePacket.PlayerId);
+        if (go == null)
+            return;
+
+        CreatureController cc = go.GetComponent<CreatureController>();
+        if (cc == null)
+            return;
+
+        cc.PosInfo = movePacket.PosInfo;    // 클라이언트 이동을 했지만 서버에서 패킷을 받아서 처리를 한번더 해서 맞춰준다. >> 부자연스러울수 있음.
     }
 }
