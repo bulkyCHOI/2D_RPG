@@ -33,7 +33,14 @@ public class CreatureController : MonoBehaviour
         }
     }
 
-	public Vector3Int CellPos { 
+	public void SyncPos()	//위치 동기화(바로 이동)
+	{
+        Vector3 destPos = Managers.Map.CurrentGrid.CellToWorld(CellPos) + new Vector3(0.5f, 0.5f);
+		transform.position = destPos;
+    }
+
+
+    public Vector3Int CellPos { 
 		get
 		{ 
 			return new Vector3Int(PosInfo.PosX, PosInfo.PosY, 0); 
