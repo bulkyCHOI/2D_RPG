@@ -27,9 +27,9 @@ namespace Server.Game
                 return;
             lock (_lock)
             {
-                _players.Add(newPlayer.Info.PlayerId, newPlayer);
+                _players.Add(newPlayer.Info.ObjectId, newPlayer);
                 newPlayer.Room = this;
-                Console.WriteLine($"입장: {newPlayer.Info.PlayerId}");
+                Console.WriteLine($"입장: {newPlayer.Info.ObjectId}");
                 // 본인한테 정보 전송
                 { 
                     S_EnterGame enterPacket = new S_EnterGame();
@@ -41,14 +41,14 @@ namespace Server.Game
                     foreach (Player p in _players.Values)
                     {
                         if(p != newPlayer)  //위에서 한번 전송했으니까
-                            spawnPacket.Players.Add(p.Info);
+                            spawnPacket.Objects.Add(p.Info);
                     }    
                     newPlayer.Session.Send(spawnPacket);
                 }
                 // 다른 플레이어들에게 정보 전송
                 { 
                     S_Spawn spawnPacket = new S_Spawn();
-                    spawnPacket.Players.Add(newPlayer.Info);
+                    spawnPacket.Objects.Add(newPlayer.Info);
                     foreach (Player p in _players.Values)  
                     {
                         if (p != newPlayer) // 본인한테는 이미 전송했으니까
@@ -75,7 +75,7 @@ namespace Server.Game
                 // 다른 플레이어들에게 정보 전송
                 {
                     S_Despawn despawnPacket = new S_Despawn();
-                    despawnPacket.PlayerIds.Add(player.Info.PlayerId);
+                    despawnPacket.PlayerIds.Add(player.Info.ObjectId);
                     foreach (Player p in _players.Values)
                     {
                         if(player == p) // 본인한테는 이미 전송했으니까
@@ -94,7 +94,7 @@ namespace Server.Game
             {
                 //TODO : 검증
                 PositionInfo movePosInfo = movePacket.PosInfo; //가고싶은 좌표
-                PlayerInfo info = player.Info; // 플레이어 정보
+                ObjectInfo info = player.Info; // 플레이어 정보
                 
                 //다른좌표로 이동할 경우, 갈수 있는지 체크
                 if(movePosInfo.PosX != info.PosInfo.PosX || movePosInfo.PosY != info.PosInfo.PosY)
@@ -110,7 +110,7 @@ namespace Server.Game
 
                 // 방에 있는 모든 플레이어에게 전송
                 S_Move resMove = new S_Move();
-                resMove.PlayerId = player.Info.PlayerId;
+                resMove.PlayerId = player.Info.ObjectId;
                 resMove.PosInfo = movePacket.PosInfo;
 
                 Broadcast(resMove);
@@ -123,33 +123,33 @@ namespace Server.Game
                 return;
             lock (_lock)
             {
-                PlayerInfo playerInfo = player.Info; // 플레이어 정보
+                ObjectInfo playerInfo = player.Info; // 플레이어 정보
                 if (playerInfo.PosInfo.State != CreatureState.Idle)  //이동중이면 스킬 사용 불가
                     return;
 
                 //TODO : 스킬 사용 가능 여부 검증
 
-                //통과
                 playerInfo.PosInfo.State = CreatureState.Skill;
-
-                // 방에 있는 모든 플레이어에게 전송
                 S_Skill skill = new S_Skill() { Info = new SkillInfo() };
-                skill.PlayerId = playerInfo.PlayerId;
-                skill.Info.SkillId = 1;
+                skill.PlayerId = playerInfo.ObjectId;
+                skill.Info.SkillId = skillPacket.Info.SkillId;
                 Broadcast(skill);
 
-                //TODO : 데미지 판정
-                Vector2Int skillPos = player.GetFrontCellPos(playerInfo.PosInfo.MoveDir);
-                Player target = _map.Find(skillPos);
-                if(target != null)
+                if(skillPacket.Info.SkillId == 1) //평타
                 {
                     //TODO : 데미지 판정
-                    //S_Damage damagePacket = new S_Damage();
-                    //damagePacket.PlayerId = target.Info.PlayerId;
-                    //damagePacket.Damage = 10;
-                    //Broadcast(damagePacket);
-                    Console.WriteLine("Hit Player !");
+                    Vector2Int skillPos = player.GetFrontCellPos(playerInfo.PosInfo.MoveDir);
+                    Player target = _map.Find(skillPos);
+                    if(target != null)
+                    {
+                        Console.WriteLine("Hit Player !");
+                    }
                 }
+                else if(skillPacket.Info.SkillId == 2) //스킬
+                {
+                    
+                }
+                
 
             }
         }

@@ -35,9 +35,9 @@ namespace Server
 			Console.WriteLine($"OnConnected : {endPoint}");
 
 			// PROTO Test
-			MyPlayer = PlayerManager.Instance.Add();	// 플레이어 생성
+			MyPlayer = ObjectManager.Instance.Add<Player>();	// 플레이어 생성
 			{ 
-				MyPlayer.Info.Name = $"Player_{MyPlayer.Info.PlayerId}";
+				MyPlayer.Info.Name = $"Player_{MyPlayer.Info.ObjectId}";
 				MyPlayer.Info.PosInfo.State = CreatureState.Idle;
                 MyPlayer.Info.PosInfo.MoveDir = MoveDir.Down;
 				MyPlayer.Info.PosInfo.PosX = 0;
@@ -55,7 +55,7 @@ namespace Server
 
 		public override void OnDisconnected(EndPoint endPoint)
 		{
-            RoomManager.Instance.Find(1).LeaveRoom(MyPlayer.Info.PlayerId);	// 방에서 플레이어 퇴장
+            RoomManager.Instance.Find(1).LeaveRoom(MyPlayer.Info.ObjectId);	// 방에서 플레이어 퇴장
             SessionManager.Instance.Remove(this);
 			Console.WriteLine($"OnDisconnected : {endPoint}");
 		}
