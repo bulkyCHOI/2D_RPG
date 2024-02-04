@@ -139,6 +139,18 @@ namespace Server.Game
                 Broadcast(skill);
 
                 //TODO : 데미지 판정
+                Vector2Int skillPos = player.GetFrontCellPos(playerInfo.PosInfo.MoveDir);
+                Player target = _map.Find(skillPos);
+                if(target != null)
+                {
+                    //TODO : 데미지 판정
+                    //S_Damage damagePacket = new S_Damage();
+                    //damagePacket.PlayerId = target.Info.PlayerId;
+                    //damagePacket.Damage = 10;
+                    //Broadcast(damagePacket);
+                    Console.WriteLine("Hit Player !");
+                }
+
             }
         }
 
