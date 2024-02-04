@@ -13,7 +13,13 @@ namespace Server.Game
         object _lock = new object();
         public int RoomId { get; set; }
 
-        List<Player> _players = new List<Player>();
+        Dictionary<int, Player> _players = new Dictionary<int, Player>();
+
+        Map _map = new Map();
+        public void Init(int mapId)
+        {
+            _map.LoadMap(mapId);
+        }
 
         public void EnterRoom(Player newPlayer)
         {
@@ -21,7 +27,7 @@ namespace Server.Game
                 return;
             lock (_lock)
             {
-                _players.Add(newPlayer);
+                _players.Add(newPlayer.Info.PlayerId, newPlayer);
                 newPlayer.Room = this;
                 Console.WriteLine($"입장: {newPlayer.Info.PlayerId}");
                 // 본인한테 정보 전송
@@ -32,7 +38,7 @@ namespace Server.Game
 
                     // 본인한테 다른 플레이어 정보 전송
                     S_Spawn spawnPacket = new S_Spawn();
-                    foreach (Player p in _players)
+                    foreach (Player p in _players.Values)
                     {
                         if(p != newPlayer)  //위에서 한번 전송했으니까
                             spawnPacket.Players.Add(p.Info);
@@ -43,7 +49,7 @@ namespace Server.Game
                 { 
                     S_Spawn spawnPacket = new S_Spawn();
                     spawnPacket.Players.Add(newPlayer.Info);
-                    foreach (Player p in _players)  
+                    foreach (Player p in _players.Values)  
                     {
                         if (p != newPlayer) // 본인한테는 이미 전송했으니까
                             p.Session.Send(spawnPacket);
@@ -55,11 +61,10 @@ namespace Server.Game
         {
             lock (_lock)
             {
-                Player player = _players.Find(p => p.Info.PlayerId == playerId);
-                if (player == null)
-                    return;
+                Player player = null;
+                if(_players.TryGetValue(playerId, out player) == false)
+                    return; 
                 
-                _players.Remove(player);
                 player.Room = null;
 
                 // 본인한테 정보 전송
@@ -71,7 +76,7 @@ namespace Server.Game
                 {
                     S_Despawn despawnPacket = new S_Despawn();
                     despawnPacket.PlayerIds.Add(player.Info.PlayerId);
-                    foreach (Player p in _players)
+                    foreach (Player p in _players.Values)
                     {
                         if(player == p) // 본인한테는 이미 전송했으니까
                             continue;
@@ -88,9 +93,20 @@ namespace Server.Game
             lock (_lock)
             {
                 //TODO : 검증
-                // 서버에서 좌표이동
-                PlayerInfo playerInfo = player.Info; // 플레이어 정보
-                playerInfo.PosInfo = movePacket.PosInfo; // 좌표 이동
+                PositionInfo movePosInfo = movePacket.PosInfo; //가고싶은 좌표
+                PlayerInfo info = player.Info; // 플레이어 정보
+                
+                //다른좌표로 이동할 경우, 갈수 있는지 체크
+                if(movePosInfo.PosX != info.PosInfo.PosX || movePosInfo.PosY != info.PosInfo.PosY)
+                {
+                    Vector2Int dest = new Vector2Int(movePosInfo.PosX, movePosInfo.PosY);
+                    if (_map.CanGo(dest) == false)
+                        return;
+                }
+                info.PosInfo.State = movePosInfo.State;
+                info.PosInfo.MoveDir = movePosInfo.MoveDir;
+                _map.ApplyMove(player, new Vector2Int(movePosInfo.PosX, movePosInfo.PosY)); //이동
+
 
                 // 방에 있는 모든 플레이어에게 전송
                 S_Move resMove = new S_Move();
@@ -130,7 +146,7 @@ namespace Server.Game
         {
             lock (_lock)
             {
-                foreach (Player p in _players)
+                foreach (Player p in _players.Values)
                 {
                     p.Session.Send(packet);
                 }
