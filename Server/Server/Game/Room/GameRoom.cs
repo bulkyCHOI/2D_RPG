@@ -3,6 +3,7 @@ using Google.Protobuf.Protocol;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,73 +15,126 @@ namespace Server.Game
         public int RoomId { get; set; }
 
         Dictionary<int, Player> _players = new Dictionary<int, Player>();
+        Dictionary<int, Monster> _monsters = new Dictionary<int, Monster>();
+        Dictionary<int, Projectile> _projectiles = new Dictionary<int, Projectile>();
 
-        Map _map = new Map();
+        public Map Map { get; private set; } = new Map();
         public void Init(int mapId)
         {
-            _map.LoadMap(mapId);
+            Map.LoadMap(mapId);
         }
 
-        public void EnterRoom(Player newPlayer)
+        public void Update()
         {
-            if(newPlayer == null)
+            lock(_lock)
+            {
+                foreach (Projectile projectile in _projectiles.Values)
+                {
+                    projectile.Update();
+                }
+            }
+        }
+
+        public void EnterGame(GameObject gameObject)
+        {
+            if(gameObject == null)
                 return;
+
+            GameObjectType type = ObjectManager.GetObjectTypeById(gameObject.Id);
+
             lock (_lock)
             {
-                _players.Add(newPlayer.Info.ObjectId, newPlayer);
-                newPlayer.Room = this;
-                Console.WriteLine($"입장: {newPlayer.Info.ObjectId}");
-                // 본인한테 정보 전송
-                { 
-                    S_EnterGame enterPacket = new S_EnterGame();
-                    enterPacket.Player = newPlayer.Info;
-                    newPlayer.Session.Send(enterPacket);
+                if (type == GameObjectType.Player)
+                {
+                    Player player = gameObject as Player;
+                    _players.Add(gameObject.Id, player);
+                    player.Room = this;
 
-                    // 본인한테 다른 플레이어 정보 전송
-                    S_Spawn spawnPacket = new S_Spawn();
-                    foreach (Player p in _players.Values)
-                    {
-                        if(p != newPlayer)  //위에서 한번 전송했으니까
-                            spawnPacket.Objects.Add(p.Info);
-                    }    
-                    newPlayer.Session.Send(spawnPacket);
+                    // 본인한테 정보 전송
+                    { 
+                        S_EnterGame enterPacket = new S_EnterGame();
+                        enterPacket.Player = player.Info;
+                        player.Session.Send(enterPacket);
+
+                        // 본인한테 다른 플레이어 정보 전송
+                        S_Spawn spawnPacket = new S_Spawn();
+                        foreach (Player p in _players.Values)
+                        {
+                            if(p != player)  //위에서 한번 전송했으니까
+                                spawnPacket.Objects.Add(p.Info);
+                        }
+                        player.Session.Send(spawnPacket);
+                    }
                 }
+                else if (type == GameObjectType.Monster)
+                {
+                    Monster monster = gameObject as Monster;
+                    _monsters.Add(gameObject.Id, monster);
+                    monster.Room = this;
+                }
+                else if (type == GameObjectType.Projectile)
+                {
+                    Projectile projectile = gameObject as Projectile;
+                    _projectiles.Add(gameObject.Id, projectile);
+                    projectile.Room = this;
+                }
+
                 // 다른 플레이어들에게 정보 전송
                 { 
                     S_Spawn spawnPacket = new S_Spawn();
-                    spawnPacket.Objects.Add(newPlayer.Info);
+                    spawnPacket.Objects.Add(gameObject.Info);
                     foreach (Player p in _players.Values)  
                     {
-                        if (p != newPlayer) // 본인한테는 이미 전송했으니까
+                        if (p.Id != gameObject.Id) // 본인한테는 이미 전송했으니까
                             p.Session.Send(spawnPacket);
                     }
                 }
             }
         }
-        public void LeaveRoom(int playerId)
+        public void LeaveGame(int objectId)
         {
+            GameObjectType type = ObjectManager.GetObjectTypeById(objectId);
+
             lock (_lock)
             {
-                Player player = null;
-                if(_players.TryGetValue(playerId, out player) == false)
-                    return; 
-                
-                player.Room = null;
-
-                // 본인한테 정보 전송
+                if (type == GameObjectType.Player)
                 {
-                    S_LeaveGame leavePacket = new S_LeaveGame();
-                    player.Session.Send(leavePacket);
+                    Player player = null;
+                    if (_players.Remove(objectId, out player) == false)
+                        return;
+                    player.Room = null;
+                    Map.ApplyLeave(player); 
+
+                    // 본인한테 정보 전송
+                    {
+                        S_LeaveGame leavePacket = new S_LeaveGame();
+                        player.Session.Send(leavePacket);
+                    }
                 }
+                else if (type == GameObjectType.Monster)
+                {
+                    Monster monster = null;
+                    if (_monsters.Remove(objectId, out monster) == false)
+                        return;
+                    monster.Room = null;
+                    Map.ApplyLeave(monster);
+                }
+                else if (type == GameObjectType.Projectile)
+                {
+                    Projectile projectile = null;
+                    if (_projectiles.Remove(objectId, out projectile) == false)
+                        return;
+                    projectile.Room = null;
+                }
+                
                 // 다른 플레이어들에게 정보 전송
                 {
                     S_Despawn despawnPacket = new S_Despawn();
-                    despawnPacket.PlayerIds.Add(player.Info.ObjectId);
+                    despawnPacket.ObjectIds.Add(objectId);
                     foreach (Player p in _players.Values)
                     {
-                        if(player == p) // 본인한테는 이미 전송했으니까
-                            continue;
-                        p.Session.Send(despawnPacket);
+                        if(p.Id != objectId) // 본인한테는 이미 전송했으니까
+                            p.Session.Send(despawnPacket);
                     }
                 }
             }
@@ -100,17 +154,17 @@ namespace Server.Game
                 if(movePosInfo.PosX != info.PosInfo.PosX || movePosInfo.PosY != info.PosInfo.PosY)
                 {
                     Vector2Int dest = new Vector2Int(movePosInfo.PosX, movePosInfo.PosY);
-                    if (_map.CanGo(dest) == false)
+                    if (Map.CanGo(dest) == false)
                         return;
                 }
                 info.PosInfo.State = movePosInfo.State;
                 info.PosInfo.MoveDir = movePosInfo.MoveDir;
-                _map.ApplyMove(player, new Vector2Int(movePosInfo.PosX, movePosInfo.PosY)); //이동
+                Map.ApplyMove(player, new Vector2Int(movePosInfo.PosX, movePosInfo.PosY)); //이동
 
 
                 // 방에 있는 모든 플레이어에게 전송
                 S_Move resMove = new S_Move();
-                resMove.PlayerId = player.Info.ObjectId;
+                resMove.ObjectId = player.Info.ObjectId;
                 resMove.PosInfo = movePacket.PosInfo;
 
                 Broadcast(resMove);
@@ -131,7 +185,7 @@ namespace Server.Game
 
                 playerInfo.PosInfo.State = CreatureState.Skill;
                 S_Skill skill = new S_Skill() { Info = new SkillInfo() };
-                skill.PlayerId = playerInfo.ObjectId;
+                skill.ObjectId = playerInfo.ObjectId;
                 skill.Info.SkillId = skillPacket.Info.SkillId;
                 Broadcast(skill);
 
@@ -139,15 +193,26 @@ namespace Server.Game
                 {
                     //TODO : 데미지 판정
                     Vector2Int skillPos = player.GetFrontCellPos(playerInfo.PosInfo.MoveDir);
-                    Player target = _map.Find(skillPos);
+                    GameObject target = Map.Find(skillPos);
                     if(target != null)
                     {
-                        Console.WriteLine("Hit Player !");
+                        Console.WriteLine("Hit GameObject !");
                     }
                 }
                 else if(skillPacket.Info.SkillId == 2) //스킬
                 {
-                    
+                    Arrow arrow = ObjectManager.Instance.Add<Arrow>();
+                    if(arrow != null)
+                    {
+                        arrow.Owner = player;
+                        arrow.PosInfo.State = CreatureState.Moving;
+                        arrow.PosInfo.MoveDir = playerInfo.PosInfo.MoveDir;
+                        arrow.PosInfo.PosX = playerInfo.PosInfo.PosX;
+                        arrow.PosInfo.PosY = playerInfo.PosInfo.PosY;
+                        EnterGame(arrow);
+                    }
+                    else
+                        return;
                 }
                 
 

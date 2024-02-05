@@ -13,5 +13,10 @@ namespace Server.Game
         {
             ObjectType = GameObjectType.Projectile;
         }
+
+        public virtual void Update()
+        {
+            // TODO - 화살이 날아가는 로직
+        }
     }
 }

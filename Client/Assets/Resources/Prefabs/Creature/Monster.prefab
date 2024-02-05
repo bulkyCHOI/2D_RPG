@@ -116,7 +116,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 828714739220346278}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6644364e62ee3c54ca081722babb3209, type: 3}
+  m_Script: {fileID: 11500000, guid: 8aaf8e885585ec34ca0cd6eb6ac2e534, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 5
+  _destCellPos: {x: 0, y: 0, z: 0}
+  _target: {fileID: 0}
+  _searchRange: 10
+  _skillRange: 1
+  _rangedSkill: 0
