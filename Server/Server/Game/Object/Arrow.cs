@@ -16,11 +16,13 @@ namespace Server.Game
 
         public override void Update()
         {
-            if(Owner == null || Room == null)
+            if(Data == null || Data.projectile == null ||Owner == null || Room == null)
                 return;
             if(Environment.TickCount <= _nextMoveTick)
                 return;
-            _nextMoveTick = Environment.TickCount + 50;
+
+            long tick = (long)(1000 / Data.projectile.speed);
+            _nextMoveTick = Environment.TickCount + tick;   //기다려야 하는 시간
 
             Vector2Int destPos = GetFrontCellPos();
             if(Room.Map.CanGo(destPos)) // 이동 가능한가? 날아가기
