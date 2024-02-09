@@ -20,18 +20,18 @@ namespace Server.Game
 
         public ObjectInfo Info { get; set; } = new ObjectInfo();
         public PositionInfo PosInfo { get; private set; } = new PositionInfo();
-        public StatInfo StatInfo { get; private set; } = new StatInfo();
+        public StatInfo Stat { get; private set; } = new StatInfo();
 
         public float Speed
         {
-            get { return StatInfo.Speed; }
-            set { StatInfo.Speed = value; }
+            get { return Stat.Speed; }
+            set { Stat.Speed = value; }
         }
 
         public GameObject()
         {
             Info.PosInfo = PosInfo;
-            Info.StatInfo = StatInfo;
+            Info.StatInfo = Stat;
         }
         public Vector2Int CellPos
         {
@@ -76,7 +76,23 @@ namespace Server.Game
 
         public virtual void OnDamaged(GameObject attacker, int damage)
         {
+            Stat.Hp = Math.Max(0, Stat.Hp - damage);
 
+            S_ChangeHp changeHpPacket = new S_ChangeHp();
+            changeHpPacket.ObjectId = Id;
+            changeHpPacket.Hp = Stat.Hp;
+            Room.Broadcast(changeHpPacket);
+
+            if(Stat.Hp <= 0)
+            {
+                //죽음
+                OnDead(attacker);
+            }
+        }
+
+        public virtual void OnDead(GameObject attacker)
+        {
+            
         }
     }
 }

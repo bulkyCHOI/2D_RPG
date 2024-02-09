@@ -41,8 +41,6 @@ public class MyPlayerController : PlayerController
         // 스킬 상태로 갈지 확인
         if (_coInputCooltime == null && Input.GetKey(KeyCode.Space))
         {
-            Debug.Log("스페이스바 눌림");
-
             C_Skill skill = new C_Skill() { Info = new SkillInfo() };
             skill.Info.SkillId = 2;
             Managers.Network.Send(skill);
