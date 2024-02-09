@@ -51,6 +51,7 @@ message ObjectInfo{
 	int32 objectId = 1;
 	string name = 2;
 	PositionInfo posInfo = 3;
+	StatInfo statInfo = 4;
 }
 
 message S_LeaveGame {
@@ -79,6 +80,19 @@ message PositionInfo{
 	MoveDir moveDir = 2;
 	int32 posX = 3;
 	int32 posY = 4;
+}
+
+message StatInfo
+{
+	int32 level = 1;
+	int32 maxHp = 2;
+	int32 maxMp = 3;
+	int32 hp = 4;
+	int32 mp = 5;
+	float speed = 6;
+	int32 str = 7;
+	int32 dex = 8;
+	int32 int = 9;
 }
 
 message C_Skill {

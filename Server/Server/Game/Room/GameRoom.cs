@@ -213,6 +213,7 @@ namespace Server.Game
                             arrow.PosInfo.MoveDir = playerInfo.PosInfo.MoveDir;
                             arrow.PosInfo.PosX = playerInfo.PosInfo.PosX;
                             arrow.PosInfo.PosY = playerInfo.PosInfo.PosY;
+                            arrow.Speed = skillData.projectile.speed;
                             EnterGame(arrow);
                         }
                         else

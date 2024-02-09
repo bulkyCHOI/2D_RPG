@@ -42,6 +42,7 @@ namespace Server.Game
                 if (target != null)
                 {
                     // 피격 판정
+                    target.OnDamaged(this, Data.damage);
                 }
                 //소멸
                 Room.LeaveGame(Id);

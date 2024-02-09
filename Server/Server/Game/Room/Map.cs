@@ -43,7 +43,7 @@ namespace Server.Game
         public static Vector2Int left { get { return new Vector2Int(-1, 0); } }
         public static Vector2Int right { get { return new Vector2Int(1, 0); } }
 
-        public static Vector2Int operator +(Vector2Int lhs, Vector2Int rhs)
+        public static Vector2Int operator+(Vector2Int lhs, Vector2Int rhs)
         {
             return new Vector2Int(lhs.x + rhs.x, lhs.y + rhs.y);
         }
@@ -70,7 +70,7 @@ namespace Server.Game
 
             int x = cellPos.x - MinX;
             int y = MaxY - cellPos.y;
-            return !_collision[y, x] && (checkObjects || _objects[y, x] == null);
+            return !_collision[y, x] && (!checkObjects || _objects[y, x] == null);
         }
 
         public GameObject Find(Vector2Int cellPos)
