@@ -19,7 +19,7 @@ class PacketHandler
 	public static void S_LeaveGameHandler(PacketSession session, IMessage packet)
 	{
         S_LeaveGame leaveGamePacket = packet as S_LeaveGame;
-        Managers.Object.RemoveMyPlayer();
+        Managers.Object.Clear();
 
         //Debug.Log("S_LeaveGameHandler");
     }
@@ -52,11 +52,11 @@ class PacketHandler
         if (go == null)
             return;
 
-        CreatureController cc = go.GetComponent<CreatureController>();
-        if (cc == null)
+        BaseController bc = go.GetComponent<BaseController>();
+        if (bc == null)
             return;
 
-        cc.PosInfo = movePacket.PosInfo;    // 클라이언트 이동을 했지만 서버에서 패킷을 받아서 처리를 한번더 해서 맞춰준다. >> 부자연스러울수 있음.
+        bc.PosInfo = movePacket.PosInfo;    // 클라이언트 이동을 했지만 서버에서 패킷을 받아서 처리를 한번더 해서 맞춰준다. >> 부자연스러울수 있음.
     }
 
     public static void S_SkillHandler(PacketSession session, IMessage packet)
@@ -88,6 +88,23 @@ class PacketHandler
         if (go != null)
         {
             cc.Hp = changeHpPacket.Hp;
+        }
+    }
+
+    public static void S_DieHandler(PacketSession session, IMessage packet)
+    {
+        S_Die diePacket = packet as S_Die;
+
+        //서버에서 HP 변경 패킷이 왔을때 처리해주는 부분
+        GameObject go = Managers.Object.FindById(diePacket.ObjectId);
+        if (go == null)
+            return;
+
+        CreatureController cc = go.GetComponent<CreatureController>();
+        if (go != null)
+        {
+            cc.Hp = 0;
+            cc.OnDead();
         }
     }
 }

@@ -92,7 +92,21 @@ namespace Server.Game
 
         public virtual void OnDead(GameObject attacker)
         {
-            
+            S_Die diePacket = new S_Die();
+            diePacket.ObjectId = Id;
+            diePacket.AttackerId = attacker.Id;
+            Room.Broadcast(diePacket);
+
+            GameRoom room = Room;   //Room에서 나가기 전에 Room을 저장해놓는다.
+            room.LeaveGame(Id);
+
+            Stat.Hp = Stat.MaxHp;
+            PosInfo.State = CreatureState.Idle;
+            PosInfo.MoveDir = MoveDir.Down;
+            PosInfo.PosX = 0;
+            PosInfo.PosY = 0;
+
+            room.EnterGame(this);   //다시 입장
         }
     }
 }
