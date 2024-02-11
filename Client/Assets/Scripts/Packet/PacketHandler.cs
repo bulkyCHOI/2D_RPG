@@ -87,9 +87,7 @@ class PacketHandler
         CreatureController cc = go.GetComponent<CreatureController>();
         if (go != null)
         {
-                cc.Stat.Hp = changeHpPacket.Hp;
-                // TODO : HP 변경 애니메이션 처리
-                Debug.Log($"ChangeHP : {changeHpPacket.Hp}");
+            cc.Hp = changeHpPacket.Hp;
         }
     }
 }

@@ -7,6 +7,7 @@ using static Define;
 
 public class CreatureController : MonoBehaviour
 {
+	HpBar _hpBar;
 	public int Id { get; set; }
 
 	StatInfo _stat = new StatInfo();
@@ -27,6 +28,7 @@ public class CreatureController : MonoBehaviour
 			_stat.Str = value.Str;
 			_stat.Dex = value.Dex;
 			_stat.Int = value.Int;
+            UpdateHpBar();
         }
     }
 
@@ -35,6 +37,17 @@ public class CreatureController : MonoBehaviour
 		get { return _stat.Speed; } 
 		set { _stat.Speed = value; }
 	}
+
+	public int Hp
+	{
+        get { return _stat.Hp; } 
+        set 
+		{ 
+			_stat.Hp = value;
+            UpdateHpBar();
+        }
+        
+    }
 
 	protected bool _updated = false;	
 
@@ -57,7 +70,28 @@ public class CreatureController : MonoBehaviour
         }
     }
 
-	public void SyncPos()	//위치 동기화(바로 이동)
+    protected void AddHpBar()
+    {
+		GameObject go = Managers.Resource.Instantiate("UI/HpBar", transform);
+		go.transform.localPosition = new Vector3(0, 0.5f, 0);
+		go.name = "HpBar";
+		_hpBar = go.GetOrAddComponent<HpBar>();
+        UpdateHpBar();
+    }
+
+	void UpdateHpBar()
+	{
+		if (_hpBar == null)
+			return;
+
+		float ratio = 0.0f;
+		if (Stat.MaxHp > 0)
+            ratio = Hp / (float)Stat.MaxHp;
+
+		_hpBar.SetHpBar(ratio);
+	}
+
+    public void SyncPos()	//위치 동기화(바로 이동)
 	{
         Vector3 destPos = Managers.Map.CurrentGrid.CellToWorld(CellPos) + new Vector3(0.5f, 0.5f);
 		transform.position = destPos;
