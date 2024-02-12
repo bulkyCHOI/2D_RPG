@@ -28,11 +28,28 @@ namespace Server.Game
             set { Stat.Speed = value; }
         }
 
+        public MoveDir Dir
+        {
+            get { return PosInfo.MoveDir; }
+            set { PosInfo.MoveDir = value; }
+        }
+
+        public CreatureState State
+        {
+            get { return PosInfo.State; }
+            set { PosInfo.State = value; }
+        }
+        
         public GameObject()
         {
             Info.PosInfo = PosInfo;
             Info.StatInfo = Stat;
         }
+
+        public virtual void Update()
+        {
+        }
+
         public Vector2Int CellPos
         {
             get
@@ -72,6 +89,18 @@ namespace Server.Game
             }
 
             return cellPos;
+        }
+
+        public static MoveDir GetDirFromVec(Vector2Int dir)
+        {
+            if (dir.x > 0)
+                return MoveDir.Right;
+            else if (dir.x < 0)
+                return MoveDir.Left;
+            else if (dir.y > 0)
+                return MoveDir.Up;
+            else
+                return MoveDir.Down;
         }
 
         public virtual void OnDamaged(GameObject attacker, int damage)
