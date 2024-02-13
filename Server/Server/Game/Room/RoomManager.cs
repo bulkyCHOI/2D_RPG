@@ -16,7 +16,8 @@ namespace Server.Game
         public GameRoom Add(int mapId)
         {
             GameRoom room = new GameRoom();
-            room.Init(mapId);
+            //room.Init(mapId); //기존의 lock 방식
+            room.Push(room.Init, mapId);    //Job 방식으로 push
 
             lock (_lock)
             {

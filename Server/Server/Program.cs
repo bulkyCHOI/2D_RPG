@@ -48,8 +48,11 @@ namespace Server
 			while (true)
 			{
 				//JobTimer.Instance.Flush();
-				RoomManager.Instance.Find(1).Update();
-				//Thread.Sleep(100);
+				
+				//RoomManager.Instance.Find(1).Update();	//Job 방식으로 변경
+				GameRoom room = RoomManager.Instance.Find(1);
+				room.Push(room.Update);	//Job 방식으로 변경
+				Thread.Sleep(100);
 			}
 		}
 	}

@@ -111,6 +111,9 @@ namespace Server.Game
 
         public virtual void OnDamaged(GameObject attacker, int damage)
         {
+            if (Room == null)
+                return;
+
             Stat.Hp = Math.Max(0, Stat.Hp - damage);
 
             S_ChangeHp changeHpPacket = new S_ChangeHp();
@@ -127,21 +130,35 @@ namespace Server.Game
 
         public virtual void OnDead(GameObject attacker)
         {
+            if(Room == null)
+                return;
+
             S_Die diePacket = new S_Die();
             diePacket.ObjectId = Id;
             diePacket.AttackerId = attacker.Id;
             Room.Broadcast(diePacket);
 
             GameRoom room = Room;   //Room에서 나가기 전에 Room을 저장해놓는다.
-            room.LeaveGame(Id);
+            room.LeaveGame(Id); //push로 하지 않아도 된다. 이 함수는 바로 처리된다.
+            //room.Push(room.LeaveGame, Id); //Job 방식으로 변경
 
+            //이부분은 Job으로 인해 나중에 처리될수 있어 문제가 발생될수 있다.
+            //플레이어가 나가지 않은 상태에서 위치나 방향들을 아래처럼 초기화 되면
+            //Map에서는 0,0만 null로 밀어버리므로, 마지막 좌표에는 계속 플레이어가 있는 것처럼 된다.
             Stat.Hp = Stat.MaxHp;
             PosInfo.State = CreatureState.Idle;
             PosInfo.MoveDir = MoveDir.Down;
             PosInfo.PosX = 0;
             PosInfo.PosY = 0;
+            
+            room.EnterGame(this);   //다시 입장   //push로 하지 않아도 된다. 이 함수는 바로 처리된다.
+            //room.Push(room.EnterGame, this);   //다시 입장  //Job 방식으로 push
 
-            room.EnterGame(this);   //다시 입장
+            //매우중요!!!!
+            //push로 하지 않아도 되는 이유는 room이 JobSerializer를 상속받았기 때문이다.
+            //JobSerializer를 상속받은 클래스는 Job으로 처리되는 함수를 호출할때, 자동으로 push를 해주기 때문이다.
+            //따라서, Job으로 처리되는 함수를 호출할때, push를 하지 않아도 된다.
+            //push를 하면 발생되는 위의 문제들 때문에 push를 하지 않고 처리한다.
         }
     }
 }

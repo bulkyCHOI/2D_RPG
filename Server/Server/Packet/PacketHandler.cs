@@ -24,7 +24,8 @@ class PacketHandler
 		if(room == null)
 			return;
 
-		room.HandleMove(player, movePacket);	//이동관련된 것을 room에서 처리하도록 변경
+		//oom.HandleMove(player, movePacket);	//이동관련된 것을 room에서 처리하도록 변경
+		room.Push(room.HandleMove, player, movePacket);	//Job 방식으로 변경
 
 		//TODO : 검증
 
@@ -54,6 +55,7 @@ class PacketHandler
         if (room == null)
             return;
 
-        room.HandleSkill(player, skillPacket);
+        //room.HandleSkill(player, skillPacket);
+		room.Push(room.HandleSkill, player, skillPacket); //Job 방식으로 변경
     }
 }

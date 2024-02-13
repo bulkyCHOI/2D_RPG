@@ -45,7 +45,8 @@ namespace Server.Game
                     target.OnDamaged(this, Data.damage + Owner.Stat.Dex);
                 }
                 //소멸
-                Room.LeaveGame(Id);
+                //Room.LeaveGame(Id); 
+                Room.Push(Room.LeaveGame, Id); //Job 방식으로 변경
             }
         }
     }

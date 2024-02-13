@@ -10,6 +10,7 @@ using Google.Protobuf.Protocol;
 using Google.Protobuf;
 using Server.Game;
 using Server.Data;
+using System.Security.AccessControl;
 
 namespace Server
 {
@@ -51,7 +52,9 @@ namespace Server
                 MyPlayer.Session = this;
 			}
 
-			RoomManager.Instance.Find(1).EnterGame(MyPlayer);	// 방에 플레이어 입장
+			//RoomManager.Instance.Find(1).EnterGame(MyPlayer);	// 방에 플레이어 입장
+			GameRoom room = RoomManager.Instance.Find(1);
+			room.Push(room.EnterGame, MyPlayer);	// 방에 플레이어 입장	//Job 방식으로 변경
 		}
 
 		public override void OnRecvPacket(ArraySegment<byte> buffer)
@@ -61,7 +64,9 @@ namespace Server
 
 		public override void OnDisconnected(EndPoint endPoint)
 		{
-            RoomManager.Instance.Find(1).LeaveGame(MyPlayer.Info.ObjectId);	// 방에서 플레이어 퇴장
+			//RoomManager.Instance.Find(1).LeaveGame(MyPlayer.Info.ObjectId);	// 방에서 플레이어 퇴장
+			GameRoom room = RoomManager.Instance.Find(1);
+			room.Push(room.LeaveGame, MyPlayer.Info.ObjectId);	// 방에서 플레이어 퇴장	//Job 방식으로 변경
             SessionManager.Instance.Remove(this);
 			Console.WriteLine($"OnDisconnected : {endPoint}");
 		}
