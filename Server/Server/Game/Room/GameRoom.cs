@@ -29,15 +29,6 @@ namespace Server.Game
             monster.CellPos = new Vector2Int(5, 5);
             //EnterGame(monster);   //job 방식으로 변경
             Push(EnterGame, monster);   //job 방식으로 변경
-
-            TestTimer();
-        }
-
-        //TEST
-        void TestTimer()
-        {
-            Console.WriteLine("TestTimer");
-            PushAfter(1000, TestTimer);
         }
 
         //누군가가 주기적으로 호출해줘야 한다.

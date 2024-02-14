@@ -52,6 +52,9 @@ class PacketHandler
         if (go == null)
             return;
 
+        if(Managers.Object.MyPlayer.Id == movePacket.ObjectId)  //내 캐릭터의 이동 패킷이면 무시 : 서버에서 패킷을 받아서 처리를 한번더 해서 맞춰준다. >> 부자연스러울수 있음.
+            return;
+
         BaseController bc = go.GetComponent<BaseController>();
         if (bc == null)
             return;
