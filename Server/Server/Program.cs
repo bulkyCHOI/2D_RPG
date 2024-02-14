@@ -15,14 +15,22 @@ using ServerCore;
 
 namespace Server
 {
-	class Program
+    class Program
 	{
 		static Listener _listener = new Listener();
+		static List<System.Timers.Timer> _timers = new List<System.Timers.Timer>();
 
-		static void FlushRoom()
+		static void TickRoom(GameRoom room, int tick = 100)
 		{
-			JobTimer.Instance.Push(FlushRoom, 250);
-		}
+			var timer = new System.Timers.Timer();
+			timer.Interval = tick;
+			timer.Elapsed += (s, e) => room.Update();
+			timer.AutoReset = true;
+			timer.Enabled = true;
+
+			_timers.Add(timer); //나중에 타이머 종료를 위해 리스트에 추가
+			//timer.Stop(); //종료하고 싶으면 호출
+        }
 
 		static void Main(string[] args)
 		{
@@ -31,7 +39,8 @@ namespace Server
 
 			var d = DataManager.StatDict;
 
-			RoomManager.Instance.Add(1);
+			GameRoom room = RoomManager.Instance.Add(1);
+			TickRoom(room, 50);	//50ms마다 업데이트
 
 			// DNS (Domain Name System)
 			string host = Dns.GetHostName();
@@ -45,13 +54,9 @@ namespace Server
 			//FlushRoom();
 			//JobTimer.Instance.Push(FlushRoom);
 
+			//종료되지 않게끔 대기
 			while (true)
 			{
-				//JobTimer.Instance.Flush();
-				
-				//RoomManager.Instance.Find(1).Update();	//Job 방식으로 변경
-				GameRoom room = RoomManager.Instance.Find(1);
-				room.Push(room.Update);	//Job 방식으로 변경
 				Thread.Sleep(100);
 			}
 		}
