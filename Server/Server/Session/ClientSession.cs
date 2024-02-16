@@ -36,7 +36,12 @@ namespace Server
 		{
 			Console.WriteLine($"OnConnected : {endPoint}");
 
-			// PROTO Test
+			{ 
+				S_Connected sConnPacket = new S_Connected();
+				Send(sConnPacket);
+			}
+
+			// TODO: 로비에서 캐릭터 선택하도록 만들기
 			MyPlayer = ObjectManager.Instance.Add<Player>();	// 플레이어 생성
 			{ 
 				MyPlayer.Info.Name = $"Player_{MyPlayer.Info.ObjectId}";
@@ -52,6 +57,7 @@ namespace Server
                 MyPlayer.Session = this;
 			}
 
+			// TODO : 방에 입장하는 로직을 구현해야 함
 			//RoomManager.Instance.Find(1).EnterGame(MyPlayer);	// 방에 플레이어 입장
 			GameRoom room = RoomManager.Instance.Find(1);
 			room.Push(room.EnterGame, MyPlayer);	// 방에 플레이어 입장	//Job 방식으로 변경

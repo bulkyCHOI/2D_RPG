@@ -1,6 +1,7 @@
 ﻿using Google.Protobuf;
 using Google.Protobuf.Protocol;
 using Server;
+using Server.DB;
 using Server.Game;
 using ServerCore;
 using System;
@@ -57,5 +58,37 @@ class PacketHandler
 
         //room.HandleSkill(player, skillPacket);
 		room.Push(room.HandleSkill, player, skillPacket); //Job 방식으로 변경
+    }
+
+    public static void C_LoginHandler(PacketSession session, IMessage packet)
+    {
+        C_Login loginPacket = packet as C_Login;
+        ClientSession clientSession = session as ClientSession;
+
+        Console.WriteLine($"UniqueId({loginPacket.UniqueId})");
+
+		// TODO: 이런저런 보안 체크
+
+		// DB에서 유저 정보 체크
+		// TODO: 문제가 있긴 있다.
+		using (AppDbContext db = new AppDbContext())
+		{
+			AccountDb account = db.Accounts.FirstOrDefault(a => a.AccountName == loginPacket.UniqueId);
+			if (account != null)
+			{
+				S_Login sLogin = new S_Login() { LoginOk = 1 };
+				clientSession.Send(sLogin);
+            }
+			else
+			{
+                // 계정이 없으면 생성
+                AccountDb newAccount = new AccountDb() { AccountName = loginPacket.UniqueId };
+                db.Accounts.Add(newAccount);
+                db.SaveChanges();
+
+                S_Login sLogin = new S_Login() { LoginOk = 1 };
+                clientSession.Send(sLogin);
+            }
+        }
     }
 }

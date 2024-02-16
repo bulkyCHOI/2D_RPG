@@ -38,13 +38,6 @@ namespace Server
 			ConfigManager.LoadConfig();
 			DataManager.LoadData();
 
-			//DB Test
-			using (AppDbContext db = new AppDbContext())
-			{
-                db.Accounts.Add(new AccountDb() { AccountName = "test" });
-				db.SaveChanges();
-            }
-
 			var d = DataManager.StatDict;
 
 			GameRoom room = RoomManager.Instance.Add(1);

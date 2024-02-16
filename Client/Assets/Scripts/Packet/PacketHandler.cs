@@ -110,4 +110,18 @@ class PacketHandler
             cc.OnDead();
         }
     }
+
+    public static void S_ConnectedHandler(PacketSession session, IMessage packet)
+    {
+        Debug.Log("S_ConnectedHandler");
+        C_Login loginPacket = new C_Login();
+        loginPacket.UniqueId = SystemInfo.deviceUniqueIdentifier;   //디바이스 고유 아이디 알아서 찾아서 넣어주기
+        Managers.Network.Send(loginPacket);
+    }
+    
+    public static void S_LoginHandler(PacketSession session, IMessage packet)
+    {
+        S_Login loginPacket = (S_Login)packet;// as S_Login 100% S_Login이므로 강제 캐스팅: 성능이 더 좋음
+        Debug.Log($"LoginOk({loginPacket.LoginOk})");
+    }
 }
