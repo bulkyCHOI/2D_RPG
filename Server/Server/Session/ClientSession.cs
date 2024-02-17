@@ -42,27 +42,6 @@ namespace Server
 				S_Connected sConnPacket = new S_Connected();
 				Send(sConnPacket);
 			}
-
-			// TODO: 로비에서 캐릭터 선택하도록 만들기
-			MyPlayer = ObjectManager.Instance.Add<Player>();	// 플레이어 생성
-			{ 
-				MyPlayer.Info.Name = $"Player_{MyPlayer.Info.ObjectId}";
-				MyPlayer.Info.PosInfo.State = CreatureState.Idle;
-                MyPlayer.Info.PosInfo.MoveDir = MoveDir.Down;
-				MyPlayer.Info.PosInfo.PosX = 0;
-				MyPlayer.Info.PosInfo.PosY = 0;
-
-				StatInfo stat = null;
-				DataManager.StatDict.TryGetValue(1, out stat);
-				MyPlayer.Stat.MergeFrom(stat);
-
-                MyPlayer.Session = this;
-			}
-
-			// TODO : 방에 입장하는 로직을 구현해야 함
-			//RoomManager.Instance.Find(1).EnterGame(MyPlayer);	// 방에 플레이어 입장
-			GameRoom room = RoomManager.Instance.Find(1);
-			room.Push(room.EnterGame, MyPlayer);	// 방에 플레이어 입장	//Job 방식으로 변경
 		}
 
 		public override void OnRecvPacket(ArraySegment<byte> buffer)

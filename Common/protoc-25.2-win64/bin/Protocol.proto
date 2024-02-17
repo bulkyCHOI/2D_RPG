@@ -173,5 +173,5 @@ message S_CreatePlayer
 
 message C_EnterGame
 {
-	int32 playerId = 1;
+	string name = 1;
 }

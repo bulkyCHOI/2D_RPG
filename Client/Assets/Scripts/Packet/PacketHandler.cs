@@ -119,9 +119,46 @@ class PacketHandler
         Managers.Network.Send(loginPacket);
     }
     
+    // 로그인은 했고, 캐릭터 목록까지 줄게
     public static void S_LoginHandler(PacketSession session, IMessage packet)
     {
         S_Login loginPacket = (S_Login)packet;// as S_Login 100% S_Login이므로 강제 캐스팅: 성능이 더 좋음
         Debug.Log($"LoginOk({loginPacket.LoginOk})");
+
+        // TODO: 로비 UI를 보여주고, 캐릭터를 선택해서 게임으로 들어가도록
+        if(loginPacket.Players == null || loginPacket.Players.Count == 0)   // 일단은 없으면 만들어서 들어가자
+        {
+            C_CreatePlayer createPlayerPacket = new C_CreatePlayer();
+            createPlayerPacket.Name = $"Player_{Random.Range(0,10000).ToString("0000")}";
+            Managers.Network.Send(createPlayerPacket);
+        }
+        else //있으면 일단 첫번째 캐릭터로 로그인
+        { 
+            LobbyPlayerInfo info = loginPacket.Players[0];
+            C_EnterGame enterGamePacket = new C_EnterGame();
+            enterGamePacket.Name = info.Name;
+            Managers.Network.Send(enterGamePacket);
+        }
+    }
+
+    public static void S_CreatePlayerHandler(PacketSession session, IMessage packet)
+    {
+        S_CreatePlayer createPlayerPacket = (S_CreatePlayer)packet;// as S_CreatePlayer 100% S_CreatePlayer이므로 강제 캐스팅: 성능이 더 좋음
+        
+        if(createPlayerPacket.Player == null)   // 만들기 실패할 경우 null로 오므로
+        {
+            Debug.Log("CreatePlayer Fail");
+            //다시 만들자
+            C_CreatePlayer createPacket = new C_CreatePlayer();
+            createPacket.Name = $"Player_{Random.Range(0, 10000).ToString("0000")}";
+            Managers.Network.Send(createPacket);
+        }
+        else // 만들기 성공했으니 일단 첫번째 캐릭터로 로그인
+        {
+            Debug.Log("CreatePlayer Ok");
+            C_EnterGame enterGamePacket = new C_EnterGame();
+            enterGamePacket.Name = createPlayerPacket.Player.Name;
+            Managers.Network.Send(enterGamePacket);
+        }
     }
 }

@@ -71,11 +71,13 @@ class PacketHandler
 	{
         C_EnterGame enterGamePacket = (C_EnterGame)packet;
         ClientSession clientSession = (ClientSession)session;
+		clientSession.HandleEnterGame(enterGamePacket);
 	}
 
 	public static void C_CreatePlayerHandler(PacketSession session, IMessage packet)
 	{
         C_CreatePlayer createPlayerPacket = (C_CreatePlayer)packet;
         ClientSession clientSession = (ClientSession)session;
+		clientSession.HandleCreatePlayer(createPlayerPacket);
     }
 }
