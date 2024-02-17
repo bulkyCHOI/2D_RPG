@@ -14,12 +14,14 @@ using System.Security.AccessControl;
 
 namespace Server
 {
-	public class ClientSession : PacketSession
+	public partial class ClientSession : PacketSession	//partial 키워드로 나눠진 클래스를 합침:c#전용
 	{
+		public PlayerServerState ServerState { get; set; } = PlayerServerState.ServerStateLogin;	// 플레이어 상태
 		public Player MyPlayer { get; set; }	// 플레이어 정보
-		public int SessionId { get; set; }	
+		public int SessionId { get; set; }
 
-		public void Send(IMessage packet)	// 프로토콜을 받아서 보내는 함수
+        #region Network
+        public void Send(IMessage packet)	// 프로토콜을 받아서 보내는 함수
 		{
 			string msgName = packet.Descriptor.Name.Replace("_", string.Empty);
 			MsgId msgId = (MsgId)Enum.Parse(typeof(MsgId), msgName);
@@ -81,5 +83,6 @@ namespace Server
 		{
 			//Console.WriteLine($"Transferred bytes: {numOfBytes}");
 		}
-	}
+        #endregion
+    }
 }

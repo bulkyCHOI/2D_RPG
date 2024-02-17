@@ -4,6 +4,9 @@ package Protocol;
 import "google/protobuf/timestamp.proto";
 option csharp_namespace = "Google.Protobuf.Protocol";
 
+// C_ client to server
+// S_ server to client
+
 enum MsgId {
 	S_ENTER_GAME = 0;
 	S_LEAVE_GAME = 1;
@@ -18,6 +21,9 @@ enum MsgId {
 	S_CONNECTED = 10;
 	C_LOGIN = 11;
 	S_LOGIN = 12;
+	C_ENTER_GAME = 15;
+	C_CREATE_PLAYER = 13;
+	S_CREATE_PLAYER = 14;
 }
 
 enum CreatureState{
@@ -46,6 +52,13 @@ enum SkillType
 	SKILL_NONE = 0;
 	SKILL_AUTO = 1;
 	SKILL_PROJECTILE = 2;
+}
+
+enum PlayerServerState
+{
+	SERVER_STATE_LOGIN = 0;
+	SERVER_STATE_LOBBY = 1;
+	SERVER_STATE_GAME = 2;
 }
 
 message S_EnterGame {
@@ -95,9 +108,9 @@ message StatInfo
 	int32 hp = 4;
 	int32 mp = 5;
 	float speed = 6;
-	int32 str = 7;
-	int32 dex = 8;
-	int32 int = 9;
+	int32 STR = 7;
+	int32 DEX = 8;
+	int32 INT = 9;
 	int32 totalExp = 10;
 }
 
@@ -139,4 +152,26 @@ message C_Login
 message S_Login
 {
 	int32 loginOk = 1;
+	repeated LobbyPlayerInfo players = 2;
+}
+
+message LobbyPlayerInfo
+{
+	string name = 1;
+	StatInfo statInfo = 2;
+}
+
+message C_CreatePlayer
+{
+	string name = 1;
+}
+
+message S_CreatePlayer
+{
+	LobbyPlayerInfo player = 1;
+}
+
+message C_EnterGame
+{
+	int32 playerId = 1;
 }

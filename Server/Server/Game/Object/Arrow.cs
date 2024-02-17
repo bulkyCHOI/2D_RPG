@@ -42,7 +42,7 @@ namespace Server.Game
                 if (target != null)
                 {
                     // 피격 판정
-                    target.OnDamaged(this, Data.damage + Owner.Stat.Dex);
+                    target.OnDamaged(this, Data.damage + Owner.Stat.DEX);
                 }
                 //소멸
                 //Room.LeaveGame(Id); 

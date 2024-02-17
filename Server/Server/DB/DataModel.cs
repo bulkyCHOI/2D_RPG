@@ -20,6 +20,23 @@ namespace Server.DB
     {
         public int PlayerDbId { get; set; }
         public string PlayerName { get; set; }
+
+        [ForeignKey("Account")]
+        public int AccountDbId { get; set; }
         public AccountDb Account { get; set; }
+
+        public int level { get; set; }
+        public int maxHp { get; set; }
+        public int maxMp { get; set; }
+        public int hp { get; set; }
+        public int mp { get; set; }
+        public float speed { get; set; }
+        public int STR { get; set; }
+        public int DEX { get; set; }
+        public int INT { get; set; }
+        public int totalExp { get; set; }
+
     }
 }
+
+// add-migration
