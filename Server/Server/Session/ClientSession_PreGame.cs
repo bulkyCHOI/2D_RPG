@@ -115,8 +115,24 @@ namespace Server
                 MyPlayer.Info.PosInfo.PosX = 0;
                 MyPlayer.Info.PosInfo.PosY = 0;
                 MyPlayer.Stat.MergeFrom(playerInfo.StatInfo);
-
                 MyPlayer.Session = this;
+
+                S_ItemList itemListPacket = new S_ItemList();
+
+                //아이템 목록을 갖고 온다.
+                using (AppDbContext db = new AppDbContext())
+                {
+                    List<ItemDb> items = db.Items
+                        .Where(i => i.OwnerDbId == MyPlayer.PlayerDbId).ToList();
+
+                    foreach (ItemDb item in items)
+                    {
+                        // TODO 인벤토리
+                        ItemInfo info = new ItemInfo();
+                        itemListPacket.Items.Add(info);
+                    }
+                }
+                Send(itemListPacket);
             }
 
             ServerState = PlayerServerState.ServerStateGame;
