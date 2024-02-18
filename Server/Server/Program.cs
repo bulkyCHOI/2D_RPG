@@ -58,7 +58,7 @@ namespace Server
 			//종료되지 않게끔 대기
 			while (true)
 			{
-				Thread.Sleep(100);
+				DbTransaction.Instance.Flush();
 			}
 		}
 	}
