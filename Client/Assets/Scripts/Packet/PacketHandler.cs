@@ -161,4 +161,14 @@ class PacketHandler
             Managers.Network.Send(enterGamePacket);
         }
     }
+
+    public static void S_ItemListHandler(PacketSession session, IMessage packet)
+    {
+        S_ItemList itemList = (S_ItemList)packet;// as S_ItemList 100% S_ItemList이므로 강제 캐스팅: 성능이 더 좋음
+        
+        foreach(ItemInfo item in itemList.Items)
+        {
+            Debug.Log($"Item 획득 {item.TemplateId}: {item.Count}");
+        }
+    }
 }

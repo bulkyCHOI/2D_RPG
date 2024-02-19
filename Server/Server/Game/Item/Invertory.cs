@@ -1,0 +1,35 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Server.Game
+{
+    public class Invertory  //Invertory 클래스는 Item 클래스를 관리하는 클래스
+    {
+        Dictionary<int, Item> _items = new Dictionary<int, Item>();
+
+        public void AddItem(Item item)
+        {
+            _items.Add(item.itemDbId, item);
+        }
+
+        public Item GetItem(int id)
+        {
+            Item item = null;
+            _items.TryGetValue(id, out item);
+            return item;
+        }
+
+        public Item Find(Func<Item, bool> condition)    //Func<Item, bool> 델리게이트를 사용하여 조건을 받아들이는 Find 메서드
+        {
+            foreach (Item item in _items.Values)    //foreach문을 사용하여 _items의 모든 요소를 순회
+            {
+                if (condition.Invoke(item)) //condition 델리게이트를 호출하여 조건을 검사
+                    return item;
+            }
+            return null;
+        }
+    }
+}

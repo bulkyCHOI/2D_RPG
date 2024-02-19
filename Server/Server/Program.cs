@@ -21,7 +21,7 @@ namespace Server
 		static Listener _listener = new Listener();
 		static List<System.Timers.Timer> _timers = new List<System.Timers.Timer>();
 
-		static void TickRoom(GameRoom room, int tick = 100)
+		static void TickRoom(GameRoom room, int tick = 100)	//100ms마다 업데이트
 		{
 			var timer = new System.Timers.Timer();
 			timer.Interval = tick;
@@ -38,7 +38,44 @@ namespace Server
 			ConfigManager.LoadConfig();
 			DataManager.LoadData();
 
-			var d = DataManager.StatDict;
+			//TEST CODE
+			using(AppDbContext db = new AppDbContext())
+			{
+                PlayerDb playerDb = db.Players.FirstOrDefault();
+				if (playerDb != null)
+				{
+					db.Items.Add(new ItemDb()
+					{
+                        TemplateId = 1,
+                        Count = 1,
+						Slot = 0,
+                        Owner = playerDb,
+                    });
+                    db.Items.Add(new ItemDb()
+                    {
+                        TemplateId = 100,
+                        Count = 1,
+                        Slot = 1,
+                        Owner = playerDb,
+                    });
+                    db.Items.Add(new ItemDb()
+                    {
+                        TemplateId = 101,
+                        Count = 1,
+                        Slot = 2,
+                        Owner = playerDb,
+                    });
+                    db.Items.Add(new ItemDb()
+                    {
+                        TemplateId = 200,
+                        Count = 1,
+                        Slot = 5,
+                        Owner = playerDb,
+                    });
+
+					db.SaveChanges();
+                }
+            }
 
 			GameRoom room = RoomManager.Instance.Add(1);
 			TickRoom(room, 50);	//50ms마다 업데이트

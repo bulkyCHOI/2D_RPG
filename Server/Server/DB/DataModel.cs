@@ -52,4 +52,3 @@ namespace Server.DB
         public PlayerDb Owner { get; set; }
     }
 }
-
