@@ -94,7 +94,7 @@ namespace Server.Data
     {
         public List<WeaponData> weapons = new List<WeaponData>();
         public List<ArmorData> armors = new List<ArmorData>();
-        public List<ConsumableData> consumerbles = new List<ConsumableData>();
+        public List<ConsumableData> consumarbles = new List<ConsumableData>();
 
         public Dictionary<int, ItemData> MakeDict()
         {
@@ -109,7 +109,7 @@ namespace Server.Data
                 item.itemType = ItemType.Armor;
                 dict.Add(item.id, item);
             }
-            foreach (ItemData item in consumerbles)
+            foreach (ItemData item in consumarbles)
             {
                 item.itemType = ItemType.Consumable;
                 dict.Add(item.id, item);

@@ -165,10 +165,21 @@ class PacketHandler
     public static void S_ItemListHandler(PacketSession session, IMessage packet)
     {
         S_ItemList itemList = (S_ItemList)packet;// as S_ItemList 100% S_ItemList이므로 강제 캐스팅: 성능이 더 좋음
-        
-        foreach(ItemInfo item in itemList.Items)
+
+        UI_GameScene gameSceneUI = Managers.UI.SceneUI as UI_GameScene;
+        UI_Inventory InvenUI = gameSceneUI.InvenUI;
+
+        Managers.Inventory.Clear();
+
+        //메모리에 아이템 정보 적용
+        foreach(ItemInfo iteminfo in itemList.Items)
         {
-            Debug.Log($"Item 획득 {item.TemplateId}: {item.Count}");
+            Item item = Item.MakeItem(iteminfo);
+            Managers.Inventory.Add(item);
         }
+
+        //UI에 아이템 표시
+        InvenUI.gameObject.SetActive(true);
+        InvenUI.RefeshUI();
     }
 }

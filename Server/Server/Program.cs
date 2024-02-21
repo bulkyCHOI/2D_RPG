@@ -72,8 +72,15 @@ namespace Server
                         Slot = 5,
                         Owner = playerDb,
                     });
+                    db.Items.Add(new ItemDb()
+                    {
+                        TemplateId = 202,
+                        Count = 1,
+                        Slot = 6,
+                        Owner = playerDb,
+                    });
 
-					db.SaveChanges();
+                    db.SaveChanges();
                 }
             }
 

@@ -40,4 +40,65 @@ namespace Data
         }
     }
     #endregion
+
+    #region Item
+    [Serializable]
+    public class ItemData
+    {
+        public int id;
+        public string name;
+        public ItemType itemType;
+        public string iconPath;
+    }
+
+    [Serializable]  //안붙이면 인식을 못하는 문제가 있음
+    public class WeaponData : ItemData
+    {
+        public WeaponType weaponType;
+        public int damage;
+    }
+
+    [Serializable]
+    public class ArmorData : ItemData
+    {
+        public ArmorType armorType;
+        public int defence;
+    }
+
+    [Serializable]
+    public class ConsumableData : ItemData
+    {
+        public ConsumableType consumableType;
+        public int maxCount;
+    }
+
+    [Serializable]
+    public class ItemLoader : ILoader<int, ItemData>
+    {
+        public List<WeaponData> weapons = new List<WeaponData>();
+        public List<ArmorData> armors = new List<ArmorData>();
+        public List<ConsumableData> consumerbles = new List<ConsumableData>();
+
+        public Dictionary<int, ItemData> MakeDict()
+        {
+            Dictionary<int, ItemData> dict = new Dictionary<int, ItemData>();
+            foreach (ItemData item in weapons)
+            {
+                item.itemType = ItemType.Weapon;
+                dict.Add(item.id, item);
+            }
+            foreach (ItemData item in armors)
+            {
+                item.itemType = ItemType.Armor;
+                dict.Add(item.id, item);
+            }
+            foreach (ItemData item in consumerbles)
+            {
+                item.itemType = ItemType.Consumable;
+                dict.Add(item.id, item);
+            }
+            return dict;
+        }
+    }
+    #endregion
 }

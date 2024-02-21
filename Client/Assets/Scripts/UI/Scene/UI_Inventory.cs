@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class UI_Inventory : UI_Base
@@ -23,6 +24,15 @@ public class UI_Inventory : UI_Base
 
     public void RefeshUI()
     {
+        List<Item> items = Managers.Inventory.Items.Values.ToList();    //InventoryManager의 Items를 List로 변환
+        items.Sort((left, right) => { return left.Slot - right.Slot; }); //sorting
 
+        foreach(Item item in items)
+        {
+            if (item.Slot < 0 || 30 <= item.Slot)
+                continue;
+
+            Items[item.Slot].SetItem(item.TemplateId, item.Count);  
+        }
     }
 }
