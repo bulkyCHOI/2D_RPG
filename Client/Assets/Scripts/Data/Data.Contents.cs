@@ -77,7 +77,7 @@ namespace Data
     {
         public List<WeaponData> weapons = new List<WeaponData>();
         public List<ArmorData> armors = new List<ArmorData>();
-        public List<ConsumableData> consumerbles = new List<ConsumableData>();
+        public List<ConsumableData> consumables = new List<ConsumableData>();   //JsonData의 이름과 같아야함
 
         public Dictionary<int, ItemData> MakeDict()
         {
@@ -92,7 +92,7 @@ namespace Data
                 item.itemType = ItemType.Armor;
                 dict.Add(item.id, item);
             }
-            foreach (ItemData item in consumerbles)
+            foreach (ItemData item in consumables)
             {
                 item.itemType = ItemType.Consumable;
                 dict.Add(item.id, item);

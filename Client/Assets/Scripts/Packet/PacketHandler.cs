@@ -179,7 +179,7 @@ class PacketHandler
         }
 
         //UI에 아이템 표시
-        InvenUI.gameObject.SetActive(true);
+        InvenUI.gameObject.SetActive(true); //handler에서 UI조작하는 처리도 가능하다.
         InvenUI.RefeshUI();
     }
 }
