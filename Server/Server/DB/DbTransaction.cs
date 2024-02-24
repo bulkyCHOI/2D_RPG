@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Server.DB
 {
-    public class DbTransaction : JobSerializer
+    public partial class DbTransaction : JobSerializer
     {
         public static DbTransaction Instance { get; } = new DbTransaction();
 
@@ -98,6 +98,11 @@ namespace Server.DB
                 return;
 
             //TODO : 살짝 문제가 있다.
+            // 1) DB에 저장 요청
+            // 2) DB에 저장 요청이 완료되면
+            // 3) 메모리에 적용한다.
+            // 트랜젝션 형태이기 때문에 거의 동시에 GetEmptySlot() 호출이 가능하게 되는데
+            // 이때 같은 슬롯에 여러 아이템을 넣게 되는 경우가 생길 수 있다.
             int? slot = player.Inventory.GetEmptySlot();
             if (slot == null)
                 return;
