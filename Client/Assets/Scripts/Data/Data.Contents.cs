@@ -101,4 +101,40 @@ namespace Data
         }
     }
     #endregion
+
+    #region Monster
+    //[Serializable]
+    //public class RewardData
+    //{
+    //    public int probability; //100분율 1~100%
+    //    public int itemId;
+    //    public int itemCount;
+    //}
+
+    [Serializable]
+    public class MonsterData
+    {
+        public int id;
+        public string name;
+        public StatInfo stat;   //stat 안에 totalExp가 있음 >> 획득 exp로 사용하자
+        //public List<RewardData> rewards;    //보상 아이템 >> 민감하니 클라는 가지고 있지마 >> 삭제
+        public string prefabPath;
+    }
+
+    [Serializable]
+    public class MonsterLoader : ILoader<int, MonsterData>
+    {
+        public List<MonsterData> monsters = new List<MonsterData>();
+
+        public Dictionary<int, MonsterData> MakeDict()
+        {
+            Dictionary<int, MonsterData> dict = new Dictionary<int, MonsterData>();
+            foreach (MonsterData monster in monsters)
+            {
+                dict.Add(monster.id, monster);
+            }
+            return dict;
+        }
+    }
+    #endregion
 }

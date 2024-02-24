@@ -10,15 +10,21 @@ namespace Server.Game
 {
     public class Monster : GameObject
     {
+        public int TemplateId { get; private set; }
+
         public Monster()
         {
             ObjectType = GameObjectType.Monster;
+        }
 
-            Stat.Level = 1;
-            Stat.Hp = 100;
-            Stat.MaxHp = 100;
-            Stat.Speed = 3.0f;
+        public void Init(int templateId)
+        {
+            TemplateId = templateId;
 
+            MonsterData monsterData = null;
+            DataManager.MonsterDict.TryGetValue(templateId, out monsterData);
+            Stat.MergeFrom(monsterData.stat);
+            Stat.Hp = Stat.MaxHp;
             State = CreatureState.Idle;
         }
 
@@ -186,6 +192,30 @@ namespace Server.Game
         protected virtual void UpdateDead()
         {
             //TODO : 죽음
+        }
+
+        public override void OnDead(GameObject attacker)
+        {
+            base.OnDead(attacker);
+
+            // TODO : 경험치, 아이템 드랍
+
+        }
+
+        RewardData GetRandomReward()
+        {
+            MonsterData monsterData = null;
+            DataManager.MonsterDict.TryGetValue(TemplateId, out monsterData);
+
+            int rand = new Random().Next(0, 101); //100분위로 하기로 했다.
+            int total = 0;
+            foreach (var reward in monsterData.rewards)
+            {
+                total += reward.probability;
+                if (rand <= total)
+                    return reward;
+            }
+            return null;
         }
     }
 }

@@ -56,7 +56,10 @@ namespace Server.DB
             //Me
             PlayerDb playerDb = new PlayerDb();
             playerDb.PlayerDbId = player.PlayerDbId;
-            playerDb.hp = player.Stat.Hp;
+            if(player.Stat.Hp <= 0)
+                playerDb.hp = player.Stat.MaxHp;
+            else
+                playerDb.hp = player.Stat.Hp;
             playerDb.mp = player.Stat.Mp;
             playerDb.level = player.Stat.Level;
             playerDb.totalExp = player.Stat.TotalExp;
@@ -89,3 +92,4 @@ namespace Server.DB
 
     }
 }
+

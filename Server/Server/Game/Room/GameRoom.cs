@@ -26,6 +26,7 @@ namespace Server.Game
 
             //몬스터 생성
             Monster monster = ObjectManager.Instance.Add<Monster>();
+            monster.Init(1);    //임시로 1번 몬스터 셋팅
             monster.CellPos = new Vector2Int(5, 5);
             //EnterGame(monster);   //job 방식으로 변경
             Push(EnterGame, monster);   //job 방식으로 변경

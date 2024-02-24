@@ -1,0 +1,60 @@
+{
+  "monsters": [
+    {
+      "id": "1",
+      "name": "도플갱어",
+      "stat": {
+        "level": "1",
+        "maxHp": "100",
+        "maxMp": "50",
+        "speed": "5.0",
+        "str": "10",
+        "dex": "10",
+        "int": "10",
+        "totalExp": "10"
+      },
+      "rewards": [
+        {
+          "probability": "10",
+          "itemId": "1",
+          "itemCount": "1"
+        },
+        {
+          "probability": "10",
+          "itemId": "2",
+          "itemCount": "1"
+        },
+        {
+          "probability": "10",
+          "itemId": "3",
+          "itemCount": "1"
+        },
+        {
+          "probability": "10",
+          "itemId": "100",
+          "itemCount": "1"
+        },
+        {
+          "probability": "10",
+          "itemId": "101",
+          "itemCount": "1"
+        },
+        {
+          "probability": "10",
+          "itemId": "102",
+          "itemCount": "1"
+        },
+{
+          "probability": "10",
+          "itemId": "200",
+          "itemCount": "1"
+        },
+        {
+          "probability": "10",
+          "itemId": "201",
+          "itemCount": "1"
+        }
+      ]
+    }
+  ]
+} 
