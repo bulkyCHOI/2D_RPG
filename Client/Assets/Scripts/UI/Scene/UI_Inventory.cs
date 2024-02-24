@@ -20,10 +20,13 @@ public class UI_Inventory : UI_Base
             UI_Inventory_Item item = go.GetOrAddComponent<UI_Inventory_Item>();
             Items.Add(item);
         }
+        RefeshUI();
     }
 
     public void RefeshUI()
     {
+        if (Items.Count == 0)   //init이 안된경우 0이므로 크래시 발생
+            return;
         List<Item> items = Managers.Inventory.Items.Values.ToList();    //InventoryManager의 Items를 List로 변환
         items.Sort((left, right) => { return left.Slot - right.Slot; }); //sorting
 
@@ -32,7 +35,7 @@ public class UI_Inventory : UI_Base
             if (item.Slot < 0 || 30 <= item.Slot)
                 continue;
 
-            Items[item.Slot].SetItem(item.TemplateId, item.Count);  
+            Items[item.Slot].SetItem(item);  
         }
     }
 }

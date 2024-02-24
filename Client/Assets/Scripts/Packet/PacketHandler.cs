@@ -187,8 +187,6 @@ class PacketHandler
     {
         S_AddItem addItem = (S_AddItem)packet;// as S_AddItem 100% S_AddItem이므로 강제 캐스팅: 성능이 더 좋음
 
-        UI_GameScene gameSceneUI = Managers.UI.SceneUI as UI_GameScene;
-        UI_Inventory InvenUI = gameSceneUI.InvenUI;
 
         foreach (ItemInfo iteminfo in addItem.Items)
         {
@@ -198,5 +196,32 @@ class PacketHandler
 
         Debug.Log("아이템을 획득했습니다.");
 
+        UI_GameScene gameSceneUI = Managers.UI.SceneUI as UI_GameScene;
+        UI_Inventory InvenUI = gameSceneUI.InvenUI;
+        InvenUI.RefeshUI();
+    }
+
+    public static void S_EquipItemHandler(PacketSession session, IMessage packet)
+    {
+        S_EquipItem equipItem = (S_EquipItem)packet;// as S_AddItem 100% S_AddItem이므로 강제 캐스팅: 성능이 더 좋음
+
+        //메모리에 아이템 정보 적용
+        Item item = Managers.Inventory.Get(equipItem.ItemDbId);
+        if (item == null)
+            return;
+
+        item.Equipped = equipItem.Equipped;
+        Debug.Log("아이템 착용 변경");
+
+        UI_GameScene gameSceneUI = Managers.UI.SceneUI as UI_GameScene;
+        UI_Inventory InvenUI = gameSceneUI.InvenUI;
+        InvenUI.RefeshUI();
+    }
+
+    public static void S_ChangeStatHandler(PacketSession session, IMessage packet)
+    {
+        S_ChangeStat addItem = (S_ChangeStat)packet;
+
+        //TODO: 스탯 변경 처리
     }
 }
