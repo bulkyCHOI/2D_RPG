@@ -14,7 +14,7 @@ namespace Server.Game
     {
         public int PlayerDbId { get; set; }
         public ClientSession Session { get; set; }
-        public Invertory Invertory { get; private set; } = new Invertory();
+        public Inventory Inventory { get; private set; } = new Inventory();
 
         public Player()
         {

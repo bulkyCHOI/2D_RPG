@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Google.Protobuf.Protocol;
+using Microsoft.EntityFrameworkCore;
+using Server.Data;
 using Server.Game;
 using System;
 using System.Collections.Generic;
@@ -90,6 +92,54 @@ namespace Server.DB
             Console.WriteLine($"Hp Saved({hp})");
         }
 
+        public static void RewardPlayer(Player player, RewardData rewardData, GameRoom gameRoom)
+        {
+            if (player == null || rewardData == null || gameRoom == null)
+                return;
+
+            //TODO : 살짝 문제가 있다.
+            int? slot = player.Inventory.GetEmptySlot();
+            if (slot == null)
+                return;
+
+            //Me
+            ItemDb itemDb = new ItemDb()
+            {
+                TemplateId = rewardData.itemId,
+                Count = rewardData.itemCount,
+                Slot = slot.Value,  //
+                OwnerDbId = player.PlayerDbId
+            };
+
+            //You
+            Instance.Push(() =>
+            {
+                using (AppDbContext db = new AppDbContext())
+                {
+                    db.Items.Add(itemDb);
+                    bool success = db.SaveChangesEx();
+                    if (success)
+                    {
+                        //Me
+                        gameRoom.Push(() =>
+                        {
+                            Item newItem = Item.MakeItem(itemDb);
+                            player.Inventory.AddItem(newItem);
+
+                            //클라이언트에게 획득한 아이템을 알린다.
+                            { 
+                                S_AddItem itemPacket = new S_AddItem();
+                                ItemInfo itemInfo = new ItemInfo();
+                                itemInfo.MergeFrom(newItem.Info);
+                                itemPacket.Items.Add(itemInfo);
+
+                                player.Session.Send(itemPacket);
+                            }
+                        });
+                    }
+                }
+            });
+        }
     }
 }
 

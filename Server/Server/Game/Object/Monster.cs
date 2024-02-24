@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Server.DB;
 
 namespace Server.Game
 {
@@ -198,8 +199,17 @@ namespace Server.Game
         {
             base.OnDead(attacker);
 
-            // TODO : 경험치, 아이템 드랍
-
+            // 경험치, 아이템 드랍
+            GameObject owner = attacker.GetOwner();
+            if(owner != null && owner.ObjectType == GameObjectType.Player)
+            {
+                RewardData reward = GetRandomReward();
+                if(reward != null)
+                {
+                    Player player = (Player)owner;
+                    DbTransaction.RewardPlayer(player, reward, Room);
+                }
+            }
         }
 
         RewardData GetRandomReward()

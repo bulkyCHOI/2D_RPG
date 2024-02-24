@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Server.Game
 {
-    public class Invertory  //Invertory 클래스는 Item 클래스를 관리하는 클래스
+    public class Inventory  //Invertory 클래스는 Item 클래스를 관리하는 클래스
     {
         Dictionary<int, Item> _items = new Dictionary<int, Item>();
 
@@ -28,6 +28,17 @@ namespace Server.Game
             {
                 if (condition.Invoke(item)) //condition 델리게이트를 호출하여 조건을 검사
                     return item;
+            }
+            return null;
+        }
+
+        public int? GetEmptySlot()  //GetEmptySlot 메서드는 빈 슬롯을 찾아서 반환
+        {
+            for (int slot = 0; slot < 30; slot++)    //16개의 슬롯을 순회하면서 빈 슬롯을 찾음
+            {
+                Item item = _items.Values.FirstOrDefault(i => i.Slot == slot);
+                if (item == null)
+                    return slot;
             }
             return null;
         }

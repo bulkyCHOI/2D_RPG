@@ -130,7 +130,7 @@ namespace Server
                         Item item = Item.MakeItem(itemDb);
                         if (item != null)
                         {
-                            MyPlayer.Invertory.AddItem(item);   //메모리에 넣어준다.
+                            MyPlayer.Inventory.AddItem(item);   //메모리에 넣어준다.
                             ItemInfo info = new ItemInfo();
                             info.MergeFrom(item.Info);
                             itemListPacket.Items.Add(info); //클라이언트에게 보낼 패킷을 만들고

@@ -166,8 +166,8 @@ class PacketHandler
     {
         S_ItemList itemList = (S_ItemList)packet;// as S_ItemList 100% S_ItemList이므로 강제 캐스팅: 성능이 더 좋음
 
-        UI_GameScene gameSceneUI = Managers.UI.SceneUI as UI_GameScene;
-        UI_Inventory InvenUI = gameSceneUI.InvenUI;
+        //UI_GameScene gameSceneUI = Managers.UI.SceneUI as UI_GameScene;
+        //UI_Inventory InvenUI = gameSceneUI.InvenUI;
 
         Managers.Inventory.Clear();
 
@@ -179,7 +179,24 @@ class PacketHandler
         }
 
         //UI에 아이템 표시
-        InvenUI.gameObject.SetActive(true); //handler에서 UI조작하는 처리도 가능하다.
-        InvenUI.RefeshUI();
+        //InvenUI.gameObject.SetActive(true); //handler에서 UI조작하는 처리도 가능하다.
+        //InvenUI.RefeshUI();
+    }
+
+    public static void S_AddItemHandler(PacketSession session, IMessage packet)
+    {
+        S_AddItem addItem = (S_AddItem)packet;// as S_AddItem 100% S_AddItem이므로 강제 캐스팅: 성능이 더 좋음
+
+        UI_GameScene gameSceneUI = Managers.UI.SceneUI as UI_GameScene;
+        UI_Inventory InvenUI = gameSceneUI.InvenUI;
+
+        foreach (ItemInfo iteminfo in addItem.Items)
+        {
+            Item item = Item.MakeItem(iteminfo);
+            Managers.Inventory.Add(item);
+        }
+
+        Debug.Log("아이템을 획득했습니다.");
+
     }
 }

@@ -25,6 +25,7 @@ enum MsgId {
 	C_CREATE_PLAYER = 13;
 	S_CREATE_PLAYER = 14;
 	S_ITEM_LIST = 16;
+	S_ADD_ITEM = 17;
 }
 
 enum CreatureState{
@@ -220,4 +221,9 @@ message ItemInfo
 	int32 templateId = 2;
 	int32 count = 3;
 	int32 slot = 4;
+}
+
+message S_AddItem
+{
+	repeated ItemInfo items = 1;
 }

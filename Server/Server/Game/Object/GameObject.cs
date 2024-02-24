@@ -160,5 +160,10 @@ namespace Server.Game
             //따라서, Job으로 처리되는 함수를 호출할때, push를 하지 않아도 된다.
             //push를 하면 발생되는 위의 문제들 때문에 push를 하지 않고 처리한다.
         }
+
+        public virtual GameObject GetOwner()    //보상을 줄때 사용하기 위함: 펫이나 투사체가 막타를 날린 경우, 플레이어에게 경험치를 줘야한다.
+        {
+            return this;
+        }
     }
 }
