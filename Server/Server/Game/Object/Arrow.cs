@@ -30,9 +30,9 @@ namespace Server.Game
                 movePacket.PosInfo = PosInfo;
                 Room.Broadcast(movePacket);
 
-                Console.WriteLine("Move Arrow");
+                //Console.WriteLine("Move Arrow");
             }
-            else
+            else    // 누가 맞았는가?
             {
                 GameObject target = Room.Map.Find(destPos);
                 if (target != null)

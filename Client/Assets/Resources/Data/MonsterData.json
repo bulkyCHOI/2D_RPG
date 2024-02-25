@@ -8,9 +8,8 @@
         "maxHp": "100",
         "maxMp": "50",
         "speed": "5.0",
-        "str": "10",
-        "dex": "10",
-        "int": "10",
+        "attack": "10",
+        "defence": "10",
         "totalExp": "10"
       },
       "rewards": [

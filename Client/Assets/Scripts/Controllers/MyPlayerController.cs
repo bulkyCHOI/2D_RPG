@@ -49,7 +49,14 @@ public class MyPlayerController : PlayerController
         if (_coInputCooltime == null && Input.GetKey(KeyCode.Space))
         {
             C_Skill skill = new C_Skill() { Info = new SkillInfo() };
-            skill.Info.SkillId = 2;
+            //장착된 아이템의 type을 확인하여 스킬 아이디를 설정
+            Item equipedWeapon = null;
+            equipedWeapon = Managers.Inventory.Find(
+                        i => i.ItemType == ItemType.Weapon && i.Equipped);
+            if(((Weapon)equipedWeapon).WeaponType == WeaponType.Melee)
+                skill.Info.SkillId = 1;
+            else if(((Weapon)equipedWeapon).WeaponType == WeaponType.Range)
+                skill.Info.SkillId = 2;
             Managers.Network.Send(skill);
 
             _coInputCooltime = StartCoroutine(CoInputCooltime(0.2f));

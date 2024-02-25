@@ -1,5 +1,6 @@
 ﻿using Google.Protobuf;
 using Google.Protobuf.Protocol;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Server.Data;
 using System;
 using System.Collections.Generic;
@@ -63,15 +64,18 @@ namespace Server.Game
                 return;
             switch(skillData.skillType)
             {
-                case SkillType.SkillAuto:
+                case SkillType.SkillAuto:   //자동 스킬
                     Vector2Int skillPos = player.GetFrontCellPos(playerInfo.PosInfo.MoveDir);
                     GameObject target = Map.Find(skillPos);
                     if (target != null)
                     {
                         Console.WriteLine("Hit GameObject !");
+                        target.OnDamaged(player, player.TotalAttack);
                     }
+                    else
+                        return;
                     break;
-                case SkillType.SkillProjectile:
+                case SkillType.SkillProjectile: //발사체 스킬
                     Arrow arrow = ObjectManager.Instance.Add<Arrow>();
                     if (arrow != null)
                     {

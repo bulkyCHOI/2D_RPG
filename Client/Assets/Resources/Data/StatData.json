@@ -5,9 +5,8 @@
       "maxHp": "200",
       "maxMp": "100",
       "speed": "10.0",
-      "str": "20",
-      "dex": "20",
-      "int": "20",
+      "attack": "20",
+      "defence": "20",
       "totalExp": "0"
     },
     {
@@ -15,9 +14,8 @@
       "maxHp": "300",
       "maxMp": "150",
       "speed": "10.0",
-      "str": "25",
-      "dex": "25",
-      "int": "25",
+      "attack": "25",
+      "defence": "25",
       "totalExp": "10"
     },
     {
@@ -25,9 +23,8 @@
       "maxHp": "400",
       "maxMp": "200",
       "speed": "10.0",
-      "str": "30",
-      "dex": "30",
-      "int": "30",
+      "attack": "30",
+      "defence": "30",
       "totalExp": "20"
     }
   ]

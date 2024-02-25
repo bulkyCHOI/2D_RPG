@@ -4,7 +4,7 @@
       "id": "1",
       "name": "견습생의 검",
       "weaponType": "Melee",
-      "damage": "10",
+      "damage": "30",
       "iconPath": "Textures/Item/sword"
     },
     {
