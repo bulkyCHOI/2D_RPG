@@ -3,23 +3,16 @@
     {
       "id": "1",
       "name": "견습생의 검",
-      "weaponType": "Sword",
+      "weaponType": "Melee",
       "damage": "10",
       "iconPath": "Textures/Item/sword"
     },
     {
       "id": "2",
       "name": "견습생의 활",
-      "weaponType": "Bow",
+      "weaponType": "Range",
       "damage": "5",
       "iconPath": "Textures/Item/bow"
-    },
-    {
-      "id": "3",
-      "name": "견습생의 스크롤",
-      "weaponType": "Staff",
-      "damage": "5",
-      "iconPath": "Textures/Item/scroll"
     }
   ],
   "armors": [
@@ -27,22 +20,29 @@
       "id": "100",
       "name": "뼈 갑옷",
       "armorType": "Armor",
-      "defence": "15",
+      "defence": "5",
       "iconPath": "Textures/Item/armor"
     },
     {
       "id": "101",
       "name": "뼈 투구",
       "armorType": "Helmet",
-      "defence": "5",
+      "defence": "1",
       "iconPath": "Textures/Item/helmets"
     },
     {
       "id": "102",
       "name": "뼈 신발",
       "armorType": "Boots",
-      "defence": "5",
+      "defence": "1",
       "iconPath": "Textures/Item/boots"
+    },
+    {
+      "id": "103",
+      "name": "뼈 바지",
+      "armorType": "Pants",
+      "defence": "3",
+      "iconPath": "Textures/Item/pants"
     },
     {
       "id": "110",

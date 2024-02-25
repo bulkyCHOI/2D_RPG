@@ -24,7 +24,8 @@ public class DataManager
     Loader LoadJson<Loader, Key, Value>(string path) where Loader : ILoader<Key, Value>
     {
 		TextAsset textAsset = Managers.Resource.Load<TextAsset>($"Data/{path}");
-        return JsonUtility.FromJson<Loader>(textAsset.text);
+        //return JsonUtility.FromJson<Loader>(textAsset.text); //JsonUtility는 제네릭을 지원하지 않음  >> armor type을 제대로 못 읽어감
+        return Newtonsoft.Json.JsonConvert.DeserializeObject<Loader>(textAsset.text);
 	}
 }
 

@@ -69,16 +69,31 @@ public class MyPlayerController : PlayerController
         if (Input.GetKeyDown(KeyCode.I))
         {
             UI_GameScene gameSceneUI = Managers.UI.SceneUI as UI_GameScene;
-            UI_Inventory InvenUI = gameSceneUI.InvenUI;
+            UI_Inventory invenUI = gameSceneUI.InvenUI;
 
-            if(InvenUI.gameObject.activeSelf == false)
+            if(invenUI.gameObject.activeSelf == false)
             {
-                InvenUI.gameObject.SetActive(true);
-                InvenUI.RefeshUI();
+                invenUI.gameObject.SetActive(true);
+                invenUI.RefreshUI();
             }
             else
             {
-                InvenUI.gameObject.SetActive(false);
+                invenUI.gameObject.SetActive(false);
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.C))
+        {
+            UI_GameScene gameSceneUI = Managers.UI.SceneUI as UI_GameScene;
+            UI_Stat statUI = gameSceneUI.StatUI;
+
+            if (statUI.gameObject.activeSelf == false)
+            {
+                statUI.gameObject.SetActive(true);
+                statUI.RefreshUI();
+            }
+            else
+            {
+                statUI.gameObject.SetActive(false);
             }
         }
     }

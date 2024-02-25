@@ -25,6 +25,8 @@ public class UI_Inventory_Item : UI_Base
             Data.ItemData itemData = null;
             Managers.Data.ItemDict.TryGetValue(TemplateId, out itemData);
 
+            if(itemData == null)
+                return;
             //TODO: 아이템 사용 >> C_USE_ITEM
             if(itemData.itemType == ItemType.Consumable)
                 return;
@@ -38,17 +40,31 @@ public class UI_Inventory_Item : UI_Base
 
     public void SetItem(Item item)
     {
-        ItemDbId = item.itemDbId;
-        TemplateId = item.TemplateId;
-        Count = item.Count;
-        Equipped = item.Equipped;
+        if(item == null)
+        {
+            ItemDbId = 0;
+            TemplateId = 0;
+            Count = 0;
+            Equipped = false;
 
-        Data.ItemData itemData = null;
-        Managers.Data.ItemDict.TryGetValue(TemplateId, out itemData);
+            _icon.gameObject.SetActive(false);
+            _frame.gameObject.SetActive(false);
+        }
+        else
+        {
+            ItemDbId = item.itemDbId;
+            TemplateId = item.TemplateId;
+            Count = item.Count;
+            Equipped = item.Equipped;
 
-        Sprite icon = Managers.Resource.Load<Sprite>(itemData.iconPath);
-        _icon.sprite = icon;
-        
-       _frame.gameObject.SetActive(Equipped);
+            Data.ItemData itemData = null;
+            Managers.Data.ItemDict.TryGetValue(TemplateId, out itemData);
+
+            Sprite icon = Managers.Resource.Load<Sprite>(itemData.iconPath);
+            _icon.sprite = icon;
+
+            _icon.gameObject.SetActive(true);
+            _frame.gameObject.SetActive(Equipped);
+        }
     }
 }

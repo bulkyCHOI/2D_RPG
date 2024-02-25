@@ -20,10 +20,10 @@ public class UI_Inventory : UI_Base
             UI_Inventory_Item item = go.GetOrAddComponent<UI_Inventory_Item>();
             Items.Add(item);
         }
-        RefeshUI();
+        RefreshUI();
     }
 
-    public void RefeshUI()
+    public void RefreshUI()
     {
         if (Items.Count == 0)   //init이 안된경우 0이므로 크래시 발생
             return;

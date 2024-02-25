@@ -78,14 +78,14 @@ namespace Google.Protobuf.Protocol {
             "U1RBVEVfTE9CQlkQARIVChFTRVJWRVJfU1RBVEVfR0FNRRACKmMKCEl0ZW1U",
             "eXBlEhIKDklURU1fVFlQRV9OT05FEAASFAoQSVRFTV9UWVBFX1dFQVBPThAB",
             "EhMKD0lURU1fVFlQRV9BUk1PUhACEhgKFElURU1fVFlQRV9DT05TVU1BQkxF",
-            "EAMqZQoKV2VhcG9uVHlwZRIUChBXRUFQT05fVFlQRV9OT05FEAASFQoRV0VB",
-            "UE9OX1RZUEVfU1dPUkQQARITCg9XRUFQT05fVFlQRV9CT1cQAhIVChFXRUFQ",
-            "T05fVFlQRV9TVEFGRhADKmMKCUFybW9yVHlwZRITCg9BUk1PUl9UWVBFX05P",
-            "TkUQABIVChFBUk1PUl9UWVBFX0hFTE1FVBABEhQKEEFSTU9SX1RZUEVfQVJN",
-            "T1IQAhIUChBBUk1PUl9UWVBFX0JPT1RTEAMqagoOQ29uc3VtYWJsZVR5cGUS",
-            "GAoUQ09OU1VNQUJMRV9UWVBFX05PTkUQABIeChpDT05TVU1BQkxFX1RZUEVf",
-            "SFBfUE9SVElPThABEh4KGkNPTlNVTUFCTEVfVFlQRV9NUF9QT1JUSU9OEAJC",
-            "G6oCGEdvb2dsZS5Qcm90b2J1Zi5Qcm90b2NvbGIGcHJvdG8z"));
+            "EAMqUAoKV2VhcG9uVHlwZRIUChBXRUFQT05fVFlQRV9OT05FEAASFQoRV0VB",
+            "UE9OX1RZUEVfTUVMRUUQARIVChFXRUFQT05fVFlQRV9SQU5HRRACKnkKCUFy",
+            "bW9yVHlwZRITCg9BUk1PUl9UWVBFX05PTkUQABIVChFBUk1PUl9UWVBFX0hF",
+            "TE1FVBABEhQKEEFSTU9SX1RZUEVfQVJNT1IQAhIUChBBUk1PUl9UWVBFX0JP",
+            "T1RTEAMSFAoQQVJNT1JfVFlQRV9QQU5UUxAEKmoKDkNvbnN1bWFibGVUeXBl",
+            "EhgKFENPTlNVTUFCTEVfVFlQRV9OT05FEAASHgoaQ09OU1VNQUJMRV9UWVBF",
+            "X0hQX1BPUlRJT04QARIeChpDT05TVU1BQkxFX1RZUEVfTVBfUE9SVElPThAC",
+            "QhuqAhhHb29nbGUuUHJvdG9idWYuUHJvdG9jb2xiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Google.Protobuf.WellKnownTypes.TimestampReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Google.Protobuf.Protocol.MsgId), typeof(global::Google.Protobuf.Protocol.CreatureState), typeof(global::Google.Protobuf.Protocol.MoveDir), typeof(global::Google.Protobuf.Protocol.GameObjectType), typeof(global::Google.Protobuf.Protocol.SkillType), typeof(global::Google.Protobuf.Protocol.PlayerServerState), typeof(global::Google.Protobuf.Protocol.ItemType), typeof(global::Google.Protobuf.Protocol.WeaponType), typeof(global::Google.Protobuf.Protocol.ArmorType), typeof(global::Google.Protobuf.Protocol.ConsumableType), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -188,9 +188,8 @@ namespace Google.Protobuf.Protocol {
 
   public enum WeaponType {
     [pbr::OriginalName("WEAPON_TYPE_NONE")] None = 0,
-    [pbr::OriginalName("WEAPON_TYPE_SWORD")] Sword = 1,
-    [pbr::OriginalName("WEAPON_TYPE_BOW")] Bow = 2,
-    [pbr::OriginalName("WEAPON_TYPE_STAFF")] Staff = 3,
+    [pbr::OriginalName("WEAPON_TYPE_MELEE")] Melee = 1,
+    [pbr::OriginalName("WEAPON_TYPE_RANGE")] Range = 2,
   }
 
   public enum ArmorType {
@@ -198,6 +197,7 @@ namespace Google.Protobuf.Protocol {
     [pbr::OriginalName("ARMOR_TYPE_HELMET")] Helmet = 1,
     [pbr::OriginalName("ARMOR_TYPE_ARMOR")] Armor = 2,
     [pbr::OriginalName("ARMOR_TYPE_BOOTS")] Boots = 3,
+    [pbr::OriginalName("ARMOR_TYPE_PANTS")] Pants = 4,
   }
 
   public enum ConsumableType {

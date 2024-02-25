@@ -18,14 +18,15 @@ public class BaseController : MonoBehaviour
             if (_stat.Equals(value))
                 return;
 
-            _stat.Level = value.Level;
-            _stat.Hp = value.Hp;
-            _stat.Mp = value.Mp;
-            _stat.MaxHp = value.MaxHp;
-            _stat.MaxMp = value.MaxMp;
-            _stat.Speed = value.Speed;
-            _stat.Attack = value.Attack;
-            _stat.Defence = value.Defence;
+            _stat.MergeFrom(value);
+            //_stat.Level = value.Level;
+            //_stat.Hp = value.Hp;
+            //_stat.Mp = value.Mp;
+            //_stat.MaxHp = value.MaxHp;
+            //_stat.MaxMp = value.MaxMp;
+            //_stat.Speed = value.Speed;
+            //_stat.Attack = value.Attack;
+            //_stat.Defence = value.Defence;
         }
     }
 

@@ -77,9 +77,8 @@ enum ItemType
 enum WeaponType
 {
 	WEAPON_TYPE_NONE = 0;
-	WEAPON_TYPE_SWORD = 1;
-	WEAPON_TYPE_BOW = 2;
-	WEAPON_TYPE_STAFF = 3;
+	WEAPON_TYPE_MELEE = 1;
+	WEAPON_TYPE_RANGE = 2;
 }
 
 enum ArmorType
@@ -88,6 +87,7 @@ enum ArmorType
 	ARMOR_TYPE_HELMET = 1;
 	ARMOR_TYPE_ARMOR = 2;
 	ARMOR_TYPE_BOOTS = 3;
+	ARMOR_TYPE_PANTS = 4;
 }
 
 enum ConsumableType
