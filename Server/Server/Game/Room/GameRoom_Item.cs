@@ -18,21 +18,7 @@ namespace Server.Game
             if (player == null)
                 return;
         
-            Item item = player.Inventory.GetItem(equipPacket.ItemDbId);
-            if (item == null)
-                return;
-
-            //메모리 선 적용
-            item.Equipped = equipPacket.Equipped;
-
-            //DB에 적용
-            DbTransaction.EquipItemNoti(player, item);
-
-            //클라에게 전송
-            S_EquipItem equipItem = new S_EquipItem();
-            equipItem.ItemDbId = equipPacket.ItemDbId;
-            equipItem.Equipped = equipPacket.Equipped;
-            player.Session.Send(equipItem);
+            player.HandleEquipItem(equipPacket);
         }
     }
 }

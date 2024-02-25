@@ -178,9 +178,8 @@ class PacketHandler
             Managers.Inventory.Add(item);
         }
 
-        //UI에 아이템 표시
-        //InvenUI.gameObject.SetActive(true); //handler에서 UI조작하는 처리도 가능하다.
-        //InvenUI.RefeshUI();
+        if(Managers.Object.MyPlayer != null)
+            Managers.Object.MyPlayer.RefreshAdditionalStat();
     }
 
     public static void S_AddItemHandler(PacketSession session, IMessage packet)
@@ -199,6 +198,9 @@ class PacketHandler
         UI_GameScene gameSceneUI = Managers.UI.SceneUI as UI_GameScene;
         UI_Inventory InvenUI = gameSceneUI.InvenUI;
         InvenUI.RefeshUI();
+
+        if (Managers.Object.MyPlayer != null)
+            Managers.Object.MyPlayer.RefreshAdditionalStat();
     }
 
     public static void S_EquipItemHandler(PacketSession session, IMessage packet)
@@ -216,6 +218,9 @@ class PacketHandler
         UI_GameScene gameSceneUI = Managers.UI.SceneUI as UI_GameScene;
         UI_Inventory InvenUI = gameSceneUI.InvenUI;
         InvenUI.RefeshUI();
+
+        if (Managers.Object.MyPlayer != null)
+            Managers.Object.MyPlayer.RefreshAdditionalStat();
     }
 
     public static void S_ChangeStatHandler(PacketSession session, IMessage packet)

@@ -171,7 +171,7 @@ namespace Server.Game
                 DataManager.SkillDict.TryGetValue(1, out skillData); //1번 스킬 데이터를 가져온다.
 
                 //데미지 판정
-                _target.OnDamaged(this, skillData.damage + Stat.STR);
+                _target.OnDamaged(this, skillData.damage + TotalAttack);
 
                 //스킬사용 broadcast
                 S_Skill skill = new S_Skill() { Info = new SkillInfo() };

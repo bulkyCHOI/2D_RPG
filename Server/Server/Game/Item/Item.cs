@@ -12,7 +12,7 @@ namespace Server.Game
     public class Item   //Item 정보를 메모리에 가지고 있는 클래스
     {
         public ItemInfo Info { get; } = new ItemInfo();
-        public int itemDbId 
+        public int ItemDbId 
         {
             get { return Info.ItemDbId; }
             set { Info.ItemDbId = value; } 
@@ -67,7 +67,7 @@ namespace Server.Game
             }
             if(item != null)
             {
-                item.itemDbId = itemDb.ItemDbId;
+                item.ItemDbId = itemDb.ItemDbId;
                 item.Count = itemDb.Count;
                 item.Slot = itemDb.Slot;
                 item.Equipped = itemDb.Equipped;

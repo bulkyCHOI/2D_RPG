@@ -144,10 +144,9 @@ message StatInfo
 	int32 hp = 4;
 	int32 mp = 5;
 	float speed = 6;
-	int32 STR = 7;
-	int32 DEX = 8;
-	int32 INT = 9;
-	int32 totalExp = 10;
+	int32 attack = 7;
+	int32 defence = 8;
+	int32 totalExp = 9;
 }
 
 message C_Skill {

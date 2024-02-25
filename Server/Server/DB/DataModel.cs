@@ -33,9 +33,8 @@ namespace Server.DB
         public int hp { get; set; }
         public int mp { get; set; }
         public float speed { get; set; }
-        public int STR { get; set; }
-        public int DEX { get; set; }
-        public int INT { get; set; }
+        public int attack { get; set; }
+        public int defence { get; set; }
         public int totalExp { get; set; }
 
     }

@@ -24,9 +24,8 @@ public class BaseController : MonoBehaviour
             _stat.MaxHp = value.MaxHp;
             _stat.MaxMp = value.MaxMp;
             _stat.Speed = value.Speed;
-            _stat.STR = value.STR;
-            _stat.DEX = value.DEX;
-            _stat.INT = value.INT;
+            _stat.Attack = value.Attack;
+            _stat.Defence = value.Defence;
         }
     }
 

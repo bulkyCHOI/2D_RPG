@@ -20,7 +20,7 @@ namespace Server.DB
             //Me
             ItemDb itemDb = new ItemDb()
             {
-                ItemDbId = item.itemDbId,
+                ItemDbId = item.ItemDbId,
                 Equipped = item.Equipped,
             };
 

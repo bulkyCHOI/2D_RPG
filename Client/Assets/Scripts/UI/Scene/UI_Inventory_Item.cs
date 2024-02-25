@@ -22,6 +22,13 @@ public class UI_Inventory_Item : UI_Base
         {
             Debug.Log("아이템 클릭");
 
+            Data.ItemData itemData = null;
+            Managers.Data.ItemDict.TryGetValue(TemplateId, out itemData);
+
+            //TODO: 아이템 사용 >> C_USE_ITEM
+            if(itemData.itemType == ItemType.Consumable)
+                return;
+
             C_EquipItem equipPacket = new C_EquipItem();
             equipPacket.ItemDbId = ItemDbId;
             equipPacket.Equipped = !Equipped;

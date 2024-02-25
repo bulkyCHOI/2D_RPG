@@ -59,9 +59,8 @@ namespace Server
                                 Hp = playerDB.hp,
                                 Mp = playerDB.mp,
                                 Speed = playerDB.speed,
-                                STR = playerDB.STR,
-                                DEX = playerDB.DEX,
-                                INT = playerDB.INT,
+                                Attack = playerDB.attack,
+                                Defence = playerDB.defence,
                                 TotalExp = playerDB.totalExp
                             }
                         };
@@ -178,9 +177,8 @@ namespace Server
                         hp = stat.MaxHp,
                         mp = stat.MaxMp,
                         speed = stat.Speed,
-                        STR = stat.STR,
-                        DEX = stat.DEX,
-                        INT = stat.INT,
+                        attack = stat.Attack,
+                        defence = stat.Defence,
                         totalExp = 0,
                         AccountDbId = AccountDbId
                     };
@@ -203,9 +201,8 @@ namespace Server
                             Hp = player.hp,
                             Mp = player.mp,
                             Speed = player.speed,
-                            STR = player.STR,
-                            DEX = player.DEX,
-                            INT = player.INT,
+                            Attack = player.attack,
+                            Defence = player.defence,
                             TotalExp = player.totalExp
                         }
                     };
