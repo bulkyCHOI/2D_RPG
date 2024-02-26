@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace Server.Game
 {
-    public interface IJob
+    public abstract class IJob
     {
-        void Execute();
+        public abstract void Execute();
+        public bool Cancel { get; set; } = false;
     }
     public class Job: IJob
     {
@@ -19,9 +20,10 @@ namespace Server.Game
             _action = action;
         }
 
-        public void Execute()
+        public override void Execute()
         {
-            _action.Invoke();
+            if(Cancel == false)
+                _action.Invoke();
         }
     }
 
@@ -36,9 +38,10 @@ namespace Server.Game
             _t1 = t1;
         }
 
-        public void Execute()
+        public override void Execute()
         {
-            _action.Invoke(_t1);
+            if(Cancel == false)
+                _action.Invoke(_t1);
         }
     }
 
@@ -55,9 +58,10 @@ namespace Server.Game
             _t2 = t2;
         }
 
-        public void Execute()
+        public override void Execute()
         {
-            _action.Invoke(_t1, _t2);
+            if(Cancel == false)
+                _action.Invoke(_t1, _t2);
         }
     }
 
@@ -76,9 +80,10 @@ namespace Server.Game
             _t3 = t3;
         }
 
-        public void Execute()
+        public override void Execute()
         {
-            _action.Invoke(_t1, _t2, _t3);
+            if(Cancel == false)
+                _action.Invoke(_t1, _t2, _t3);
         }
     }
 }

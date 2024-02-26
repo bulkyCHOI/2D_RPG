@@ -30,6 +30,7 @@ namespace Server.Game
         }
 
         //FSM (Finite State Machine)
+        IJob _job;
         public override void Update()
         {
             switch (State)
@@ -47,6 +48,10 @@ namespace Server.Game
                     UpdateDead();
                     break;
             }
+
+            //5프레임 업데이트(0.2초마다 update)
+            if(Room!=null)
+                _job = Room.PushAfter(200, Update);
         }
 
         Player _target;
@@ -197,6 +202,17 @@ namespace Server.Game
 
         public override void OnDead(GameObject attacker)
         {
+            // job 취소
+            // 이걸 안하면 몬스터가 죽어도 계속 update가 돌아간다.
+            // 그러면 죽은 몬스터가 계속 update를 돌면서 쓸데없는 자원을 낭비하게 된다.
+            // 아래 OnDead부분을 보면 EnterGame에서 또다시 monster.Update()를 호출하게 된다.
+            // 그러므로 update를 취소하지 않으면 update가 계속 쌓이면서 쓸데없는 자원을 낭비하게 된다.
+            if(_job != null)
+            {
+                _job.Cancel = true;
+                _job = null;
+            }
+
             base.OnDead(attacker);
 
             // 경험치, 아이템 드랍

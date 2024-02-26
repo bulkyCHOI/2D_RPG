@@ -13,13 +13,16 @@ namespace Server.Game
         object _lock = new object();
         bool _flush = false;
 
-        public void PushAfter(int tickAfter, Action action) { PushAfter(tickAfter, new Job(action)); }
-        public void PushAfter<T1>(int tickAfter, Action<T1> action, T1 t1) { PushAfter(tickAfter, new Job<T1>(action, t1)); }
-        public void PushAfter<T1, T2>(int tickAfter, Action<T1, T2> action, T1 t1, T2 t2) { PushAfter(tickAfter, new Job<T1, T2>(action, t1, t2)); }
-        public void PushAfter<T1, T2, T3>(int tickAfter, Action<T1, T2, T3> action, T1 t1, T2 t2, T3 t3) { PushAfter(tickAfter, new Job<T1, T2, T3>(action, t1, t2, t3)); }
-        public void PushAfter(int tickAfter, IJob job)
+        //미래에 실행되어야 할 작업들을 넣어둔다.
+        //IJob을 리턴하는 이유는 나중에 취소할 수 있도록 하기 위해서이다.
+        public IJob PushAfter(int tickAfter, Action action) { return PushAfter(tickAfter, new Job(action)); }
+        public IJob PushAfter<T1>(int tickAfter, Action<T1> action, T1 t1) { return PushAfter(tickAfter, new Job<T1>(action, t1)); }
+        public IJob PushAfter<T1, T2>(int tickAfter, Action<T1, T2> action, T1 t1, T2 t2) { return PushAfter(tickAfter, new Job<T1, T2>(action, t1, t2)); }
+        public IJob PushAfter<T1, T2, T3>(int tickAfter, Action<T1, T2, T3> action, T1 t1, T2 t2, T3 t3) { return PushAfter(tickAfter, new Job<T1, T2, T3>(action, t1, t2, t3)); }
+        public IJob PushAfter(int tickAfter, IJob job)
         {
             _timer.Push(job, tickAfter);
+            return job;
         }
         
         public void Push(Action action) { Push(new Job(action)); }
