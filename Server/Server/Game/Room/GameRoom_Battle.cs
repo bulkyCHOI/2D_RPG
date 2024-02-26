@@ -64,6 +64,7 @@ namespace Server.Game
                 return;
             switch(skillData.skillType)
             {
+                case SkillType.SkillNone:
                 case SkillType.SkillAuto:   //자동 스킬
                     Vector2Int skillPos = player.GetFrontCellPos(playerInfo.PosInfo.MoveDir);
                     GameObject target = Map.Find(skillPos);

@@ -53,9 +53,11 @@ public class MyPlayerController : PlayerController
             Item equipedWeapon = null;
             equipedWeapon = Managers.Inventory.Find(
                         i => i.ItemType == ItemType.Weapon && i.Equipped);
-            if(((Weapon)equipedWeapon).WeaponType == WeaponType.Melee)
+            if(equipedWeapon == null) //¸Ç¼Õ
                 skill.Info.SkillId = 1;
-            else if(((Weapon)equipedWeapon).WeaponType == WeaponType.Range)
+            else if (((Weapon)equipedWeapon).WeaponType == WeaponType.Melee)
+                skill.Info.SkillId = 1;
+            else if (((Weapon)equipedWeapon).WeaponType == WeaponType.Range)
                 skill.Info.SkillId = 2;
             Managers.Network.Send(skill);
 
