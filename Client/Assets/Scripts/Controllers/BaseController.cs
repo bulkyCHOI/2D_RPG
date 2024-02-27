@@ -43,7 +43,15 @@ public class BaseController : MonoBehaviour
         {
             Stat.Hp = value;
         }
+    }
 
+    public virtual int Mp
+    {
+        get { return Stat.Mp; }
+        set
+        {
+            Stat.Mp = value;
+        }
     }
 
     protected bool _updated = false;

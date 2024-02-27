@@ -8,6 +8,7 @@ using static Define;
 public class CreatureController : BaseController
 {
 	HpBar _hpBar;
+    MpBar _mpBar;
 
     public override StatInfo Stat 
 	{
@@ -41,10 +42,38 @@ public class CreatureController : BaseController
 		_hpBar.SetHpBar(ratio);
 	}
 
+    public override int Mp
+    {
+        get { return Stat.Mp; }
+        set { base.Hp = value; UpdateMpBar(); }
+    }
+
+    protected void AddMpBar()
+    {
+        GameObject go = Managers.Resource.Instantiate("UI/MpBar", transform);
+        go.transform.localPosition = new Vector3(0, 0.4f, 0);
+        go.name = "MpBar";
+        _mpBar = go.GetComponent<MpBar>();
+        UpdateMpBar();
+    }
+
+    void UpdateMpBar()
+    {
+        if (_mpBar == null)
+            return;
+
+        float ratio = 0.0f;
+        if (Stat.MaxMp > 0)
+            ratio = Mp / (float)Stat.MaxMp;
+
+        _mpBar.SetMpBar(ratio);
+    }
+
     protected override void Init()
 	{
 		base.Init();
 		AddHpBar();
+        AddMpBar();
 	}
 
 	public virtual void OnDamaged()
