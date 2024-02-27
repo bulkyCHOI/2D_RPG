@@ -97,14 +97,59 @@ namespace Server.DB
             if (player == null || rewardData == null || gameRoom == null)
                 return;
 
-            //TODO : 살짝 문제가 있다.
+            
+            Item consumableItem = player.Inventory.Find(
+                        i => i.TemplateId == rewardData.itemId); //소비아이템 겹치기 처리하기 위해
+            if (consumableItem != null) //소지한 소비아이템을 추가로 획득할 경우에
+            {
+                Console.WriteLine("소비아이템 획득");
+                Instance.Push(() =>
+                {
+                    using (AppDbContext db = new AppDbContext())
+                    {
+                        ItemDb updateItemDB = db.Items.FirstOrDefault( i => i.ItemDbId == consumableItem.Info.ItemDbId );
+                        
+                        if(updateItemDB != null)
+                        {
+                            updateItemDB.Count += rewardData.itemCount;
+
+                            bool success = db.SaveChangesEx();
+                            if (success)
+                            {
+                                //Me
+                                gameRoom.Push(() =>
+                                {
+                                    //Item newItem = Item.MakeItem(itemDb);
+                                    //player.Inventory.AddItem(newItem);
+                                    Item updateItem = Item.MakeItem(updateItemDB);
+                                    player.Inventory.AddItemCount(updateItem);
+
+                                    //클라이언트에게 획득한 아이템을 알린다.
+                                    {
+                                        S_AddItem itemPacket = new S_AddItem();
+                                        ItemInfo itemInfo = new ItemInfo();
+                                        itemInfo.MergeFrom(updateItem.Info);
+                                        itemInfo.Count = rewardData.itemCount; //획득한 아이템 개수만큼 설정
+                                        itemPacket.Items.Add(itemInfo);
+
+                                        player.Session.Send(itemPacket);
+                                    }
+                                });
+                            }
+                        }
+                    }
+                });
+                return;
+            }    
+
+
             // 1) DB에 저장 요청
             // 2) DB에 저장 요청이 완료되면
             // 3) 메모리에 적용한다.
             // 트랜젝션 형태이기 때문에 거의 동시에 GetEmptySlot() 호출이 가능하게 되는데
             // 이때 같은 슬롯에 여러 아이템을 넣게 되는 경우가 생길 수 있다.
             int? slot = player.Inventory.GetEmptySlot();
-            if (slot == null)
+            if (slot == null) //빈칸이 없으면 획득안함.
                 return;
 
             //Me

@@ -42,5 +42,11 @@ namespace Server.Game
             }
             return null;
         }
+
+        public void AddItemCount(Item item)
+        {
+            //items에서 item.id로 찾아서 count를 변경해준다.
+            Items[item.ItemDbId].Count += item.Count;
+        }
     }
 }

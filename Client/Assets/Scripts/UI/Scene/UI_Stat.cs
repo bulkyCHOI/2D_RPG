@@ -20,6 +20,7 @@ public class UI_Stat : UI_Base
     {
         NameText,
         MeleeValueText,
+        RangeValueText,
         DefenceValueText,
     }
 

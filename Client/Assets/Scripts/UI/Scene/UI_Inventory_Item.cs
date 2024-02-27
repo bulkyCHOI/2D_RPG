@@ -10,6 +10,8 @@ public class UI_Inventory_Item : UI_Base
     Image _icon = null;
     [SerializeField]
     Image _frame = null;
+    [SerializeField]
+    Text _text = null;
 
     public int ItemDbId { get; private set; }
     public int TemplateId { get; private set; }
@@ -40,7 +42,7 @@ public class UI_Inventory_Item : UI_Base
 
     public void SetItem(Item item)
     {
-        if(item == null)
+        if (item == null)
         {
             ItemDbId = 0;
             TemplateId = 0;
@@ -65,6 +67,10 @@ public class UI_Inventory_Item : UI_Base
 
             _icon.gameObject.SetActive(true);
             _frame.gameObject.SetActive(Equipped);
+            if (itemData.itemType == ItemType.Consumable)
+                _text.text = Count.ToString();
+            else
+                _text.text = "";
         }
     }
 }

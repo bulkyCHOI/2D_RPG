@@ -190,7 +190,20 @@ class PacketHandler
         foreach (ItemInfo iteminfo in addItem.Items)
         {
             Item item = Item.MakeItem(iteminfo);
-            Managers.Inventory.Add(item);
+            //소비아이템인 경우 인벤토리에 없으면 add, 있으면 additemcount
+                if (item.ItemType == ItemType.Consumable)
+            {
+                Item existItem = Managers.Inventory.Get(item.Info.ItemDbId);
+                if (existItem != null)
+                {
+                    Managers.Inventory.AddItemCount(item);
+                    continue;
+                }
+                else
+                    Managers.Inventory.Add(item);
+            }
+            else
+                Managers.Inventory.Add(item);
         }
 
         Debug.Log("아이템을 획득했습니다.");

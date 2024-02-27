@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 8592338647282306075}
   - component: {fileID: 5650788926211393741}
   m_Layer: 0
-  m_Name: RangedValueText
+  m_Name: RangeValueText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1719,7 +1719,7 @@ GameObject:
   - component: {fileID: 2218078373982524503}
   - component: {fileID: 8195475762655887351}
   m_Layer: 0
-  m_Name: Ranged
+  m_Name: Range
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
