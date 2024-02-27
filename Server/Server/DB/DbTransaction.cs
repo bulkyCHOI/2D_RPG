@@ -99,17 +99,19 @@ namespace Server.DB
 
             
             Item consumableItem = player.Inventory.Find(
-                        i => i.TemplateId == rewardData.itemId); //소비아이템 겹치기 처리하기 위해
-            if (consumableItem != null) //소지한 소비아이템을 추가로 획득할 경우에
+                        i => i.TemplateId == rewardData.itemId  //소지한
+                        && i.ItemType == ItemType.Consumable    //소비아이템인 경우
+                        ); //소비아이템 겹치기 처리하기 위해
+            if (consumableItem != null) //소지한 소비아이템인 경우
             {
                 Console.WriteLine("소비아이템 획득");
                 Instance.Push(() =>
                 {
                     using (AppDbContext db = new AppDbContext())
                     {
-                        ItemDb updateItemDB = db.Items.FirstOrDefault( i => i.ItemDbId == consumableItem.Info.ItemDbId );
-                        
-                        if(updateItemDB != null)
+                        ItemDb updateItemDB = db.Items.FirstOrDefault(i => i.ItemDbId == consumableItem.Info.ItemDbId);
+
+                        if (updateItemDB != null)
                         {
                             updateItemDB.Count += rewardData.itemCount;
 
@@ -139,56 +141,56 @@ namespace Server.DB
                         }
                     }
                 });
-                return;
-            }    
-
-
-            // 1) DB에 저장 요청
-            // 2) DB에 저장 요청이 완료되면
-            // 3) 메모리에 적용한다.
-            // 트랜젝션 형태이기 때문에 거의 동시에 GetEmptySlot() 호출이 가능하게 되는데
-            // 이때 같은 슬롯에 여러 아이템을 넣게 되는 경우가 생길 수 있다.
-            int? slot = player.Inventory.GetEmptySlot();
-            if (slot == null) //빈칸이 없으면 획득안함.
-                return;
-
-            //Me
-            ItemDb itemDb = new ItemDb()
+            }
+            else
             {
-                TemplateId = rewardData.itemId,
-                Count = rewardData.itemCount,
-                Slot = slot.Value,  //
-                OwnerDbId = player.PlayerDbId
-            };
+                // 1) DB에 저장 요청
+                // 2) DB에 저장 요청이 완료되면
+                // 3) 메모리에 적용한다.
+                // 트랜젝션 형태이기 때문에 거의 동시에 GetEmptySlot() 호출이 가능하게 되는데
+                // 이때 같은 슬롯에 여러 아이템을 넣게 되는 경우가 생길 수 있다.
+                int? slot = player.Inventory.GetEmptySlot();
+                if (slot == null) //빈칸이 없으면 획득안함.
+                    return;
 
-            //You
-            Instance.Push(() =>
-            {
-                using (AppDbContext db = new AppDbContext())
+                //Me
+                ItemDb itemDb = new ItemDb()
                 {
-                    db.Items.Add(itemDb);
-                    bool success = db.SaveChangesEx();
-                    if (success)
+                    TemplateId = rewardData.itemId,
+                    Count = rewardData.itemCount,
+                    Slot = slot.Value,  //
+                    OwnerDbId = player.PlayerDbId
+                };
+
+                //You
+                Instance.Push(() =>
+                {
+                    using (AppDbContext db = new AppDbContext())
                     {
-                        //Me
-                        gameRoom.Push(() =>
+                        db.Items.Add(itemDb);
+                        bool success = db.SaveChangesEx();
+                        if (success)
                         {
-                            Item newItem = Item.MakeItem(itemDb);
-                            player.Inventory.AddItem(newItem);
+                            //Me
+                            gameRoom.Push(() =>
+                            {
+                                Item newItem = Item.MakeItem(itemDb);
+                                player.Inventory.AddItem(newItem);
 
-                            //클라이언트에게 획득한 아이템을 알린다.
-                            { 
-                                S_AddItem itemPacket = new S_AddItem();
-                                ItemInfo itemInfo = new ItemInfo();
-                                itemInfo.MergeFrom(newItem.Info);
-                                itemPacket.Items.Add(itemInfo);
+                                //클라이언트에게 획득한 아이템을 알린다.
+                                {
+                                    S_AddItem itemPacket = new S_AddItem();
+                                    ItemInfo itemInfo = new ItemInfo();
+                                    itemInfo.MergeFrom(newItem.Info);
+                                    itemPacket.Items.Add(itemInfo);
 
-                                player.Session.Send(itemPacket);
-                            }
-                        });
+                                    player.Session.Send(itemPacket);
+                                }
+                            });
+                        }
                     }
-                }
-            });
+                });
+            }
         }
     }
 }

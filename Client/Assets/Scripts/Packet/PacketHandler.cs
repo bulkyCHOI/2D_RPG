@@ -191,18 +191,18 @@ class PacketHandler
         {
             Item item = Item.MakeItem(iteminfo);
             //소비아이템인 경우 인벤토리에 없으면 add, 있으면 additemcount
-                if (item.ItemType == ItemType.Consumable)
+            if (item.ItemType == ItemType.Consumable)   //소비아이템이고
             {
                 Item existItem = Managers.Inventory.Get(item.Info.ItemDbId);
-                if (existItem != null)
+                if (existItem != null)  //인벤토리에 있으면
                 {
                     Managers.Inventory.AddItemCount(item);
                     continue;
                 }
-                else
+                else    //인벤토리에 없으면
                     Managers.Inventory.Add(item);
             }
-            else
+            else   //소비아이템이 아니면
                 Managers.Inventory.Add(item);
         }
 
