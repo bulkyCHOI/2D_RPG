@@ -35,11 +35,6 @@ namespace Server.Game
         //누군가가 주기적으로 호출해줘야 한다.
         public void Update()
         {
-            foreach(Monster monster in _monsters.Values)
-            {
-                monster.Update();
-            }
-            
             Flush();
         }
 
@@ -87,6 +82,8 @@ namespace Server.Game
                 monster.Room = this;
 
                 Map.ApplyMove(monster, new Vector2Int(monster.CellPos.x, monster.CellPos.y)); //초기 위치로 이동
+
+                monster.Update();   //job 방식으로 변경 //몬스터에 대한 update를 1회 호출하고 그 후에는 재귀적으로 호출한다.
             }
             else if (type == GameObjectType.Projectile)
             {
@@ -94,7 +91,7 @@ namespace Server.Game
                 _projectiles.Add(gameObject.Id, projectile);
                 projectile.Room = this;
 
-                projectile.Update();    //job 방식으로 변경
+                projectile.Update();    //job 방식으로 변경 //투사체에 대한 update를 1회 호출하고 그 후에는 재귀적으로 호출한다.
             }
 
             // 다른 플레이어들에게 정보 전송
