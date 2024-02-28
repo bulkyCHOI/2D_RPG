@@ -87,8 +87,8 @@ namespace Server.Game
             if (item == null)
                 return;
 
-            if (item.ItemType == ItemType.Consumable)
-                return;
+            //if (item.ItemType == ItemType.Consumable)
+            //    return;
 
             //착용 요청이라면, 겹치는 부위 해제
             if (equipPacket.Equipped)

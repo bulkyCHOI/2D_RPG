@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 4320681248273823856}
   - component: {fileID: 5304817566093182594}
   m_Layer: 0
-  m_Name: ItemIcon
+  m_Name: ActionSlot1Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -262,7 +262,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.5882353}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -327,7 +327,7 @@ GameObject:
   - component: {fileID: 2243341311253450514}
   - component: {fileID: 1487450904033276774}
   m_Layer: 0
-  m_Name: ItemCountText
+  m_Name: ActionSlot2Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -528,7 +528,7 @@ GameObject:
   - component: {fileID: 3343665337715505122}
   - component: {fileID: 5525850331342639519}
   m_Layer: 0
-  m_Name: ItemIcon
+  m_Name: ActionSlot3Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -979,7 +979,7 @@ GameObject:
   - component: {fileID: 9106554482307843926}
   - component: {fileID: 5581239798143264621}
   m_Layer: 0
-  m_Name: ItemIcon
+  m_Name: ActionSlot4Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1055,7 +1055,7 @@ GameObject:
   - component: {fileID: 2045606889092439929}
   - component: {fileID: 6889693493064037035}
   m_Layer: 0
-  m_Name: ItemIcon
+  m_Name: ActionSlot2Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1131,7 +1131,7 @@ GameObject:
   - component: {fileID: 8453765617497756463}
   - component: {fileID: 3536289493524686264}
   m_Layer: 0
-  m_Name: ItemCountText
+  m_Name: ActionSlot1Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1210,7 +1210,7 @@ GameObject:
   - component: {fileID: 8780782511550013271}
   - component: {fileID: 9045478002632744930}
   m_Layer: 0
-  m_Name: ItemCountText
+  m_Name: ActionSlot4Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1336,7 +1336,7 @@ GameObject:
   - component: {fileID: 1447194540953717597}
   - component: {fileID: 3146884251253083019}
   m_Layer: 0
-  m_Name: ItemCountText
+  m_Name: ActionSlot3Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

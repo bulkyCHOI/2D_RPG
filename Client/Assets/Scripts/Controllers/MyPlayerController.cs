@@ -15,6 +15,7 @@ public class MyPlayerController : PlayerController
     {
         base.Init();
         RefreshAdditionalStat();
+
     }
     protected override void UpdateController()
     {

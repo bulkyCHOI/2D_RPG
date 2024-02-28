@@ -30,13 +30,14 @@ public class UI_Inventory_Item : UI_Base
             if(itemData == null)
                 return;
             //TODO: 아이템 사용 >> C_USE_ITEM
-            if(itemData.itemType == ItemType.Consumable)
-                return;
+            //if(itemData.itemType == ItemType.Consumable)
+            //    return;
 
             C_EquipItem equipPacket = new C_EquipItem();
             equipPacket.ItemDbId = ItemDbId;
             equipPacket.Equipped = !Equipped;
             Managers.Network.Send(equipPacket);
+
         });
     }
 

@@ -248,3 +248,12 @@ message S_ChangeStat
 	StatInfo statInfo = 1;
 }
 
+message C_UseItem
+{
+	int32 itemDbId = 1;
+}
+
+message S_UseItem
+{
+	int32 itemDbId = 1;
+}
