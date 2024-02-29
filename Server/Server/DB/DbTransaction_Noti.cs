@@ -41,6 +41,32 @@ namespace Server.DB
                 }
             });
         }
+
+        public static void UseItemNoti(Player player, Item item)
+        {
+            if (player == null || item == null)
+                return;
+
+            //You
+            Instance.Push(() =>
+            {
+                using (AppDbContext db = new AppDbContext())
+                {
+                    ItemDb updateItemDB = db.Items.FirstOrDefault(i => i.ItemDbId == item.Info.ItemDbId);
+
+                    updateItemDB.Count --;
+                    if(updateItemDB.Count <= 0)
+                        db.Items.Remove(updateItemDB);
+
+                    bool success = db.SaveChangesEx();
+                    if (success)
+                    {
+                        //Me는 미처리
+                        //실패하면 Kick
+                    }
+                }
+            });
+        }
     }
 }
 

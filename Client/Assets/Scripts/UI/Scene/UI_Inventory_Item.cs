@@ -74,4 +74,11 @@ public class UI_Inventory_Item : UI_Base
                 _text.text = "";
         }
     }
+
+    public void RemoveItem()
+    {
+        _icon.gameObject.SetActive(false);
+        _frame.gameObject.SetActive(false);
+        _text.text = "";
+    }
 }

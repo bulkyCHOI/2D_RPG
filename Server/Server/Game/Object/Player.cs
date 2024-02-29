@@ -164,5 +164,46 @@ namespace Server.Game
                 }
             }
         }
+
+        public void HandleUseItem(C_UseItem usePacket)
+        {
+            Item item = Inventory.GetItem(usePacket.ItemDbId);
+            if (item == null)
+                return;
+
+            if (item.ItemType == ItemType.Consumable && item.Count > 0)
+            {
+                Consumable consumable = (Consumable)item;
+                if (consumable.ConsumableType == ConsumableType.HpPortion)
+                {
+                    //메모리 선 적용 
+                    OnHealed(this, (int)(Stat.MaxHp * 0.2f));
+                    item.Count -= 1;
+                    Inventory.EditItemCount(item);
+                }
+                else if (consumable.ConsumableType == ConsumableType.MpPortion)
+                {
+                    //메모리 선 적용
+                    OnGenMana(this, (int)(Stat.MaxMp * 0.2f));
+                    item.Count -= 1;
+                    Inventory.EditItemCount(item);
+                }
+
+                if(item.Count <= 0)
+                    Inventory.Items.Remove(usePacket.ItemDbId);
+
+                //TODO UIrefresh
+
+                //DB에 적용
+                DbTransaction.UseItemNoti(this, item);
+
+                //클라에게 전송
+                S_UseItem useItem = new S_UseItem();
+                useItem.ItemDbId = usePacket.ItemDbId;
+                Session.Send(useItem);
+            }
+
+            RefreshAdditionalStat();
+        }
     }
 }

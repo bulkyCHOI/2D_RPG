@@ -96,4 +96,20 @@ class PacketHandler
         //room.HandleSkill(player, skillPacket);
         room.Push(room.HandleEquipItem, player, equipPacket); //Job 방식으로 변경
     }
+
+    public static void C_UseItemHandler(PacketSession session, IMessage packet)
+    {
+        C_UseItem useItemPacket = (C_UseItem)packet;
+        ClientSession clientSession = (ClientSession)session;
+
+        Player player = clientSession.MyPlayer;
+        if (player == null)
+            return;
+        GameRoom room = player.Room;
+        if (room == null)
+            return;
+
+        room.HandleUseItem(player, useItemPacket);
+        //room.Push(room.HandleEquipItem, player, equipPacket); //Job 방식으로 변경
+    }
 }

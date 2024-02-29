@@ -81,7 +81,7 @@ public class MyPlayerController : PlayerController
             UI_GameScene gameSceneUI = Managers.UI.SceneUI as UI_GameScene;
             UI_Inventory invenUI = gameSceneUI.InvenUI;
 
-            if(invenUI.gameObject.activeSelf == false)
+            if (invenUI.gameObject.activeSelf == false)
             {
                 invenUI.gameObject.SetActive(true);
                 invenUI.RefreshUI();
@@ -106,8 +106,35 @@ public class MyPlayerController : PlayerController
                 statUI.gameObject.SetActive(false);
             }
         }
+        else if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            UI_GameScene gameSceneUI = Managers.UI.SceneUI as UI_GameScene;
+            UI_Action actionUI = gameSceneUI.ActionUI;
+            if (actionUI.item1 != null)
+                actionUI.SlotClick(actionUI.item1);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            UI_GameScene gameSceneUI = Managers.UI.SceneUI as UI_GameScene;
+            UI_Action actionUI = gameSceneUI.ActionUI;
+            if (actionUI.item2 != null)
+                actionUI.SlotClick(actionUI.item2);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            UI_GameScene gameSceneUI = Managers.UI.SceneUI as UI_GameScene;
+            UI_Action actionUI = gameSceneUI.ActionUI;
+            if (actionUI.item3 != null)
+                actionUI.SlotClick(actionUI.item3);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            UI_GameScene gameSceneUI = Managers.UI.SceneUI as UI_GameScene;
+            UI_Action actionUI = gameSceneUI.ActionUI;
+            if (actionUI.item4 != null)
+                actionUI.SlotClick(actionUI.item4);
+        }
     }
-
     // 키보드 입력
     void GetDirInput()
     {

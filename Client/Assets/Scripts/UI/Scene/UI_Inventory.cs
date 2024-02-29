@@ -30,6 +30,11 @@ public class UI_Inventory : UI_Base
         List<Item> items = Managers.Inventory.Items.Values.ToList();    //InventoryManager의 Items를 List로 변환
         items.Sort((left, right) => { return left.Slot - right.Slot; }); //sorting
 
+        for (int i = 0; i < 30; i++)
+        {
+            Items[i].SetItem(null);
+            //Items[i].RemoveItem();
+        }
         foreach(Item item in items)
         {
             if (item.Slot < 0 || 30 <= item.Slot)
@@ -37,5 +42,8 @@ public class UI_Inventory : UI_Base
 
             Items[item.Slot].SetItem(item);  
         }
+
+        //구조를 바꿔 아이템 리스트로 하는게 아니고 슬롯단위로 없으면 비활성화 시키는 RemoveItem()써야한다.
+
     }
 }

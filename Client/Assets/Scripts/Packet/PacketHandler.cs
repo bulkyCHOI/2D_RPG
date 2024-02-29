@@ -189,7 +189,6 @@ class PacketHandler
     {
         S_AddItem addItem = (S_AddItem)packet;// as S_AddItem 100% S_AddItem이므로 강제 캐스팅: 성능이 더 좋음
 
-
         foreach (ItemInfo iteminfo in addItem.Items)
         {
             Item item = Item.MakeItem(iteminfo);
@@ -199,7 +198,8 @@ class PacketHandler
                 Item existItem = Managers.Inventory.Get(item.Info.ItemDbId);
                 if (existItem != null)  //인벤토리에 있으면
                 {
-                    Managers.Inventory.AddItemCount(item);
+                    //item.Count += existItem.Count;    //더해줄 필요가 없다 packe에서 이미 최종 갯수로 박혀서 온다.
+                    Managers.Inventory.EditItemCount(item); 
                     continue;
                 }
                 else    //인벤토리에 없으면
@@ -207,9 +207,9 @@ class PacketHandler
             }
             else   //소비아이템이 아니면
                 Managers.Inventory.Add(item);
+            Debug.Log($"{item.itemDbId} 아이템을 획득했습니다.");
         }
 
-        Debug.Log("아이템을 획득했습니다.");
 
         UI_GameScene gameSceneUI = Managers.UI.SceneUI as UI_GameScene;
         gameSceneUI.InvenUI.RefreshUI();
@@ -246,5 +246,27 @@ class PacketHandler
         S_ChangeStat addItem = (S_ChangeStat)packet;
 
         //TODO: 스탯 변경 처리
+    }
+
+    public static void S_UseItemHandler(PacketSession session, IMessage packet)
+    {
+        S_UseItem useItem = (S_UseItem)packet;
+
+        Item item = Managers.Inventory.Get(useItem.ItemDbId);
+        if (item == null)
+            return;
+
+        item.Count -= 1;
+        Managers.Inventory.EditItemCount(item);
+
+        if (item.Count <= 0)
+        {
+            Managers.Inventory.Remove(item);
+        }
+
+        UI_GameScene gameSceneUI = Managers.UI.SceneUI as UI_GameScene;
+        gameSceneUI.InvenUI.RefreshUI();
+        gameSceneUI.ActionUI.RefreshUI();
+        
     }
 }

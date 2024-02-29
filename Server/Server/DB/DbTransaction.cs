@@ -124,14 +124,14 @@ namespace Server.DB
                                     //Item newItem = Item.MakeItem(itemDb);
                                     //player.Inventory.AddItem(newItem);
                                     Item updateItem = Item.MakeItem(updateItemDB);
-                                    player.Inventory.AddItemCount(updateItem);
+                                    player.Inventory.EditItemCount(updateItem);
 
                                     //클라이언트에게 획득한 아이템을 알린다.
                                     {
                                         S_AddItem itemPacket = new S_AddItem();
                                         ItemInfo itemInfo = new ItemInfo();
                                         itemInfo.MergeFrom(updateItem.Info);
-                                        itemInfo.Count = rewardData.itemCount; //획득한 아이템 개수만큼 설정
+                                        //itemInfo.Count += 1; //이미 더했다.
                                         itemPacket.Items.Add(itemInfo);
 
                                         player.Session.Send(itemPacket);

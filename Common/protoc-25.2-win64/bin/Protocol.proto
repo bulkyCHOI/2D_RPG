@@ -29,6 +29,8 @@ enum MsgId {
 	C_EQUIP_ITEM = 18;
 	S_EQUIP_ITEM = 19;
 	S_CHANGE_STAT = 20;
+	C_USE_ITEM = 21;
+	S_USE_ITEM = 22;
 }
 
 enum CreatureState{

@@ -34,9 +34,14 @@ public class InventoryManager : MonoBehaviour
         Items.Clear();
     }
 
-    public void AddItemCount(Item item)
+    public void EditItemCount(Item item)
     {
         //items에서 item.id로 찾아서 count를 변경해준다.
-        Items[item.itemDbId].Count += item.Count;
+        Items[item.itemDbId].Count = item.Count;
+    }
+
+    public void Remove(Item item)
+    {
+        Items.Remove(item.itemDbId);
     }
 }

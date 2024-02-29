@@ -132,6 +132,33 @@ namespace Server.Game
             }
         }
 
+        public virtual void OnHealed(GameObject attacker, int heal)
+        {
+            if (Room == null)
+                return;
+
+            Stat.Hp = Math.Min(Stat.MaxHp, Stat.Hp + heal);
+
+            S_ChangeHp changeHpPacket = new S_ChangeHp();
+            changeHpPacket.ObjectId = Id;
+            changeHpPacket.Hp = Stat.Hp;
+            Room.Broadcast(changeHpPacket);
+        }
+
+        public virtual void OnGenMana(GameObject attacker, int recoveryMana)
+        {
+            if (Room == null)
+                return;
+
+            Stat.Mp = Math.Min(Stat.MaxMp, Stat.Mp + recoveryMana);
+
+            //TODO changeMpPacket 만들어야함
+            //S_ChangeHp changeHpPacket = new S_ChangeHp();
+            //changeHpPacket.ObjectId = Id;
+            //changeHpPacket.Hp = Stat.Hp;
+            //Room.Broadcast(changeHpPacket);
+        }
+
         public virtual void OnDead(GameObject attacker)
         {
             if(Room == null)
