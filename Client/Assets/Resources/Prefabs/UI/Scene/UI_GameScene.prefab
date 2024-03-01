@@ -179,7 +179,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1481644210690632866, guid: 6e8e0eb8582b68346abf7f5db20511ca, type: 3}
       propertyPath: m_Color.a
-      value: 0.5882353
+      value: 0.78431374
       objectReference: {fileID: 0}
     - target: {fileID: 2212149683414512050, guid: 6e8e0eb8582b68346abf7f5db20511ca, type: 3}
       propertyPath: m_FontData.m_Alignment
@@ -939,7 +939,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7096400216404117009, guid: b6c924269ef25984bbf20d80d8aa0297, type: 3}
       propertyPath: m_Color.a
-      value: 0.5882353
+      value: 0.78431374
       objectReference: {fileID: 0}
     - target: {fileID: 8302514284067858806, guid: b6c924269ef25984bbf20d80d8aa0297, type: 3}
       propertyPath: m_AnchorMax.x
