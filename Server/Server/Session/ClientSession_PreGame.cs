@@ -141,8 +141,12 @@ namespace Server
 
             ServerState = PlayerServerState.ServerStateGame;
 
-            GameRoom room = RoomManager.Instance.Find(1);
-            room.Push(room.EnterGame, MyPlayer);	// 방에 플레이어 입장	//Job 방식으로 변경
+            GameLogic.Instance.Push(() =>
+            { 
+                GameRoom room = GameLogic.Instance.Find(1);
+                room.Push(room.EnterGame, MyPlayer);	// 방에 플레이어 입장	//Job 방식으로 변경
+            });	
+
         }
 
         public void HandleCreatePlayer(C_CreatePlayer createPacket)

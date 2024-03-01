@@ -20,7 +20,11 @@ namespace Server
 		public Player MyPlayer { get; set; }	// 플레이어 정보
 		public int SessionId { get; set; }
 
+		object _lock = new object();	// lock을 위한 오브젝트
+		List<ArraySegment<byte>> _reserveQueue = new List<ArraySegment<byte>>();	// 패킷을 보내기 위한 큐
+
         #region Network
+		//큐에 예약만 해두고
         public void Send(IMessage packet)	// 프로토콜을 받아서 보내는 함수
 		{
 			string msgName = packet.Descriptor.Name.Replace("_", string.Empty);
@@ -31,9 +35,30 @@ namespace Server
             Array.Copy(BitConverter.GetBytes((ushort)msgId), 0, sendBuffer, 2, sizeof(ushort));
             Array.Copy(packet.ToByteArray(), 0, sendBuffer, 4, size);
 
-            Send(new ArraySegment<byte>(sendBuffer));
+			lock (_lock)
+			{
+				_reserveQueue.Add(sendBuffer);
+            }
+            //Send(new ArraySegment<byte>(sendBuffer));
         }
 
+		//큐에 예약된 패킷을 보냄
+		public void FlushSend()
+		{
+            List<ArraySegment<byte>> sendList = null;
+
+            lock (_lock)
+			{
+                if (_reserveQueue.Count == 0)
+                    return;
+
+                sendList = _reserveQueue;
+                _reserveQueue = new List<ArraySegment<byte>>();
+            }
+
+            Send(sendList);
+        }
+        
 		public override void OnConnected(EndPoint endPoint)
 		{
 			Console.WriteLine($"OnConnected : {endPoint}");
@@ -51,9 +76,12 @@ namespace Server
 
 		public override void OnDisconnected(EndPoint endPoint)
 		{
-			//RoomManager.Instance.Find(1).LeaveGame(MyPlayer.Info.ObjectId);	// 방에서 플레이어 퇴장
-			GameRoom room = RoomManager.Instance.Find(1);
-			room.Push(room.LeaveGame, MyPlayer.Info.ObjectId);	// 방에서 플레이어 퇴장	//Job 방식으로 변경
+            //RoomManager.Instance.Find(1).LeaveGame(MyPlayer.Info.ObjectId);	// 방에서 플레이어 퇴장
+            GameLogic.Instance.Push(() =>
+            {
+                GameRoom room = GameLogic.Instance.Find(1);
+				room.Push(room.LeaveGame, MyPlayer.Info.ObjectId);	// 방에서 플레이어 퇴장	//Job 방식으로 변경
+            });
             SessionManager.Instance.Remove(this);
 			Console.WriteLine($"OnDisconnected : {endPoint}");
 		}

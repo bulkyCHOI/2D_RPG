@@ -6,12 +6,21 @@ using System.Threading.Tasks;
 
 namespace Server.Game
 {
-    public class RoomManager
+    public class GameLogic : JobSerializer
     {
-        public static RoomManager Instance { get; } = new RoomManager();
-        object _lock = new object();
+        public static GameLogic Instance { get; } = new GameLogic();
         Dictionary<int, GameRoom> _rooms = new Dictionary<int, GameRoom>();
         int _roomId = 1;
+
+        public void Update()
+        {
+            Flush();
+
+            foreach (GameRoom room in _rooms.Values)
+            {
+                room.Update();
+            }
+        }
 
         public GameRoom Add(int mapId)
         {
@@ -19,33 +28,25 @@ namespace Server.Game
             //room.Init(mapId); //기존의 lock 방식
             room.Push(room.Init, mapId);    //Job 방식으로 push
 
-            lock (_lock)
-            {
-                room.RoomId = _roomId++;
-                _rooms.Add(room.RoomId, room);
-            }
+            room.RoomId = _roomId;
+            _rooms.Add(room.RoomId, room);
+            _roomId++;
 
             return room;
         }
 
         public bool Remove(int roomId)
         {
-            lock (_lock)
-            {
-                return _rooms.Remove(roomId);
-            }
+           return _rooms.Remove(roomId);
         }
 
         public GameRoom Find(int roomId)
         {
-            lock (_lock)
-            {
-                GameRoom room = null;
+            GameRoom room = null;
 
-                if (_rooms.TryGetValue(roomId, out room))
-                    return room;
-                return null;
-            }
+            if (_rooms.TryGetValue(roomId, out room))
+                return room;
+            return null;
         }
     }
 }

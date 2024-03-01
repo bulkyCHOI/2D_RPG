@@ -16,21 +16,49 @@ using ServerCore;
 
 namespace Server
 {
+	// 1. GameRoom 방식의 간당한 동기화 >> 완료
+	// 2. 더 넓은 영역 관리
+	// 3. 심리스 MMO
+
+	// 현재 쓰레드 상황
+	// 1. Recv(N개)				서빙(주문받는)
+	// 2. GameLogic(1개)		요리사
+	// 3. NetworkSend(1개)		서빙(요리완료)
+	// 4. DB(1개)				결제/장부
+
     class Program
 	{
 		static Listener _listener = new Listener();
-		static List<System.Timers.Timer> _timers = new List<System.Timers.Timer>();
 
-		static void TickRoom(GameRoom room, int tick = 100)	//100ms마다 업데이트
+		static void GameLogicTask()
 		{
-			var timer = new System.Timers.Timer();
-			timer.Interval = tick;
-			timer.Elapsed += (s, e) => room.Update();
-			timer.AutoReset = true;
-			timer.Enabled = true;
+            while (true)
+            {
+                GameLogic.Instance.Update();
+                Thread.Sleep(0);
+            }
+        }
 
-			_timers.Add(timer); //나중에 타이머 종료를 위해 리스트에 추가
-			//timer.Stop(); //종료하고 싶으면 호출
+		static void DbTask()
+		{
+            while (true)
+			{
+                DbTransaction.Instance.Flush();
+                Thread.Sleep(0);
+            }
+        }
+
+		static void NetworkTask()
+		{
+            while (true)
+			{
+				List<ClientSession> sessions = SessionManager.Instance.GetSessions();
+				foreach (ClientSession s in sessions)
+				{
+					s.FlushSend();
+				}
+                Thread.Sleep(0);
+            }
         }
 
 		static void Main(string[] args)
@@ -38,54 +66,11 @@ namespace Server
 			ConfigManager.LoadConfig();
 			DataManager.LoadData();
 
-			//TEST CODE
-			//using(AppDbContext db = new AppDbContext())
-			//{
-   //             PlayerDb playerDb = db.Players.FirstOrDefault();
-			//	if (playerDb != null)
-			//	{
-			//		db.Items.Add(new ItemDb()
-			//		{
-   //                     TemplateId = 1,
-   //                     Count = 1,
-			//			Slot = 0,
-   //                     Owner = playerDb,
-   //                 });
-   //                 db.Items.Add(new ItemDb()
-   //                 {
-   //                     TemplateId = 100,
-   //                     Count = 1,
-   //                     Slot = 1,
-   //                     Owner = playerDb,
-   //                 });
-   //                 db.Items.Add(new ItemDb()
-   //                 {
-   //                     TemplateId = 101,
-   //                     Count = 1,
-   //                     Slot = 2,
-   //                     Owner = playerDb,
-   //                 });
-   //                 db.Items.Add(new ItemDb()
-   //                 {
-   //                     TemplateId = 200,
-   //                     Count = 1,
-   //                     Slot = 5,
-   //                     Owner = playerDb,
-   //                 });
-   //                 db.Items.Add(new ItemDb()
-   //                 {
-   //                     TemplateId = 202,
-   //                     Count = 1,
-   //                     Slot = 6,
-   //                     Owner = playerDb,
-   //                 });
 
-   //                 db.SaveChanges();
-   //             }
-   //         }
-
-			GameRoom room = RoomManager.Instance.Add(1);
-			TickRoom(room, 50);	//50ms마다 업데이트
+            GameLogic.Instance.Push(() =>	//아직 main thread에서 실행중이므로 안해도 되지만 push로 실행
+            {
+				GameRoom room = GameLogic.Instance.Add(1);
+            });
 
 			// DNS (Domain Name System)
 			string host = Dns.GetHostName();
@@ -96,14 +81,21 @@ namespace Server
 			_listener.Init(endPoint, () => { return SessionManager.Instance.Generate(); });
 			Console.WriteLine("Listening...");
 
-			//FlushRoom();
-			//JobTimer.Instance.Push(FlushRoom);
-
-			//종료되지 않게끔 대기
-			while (true)
+			// GameLogicTask
 			{
-				DbTransaction.Instance.Flush();
+				Task gameLogicTask = new Task(GameLogicTask, TaskCreationOptions.LongRunning);	// TaskCreationOptions.LongRunning : 즉시 실행 가능한 Task를 생성
+				gameLogicTask.Start();
 			}
-		}
+
+            // NetworkTask
+            {
+				Task networkTask = new Task(NetworkTask, TaskCreationOptions.LongRunning);
+                networkTask.Start();
+            }
+
+			//DbTask
+			DbTask();	//마지막 이어야 한다.
+
+        }
 	}
 }
