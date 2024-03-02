@@ -157,6 +157,21 @@ namespace Server.Game
                 int y = MaxY - dest.y;
                 _objects[y, x] = gameobject;
             }
+
+            Player p = gameobject as Player;
+            if (p != null)
+            {
+                Zone now = gameobject.Room.GetZone(gameobject.CellPos);
+                Zone next = gameobject.Room.GetZone(dest);
+                if (now != next)
+                {
+                    if (now != null)
+                        now.Players.Remove(p);
+                    if (next != null)
+                        next.Players.Add(p);
+                }
+            }
+
             //실제 좌표 이동
             posInfo.PosX = dest.x;
             posInfo.PosY = dest.y;

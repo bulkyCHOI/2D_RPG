@@ -123,7 +123,7 @@ namespace Server.Game
             S_ChangeHp changeHpPacket = new S_ChangeHp();
             changeHpPacket.ObjectId = Id;
             changeHpPacket.Hp = Stat.Hp;
-            Room.Broadcast(changeHpPacket);
+            Room.Broadcast(CellPos, changeHpPacket);
 
             if(Stat.Hp <= 0)
             {
@@ -142,7 +142,7 @@ namespace Server.Game
             S_ChangeHp changeHpPacket = new S_ChangeHp();
             changeHpPacket.ObjectId = Id;
             changeHpPacket.Hp = Stat.Hp;
-            Room.Broadcast(changeHpPacket);
+            Room.Broadcast(CellPos, changeHpPacket);
         }
 
         public virtual void OnGenMana(GameObject attacker, int recoveryMana)
@@ -167,7 +167,7 @@ namespace Server.Game
             S_Die diePacket = new S_Die();
             diePacket.ObjectId = Id;
             diePacket.AttackerId = attacker.Id;
-            Room.Broadcast(diePacket);
+            Room.Broadcast(CellPos, diePacket);
 
             GameRoom room = Room;   //Room에서 나가기 전에 Room을 저장해놓는다.
             room.LeaveGame(Id); //push로 하지 않아도 된다. 이 함수는 바로 처리된다.

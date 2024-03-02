@@ -18,11 +18,43 @@ namespace Server.Game
         Dictionary<int, Monster> _monsters = new Dictionary<int, Monster>();
         Dictionary<int, Projectile> _projectiles = new Dictionary<int, Projectile>();
 
+        public Zone[,] Zones { get; private set; }
+        public int ZoneCells { get; private set; }
+
         public Map Map { get; private set; } = new Map();
         
-        public void Init(int mapId)
+        public Zone GetZone(Vector2Int cellPos)
+        {
+            int x = (cellPos.x - Map.MinX) / ZoneCells;
+            int y = (cellPos.y - Map.MinY) / ZoneCells;
+
+            if(x < 0 
+                || x >= Zones.GetLength(1) 
+                || y < 0 
+                || y >= Zones.GetLength(0))
+            {
+                return null;
+            }
+
+            return Zones[y, x];
+        }
+
+        public void Init(int mapId, int zoneCells)
         {
             Map.LoadMap(mapId);
+
+            //Zone
+            ZoneCells = zoneCells;
+            int countY = (Map.SizeY - 1) / ZoneCells + 1;
+            int countX = (Map.SizeX - 1) / ZoneCells + 1;
+            Zones = new Zone[countY, countX];
+            for (int y = 0; y < countY; y++)
+            {
+                for (int x = 0; x < countX; x++)
+                {
+                    Zones[y, x] = new Zone(y, x);
+                }
+            }
 
             //몬스터 생성
             Monster monster = ObjectManager.Instance.Add<Monster>();
@@ -54,6 +86,7 @@ namespace Server.Game
                 player.RefreshAdditionalStat();
 
                 Map.ApplyMove(player, new Vector2Int(player.CellPos.x, player.CellPos.y)); //초기 위치로 이동
+                GetZone(player.CellPos).Players.Add(player);    //zone에 추가
 
                 // 본인한테 정보 전송
                 { 
@@ -115,6 +148,8 @@ namespace Server.Game
                 Player player = null;
                 if (_players.Remove(objectId, out player) == false)
                     return;
+
+                GetZone(player.CellPos).Players.Remove(player);    //zone에서 제거
                 
                 player.OnLeaveGame();
                 Map.ApplyLeave(player); 
@@ -167,12 +202,40 @@ namespace Server.Game
             return null;
         }
 
-        public void Broadcast(IMessage packet)
+        public void Broadcast(Vector2Int pos, IMessage packet)
         {
-            foreach (Player p in _players.Values)
+            List<Zone> zones = GetAdjacentZone(pos);
+            //foreach (Zone zone in zones)
+            //{
+            //    foreach (Player p in zone.Players)
+            //    {
+            //        p.Session.Send(packet);
+            //    }
+            //}
+            // 이중 foreach문을 LINQ로 변경
+            foreach(Player p in zones.SelectMany(z => z.Players))
             {
                 p.Session.Send(packet);
             }
+        }
+
+        public List<Zone> GetAdjacentZone(Vector2Int cellPos, int cells = 5)
+        {
+            HashSet<Zone> zones = new HashSet<Zone>();
+
+            int[] delta = new int[2] {-cells, +cells};
+            foreach (int dy in delta)
+            {
+                foreach (int dx in delta)
+                {
+                    int y = cellPos.y + dy;
+                    int x = cellPos.x + dx;
+                    Zone zone = GetZone(new Vector2Int(x, y));
+                    if (zone != null)
+                        zones.Add(zone);
+                }
+            }
+            return zones.ToList();
         }
     }
 }
