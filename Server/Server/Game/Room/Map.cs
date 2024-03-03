@@ -158,17 +158,38 @@ namespace Server.Game
                 _objects[y, x] = gameobject;
             }
 
-            Player p = gameobject as Player;
-            if (p != null)
+            GameObjectType type = ObjectManager.GetObjectTypeById(gameobject.Id);
+            if (type == GameObjectType.Player)
             {
+                Player p = (Player)gameobject;
                 Zone now = gameobject.Room.GetZone(gameobject.CellPos);
                 Zone next = gameobject.Room.GetZone(dest);
                 if (now != next)
                 {
-                    if (now != null)
-                        now.Players.Remove(p);
-                    if (next != null)
-                        next.Players.Add(p);
+                    now.Players.Remove(p);
+                    next.Players.Add(p);
+                }
+            }
+            else if (type == GameObjectType.Monster)
+            {
+                Monster m = (Monster)gameobject;
+                Zone now = gameobject.Room.GetZone(gameobject.CellPos);
+                Zone next = gameobject.Room.GetZone(dest);
+                if (now != next)
+                {
+                    now.Monsters.Remove(m);
+                    next.Monsters.Add(m);
+                }
+            }
+            else if (type == GameObjectType.Projectile)
+            {
+                Projectile p = (Projectile)gameobject;
+                Zone now = gameobject.Room.GetZone(gameobject.CellPos);
+                Zone next = gameobject.Room.GetZone(dest);
+                if (now != next)
+                {
+                    now.Projectiles.Remove(p);
+                    next.Projectiles.Add(p);
                 }
             }
 

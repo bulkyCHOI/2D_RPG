@@ -1,17 +1,20 @@
 ﻿using Google.Protobuf;
 using Google.Protobuf.Protocol;
 using Server.Data;
+using Server.DB;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Server.Game
 {
     public partial class GameRoom : JobSerializer
     {
+        public const int VisionCells = 5;
         public int RoomId { get; set; }
 
         Dictionary<int, Player> _players = new Dictionary<int, Player>();
@@ -94,18 +97,7 @@ namespace Server.Game
                     enterPacket.Player = player.Info;
                     player.Session.Send(enterPacket);
 
-                    // 본인한테 다른 플레이어 정보 전송
-                    S_Spawn spawnPacket = new S_Spawn();
-                    foreach (Player p in _players.Values)
-                    {
-                        if(p != player)  //위에서 한번 전송했으니까
-                            spawnPacket.Objects.Add(p.Info);
-                    }
-                    foreach (Monster m in _monsters.Values)
-                        spawnPacket.Objects.Add(m.Info);
-                    foreach (Projectile p in _projectiles.Values)
-                        spawnPacket.Objects.Add(p.Info);
-                    player.Session.Send(spawnPacket);
+                    player.Vision.Update();
                 }
             }
             else if (type == GameObjectType.Monster)
@@ -114,6 +106,7 @@ namespace Server.Game
                 _monsters.Add(gameObject.Id, monster);
                 monster.Room = this;
 
+                GetZone(monster.CellPos).Monsters.Add(monster);    //zone에 추가
                 Map.ApplyMove(monster, new Vector2Int(monster.CellPos.x, monster.CellPos.y)); //초기 위치로 이동
 
                 monster.Update();   //job 방식으로 변경 //몬스터에 대한 update를 1회 호출하고 그 후에는 재귀적으로 호출한다.
@@ -124,18 +117,8 @@ namespace Server.Game
                 _projectiles.Add(gameObject.Id, projectile);
                 projectile.Room = this;
 
+                GetZone(projectile.CellPos).Projectiles.Add(projectile);    //zone에 추가
                 projectile.Update();    //job 방식으로 변경 //투사체에 대한 update를 1회 호출하고 그 후에는 재귀적으로 호출한다.
-            }
-
-            // 다른 플레이어들에게 정보 전송
-            { 
-                S_Spawn spawnPacket = new S_Spawn();
-                spawnPacket.Objects.Add(gameObject.Info);
-                foreach (Player p in _players.Values)  
-                {
-                    if (p.Id != gameObject.Id) // 본인한테는 이미 전송했으니까
-                        p.Session.Send(spawnPacket);
-                }
             }
         }   
 
@@ -166,6 +149,8 @@ namespace Server.Game
                 Monster monster = null;
                 if (_monsters.Remove(objectId, out monster) == false)
                     return;
+
+                GetZone(monster.CellPos).Monsters.Remove(monster);    //zone에서 제거
                 Map.ApplyLeave(monster);
                 monster.Room = null;
             }
@@ -174,18 +159,9 @@ namespace Server.Game
                 Projectile projectile = null;
                 if (_projectiles.Remove(objectId, out projectile) == false)
                     return;
-                projectile.Room = null;
-            }
                 
-            // 다른 플레이어들에게 정보 전송
-            {
-                S_Despawn despawnPacket = new S_Despawn();
-                despawnPacket.ObjectIds.Add(objectId);
-                foreach (Player p in _players.Values)
-                {
-                    if(p.Id != objectId) // 본인한테는 이미 전송했으니까
-                        p.Session.Send(despawnPacket);
-                }
+                GetZone(projectile.CellPos).Projectiles.Remove(projectile);    //zone에서 제거
+                projectile.Room = null;
             }
         }
 
@@ -204,7 +180,7 @@ namespace Server.Game
 
         public void Broadcast(Vector2Int pos, IMessage packet)
         {
-            List<Zone> zones = GetAdjacentZone(pos);
+            List<Zone> zones = GetAdjacentZones(pos);
             //foreach (Zone zone in zones)
             //{
             //    foreach (Player p in zone.Players)
@@ -215,11 +191,17 @@ namespace Server.Game
             // 이중 foreach문을 LINQ로 변경
             foreach(Player p in zones.SelectMany(z => z.Players))
             {
+                //zoned에 있는 모든 플레이어가 아닌 VisionCells안에 잇는 플레이어에게만 전송
+                int dx = p.CellPos.x - pos.x;
+                int dy = p.CellPos.y - pos.y;
+                if (Math.Abs(dx) > VisionCells || Math.Abs(dy) > VisionCells)
+                    continue;
+
                 p.Session.Send(packet);
             }
         }
 
-        public List<Zone> GetAdjacentZone(Vector2Int cellPos, int cells = 5)
+        public List<Zone> GetAdjacentZones(Vector2Int cellPos, int cells = GameRoom.VisionCells)
         {
             HashSet<Zone> zones = new HashSet<Zone>();
 
