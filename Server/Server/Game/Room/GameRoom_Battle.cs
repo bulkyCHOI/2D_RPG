@@ -88,7 +88,7 @@ namespace Server.Game
                         arrow.PosInfo.PosY = playerInfo.PosInfo.PosY;
                         arrow.Speed = skillData.projectile.speed;
                         //EnterGame(arrow);//job 방식으로 변경
-                        Push(EnterGame, arrow);//job 방식으로 변경
+                        Push(EnterGame, arrow, false);//job 방식으로 변경 //randPos = false
                     }
                     else
                         return;

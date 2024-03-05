@@ -95,7 +95,7 @@ namespace Server.Game.Room
 
             PreviousObjects = currentObjects;
 
-            Owner.Room.PushAfter(500, Update);
+            Owner.Room.PushAfter(100, Update);
         }
     }
 }

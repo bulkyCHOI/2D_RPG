@@ -40,6 +40,7 @@ class PacketHandler
         foreach (int id in despawnPacket.ObjectIds)
         {
             Managers.Object.Remove(id);
+            Debug.Log($"S_DespawnHandler: {id}");
         }
     }
 

@@ -144,7 +144,7 @@ namespace Server
             GameLogic.Instance.Push(() =>
             { 
                 GameRoom room = GameLogic.Instance.Find(1);
-                room.Push(room.EnterGame, MyPlayer);	// 방에 플레이어 입장	//Job 방식으로 변경
+                room.Push(room.EnterGame, MyPlayer, true);	// 방에 플레이어 입장	//Job 방식으로 변경
             });	
 
         }

@@ -17,6 +17,9 @@ public class ObjectManager
 
 	public void Add(ObjectInfo info, bool myPlayer = false)
 	{
+		if(_objects.ContainsKey(info.ObjectId)) //이미 존재하는 오브젝트인지 확인
+            return;
+
 		GameObjectType type = GetObjectTypeById(info.ObjectId);
 		if (type == GameObjectType.Player)
 		{
@@ -70,12 +73,16 @@ public class ObjectManager
 
 	public void Remove(int id)
 	{
+        if (_objects.ContainsKey(id) == false)	//존재하지 않는 오브젝트인지 확인
+			return;
+
 		GameObject go = FindById(id);
 		if (go == null)
             return;
 
 		_objects.Remove(id);
 		Managers.Resource.Destroy(go);
+		Debug.Log($"remove {go.name}");
 	}
 
 	public GameObject FindById(int id)

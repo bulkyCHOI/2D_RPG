@@ -64,7 +64,7 @@ namespace Server.Game
             monster.Init(1);    //임시로 1번 몬스터 셋팅
             monster.CellPos = new Vector2Int(5, 5);
             //EnterGame(monster);   //job 방식으로 변경
-            Push(EnterGame, monster);   //job 방식으로 변경
+            Push(EnterGame, monster, true);   //job 방식으로 변경
         }
 
         //누군가가 주기적으로 호출해줘야 한다.
@@ -73,10 +73,26 @@ namespace Server.Game
             Flush();
         }
 
-        public void EnterGame(GameObject gameObject)
+        Random _rand = new Random();
+        public void EnterGame(GameObject gameObject, bool randPos)
         {
             if(gameObject == null)
                 return;
+
+            if(randPos) //랜덤한 위치에 생성
+            {
+                Vector2Int respawnPos;
+                while (true)
+                {
+                    respawnPos.x = _rand.Next(Map.MinX, Map.MaxX + 1);
+                    respawnPos.y = _rand.Next(Map.MinY, Map.MaxY + 1);
+                    if (Map.Find(respawnPos) == null)
+                    {
+                        gameObject.CellPos = respawnPos;
+                        break;
+                    }
+                }
+            }
 
             GameObjectType type = ObjectManager.GetObjectTypeById(gameObject.Id);
 
@@ -120,19 +136,26 @@ namespace Server.Game
                 GetZone(projectile.CellPos).Projectiles.Add(projectile);    //zone에 추가
                 projectile.Update();    //job 방식으로 변경 //투사체에 대한 update를 1회 호출하고 그 후에는 재귀적으로 호출한다.
             }
+            //타인한테 정보 전송
+            {
+                S_Spawn spawnPacket = new S_Spawn();
+                spawnPacket.Objects.Add(gameObject.Info);
+                Broadcast(gameObject.CellPos, spawnPacket);
+            }
         }   
 
         public void LeaveGame(int objectId)
         {
             GameObjectType type = ObjectManager.GetObjectTypeById(objectId);
 
+            Vector2Int cellPos;
             if (type == GameObjectType.Player)
             {
                 Player player = null;
                 if (_players.Remove(objectId, out player) == false)
                     return;
 
-                GetZone(player.CellPos).Players.Remove(player);    //zone에서 제거
+                cellPos = player.CellPos;
                 
                 player.OnLeaveGame();
                 Map.ApplyLeave(player); 
@@ -150,19 +173,32 @@ namespace Server.Game
                 if (_monsters.Remove(objectId, out monster) == false)
                     return;
 
-                GetZone(monster.CellPos).Monsters.Remove(monster);    //zone에서 제거
+                cellPos = monster.CellPos;
                 Map.ApplyLeave(monster);
                 monster.Room = null;
             }
-            else if (type == GameObjectType.Projectile)
+            else   if (type == GameObjectType.Projectile)
             {
                 Projectile projectile = null;
                 if (_projectiles.Remove(objectId, out projectile) == false)
                     return;
                 
-                GetZone(projectile.CellPos).Projectiles.Remove(projectile);    //zone에서 제거
+                cellPos = projectile.CellPos;
+                Map.ApplyLeave(projectile);
                 projectile.Room = null;
             }
+            else
+            {
+                return;
+            }
+            
+            //타인한테 정보 전송
+            {
+                S_Despawn despawnPacket = new S_Despawn();
+                despawnPacket.ObjectIds.Add(objectId);
+                Broadcast(cellPos, despawnPacket);
+            }
+
         }
 
         //Push를 사용하여 호출하지 않으면 멀티쓰레드에서 호출할 경우 문제가 발생할 수 있다.

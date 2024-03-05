@@ -125,11 +125,16 @@ namespace Server.Game
             if (gameobject.Room.Map != this)
                 return false;
 
-            PositionInfo posInfo = gameobject.Info.PosInfo;
+            PositionInfo posInfo = gameobject.PosInfo;
             if (posInfo.PosX < MinX || posInfo.PosX > MaxX)
                 return false;
             if (posInfo.PosY < MinY || posInfo.PosY > MaxY)
                 return false;
+
+            //zone처리
+            Zone zone = gameobject.Room.GetZone(gameobject.CellPos);
+            zone.Remove(gameobject);
+
             {
                 int x = posInfo.PosX - MinX;
                 int y = MaxY - posInfo.PosY;
@@ -140,22 +145,30 @@ namespace Server.Game
             return true;
         }
 
-        public bool ApplyMove(GameObject gameobject, Vector2Int dest)
+        public bool ApplyMove(GameObject gameobject, Vector2Int dest, bool checkObjects=true, bool collision=true)
         {
-            ApplyLeave(gameobject);
-
             if (gameobject == null)
                 return false;
             if (gameobject.Room.Map != this)
                 return false;
 
             PositionInfo posInfo = gameobject.Info.PosInfo;
-            if (CanGo(dest) == false)
+            if (CanGo(dest, checkObjects) == false)
                 return false;
+
+            if(collision)
             {
-                int x = dest.x - MinX;
-                int y = MaxY - dest.y;
-                _objects[y, x] = gameobject;
+                {   // 기존 좌표 제거
+                    int x = posInfo.PosX - MinX;
+                    int y = MaxY - posInfo.PosY;
+                    if (_objects[y, x] == gameobject)
+                        _objects[y, x] = null;
+                }
+                {   // 새로운 좌표에 추가
+                    int x = dest.x - MinX;
+                    int y = MaxY - dest.y;
+                    _objects[y, x] = gameobject;
+                }
             }
 
             GameObjectType type = ObjectManager.GetObjectTypeById(gameobject.Id);

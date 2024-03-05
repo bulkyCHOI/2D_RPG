@@ -21,10 +21,8 @@ namespace Server.Game
             Room.PushAfter(tick, Update);
 
             Vector2Int destPos = GetFrontCellPos();
-            if(Room.Map.CanGo(destPos)) // 이동 가능한가? 날아가기
+            if(Room.Map.ApplyMove(this, destPos, collision: false)) // 이동 가능한가? 날아가기
             {
-                CellPos = destPos;
-
                 S_Move movePacket = new S_Move();
                 movePacket.ObjectId = Id;
                 movePacket.PosInfo = PosInfo;
