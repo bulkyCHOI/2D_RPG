@@ -116,7 +116,10 @@ class PacketHandler
     {
         Debug.Log("S_ConnectedHandler");
         C_Login loginPacket = new C_Login();
-        loginPacket.UniqueId = SystemInfo.deviceUniqueIdentifier;   //디바이스 고유 아이디 알아서 찾아서 넣어주기
+
+        string path = Application.dataPath;
+        loginPacket.UniqueId = path.GetHashCode().ToString();   //아이디를 path로 대체
+        //loginPacket.UniqueId = SystemInfo.deviceUniqueIdentifier;   //디바이스 고유 아이디 알아서 찾아서 넣어주기
         Managers.Network.Send(loginPacket);
     }
     
@@ -269,5 +272,12 @@ class PacketHandler
         gameSceneUI.InvenUI.RefreshUI();
         gameSceneUI.ActionUI.RefreshUI();
         
+    }
+
+    public static void S_PingHandler(PacketSession session, IMessage packet)
+    {
+        C_Pong pongPacket = new C_Pong();
+        Managers.Network.Send(pongPacket);
+        Debug.Log("[Server] PingCheck");
     }
 }

@@ -248,7 +248,7 @@ namespace Server.Game
         int[] _deltaX = new int[] { 0, 0, -1, 1 };
         int[] _cost = new int[] { 10, 10, 10, 10 };
 
-        public List<Vector2Int> FindPath(Vector2Int startCellPos, Vector2Int destCellPos, bool checkObjects = true)
+        public List<Vector2Int> FindPath(Vector2Int startCellPos, Vector2Int destCellPos, bool checkObjects = true, int maxDist = 10)
         {
             List<Pos> path = new List<Pos>();
 
@@ -301,6 +301,10 @@ namespace Server.Game
                 {
                     Pos next = new Pos(node.Y + _deltaY[i], node.X + _deltaX[i]);
 
+                    // 너무 멀면 스킵
+                    if (Math.Abs(pos.Y - next.Y) + Math.Abs(pos.X - next.X) > maxDist)
+                        continue;
+
                     // 유효 범위를 벗어났으면 스킵
                     // 벽으로 막혀서 갈 수 없으면 스킵
                     if (next.Y != dest.Y || next.X != dest.X)
@@ -341,6 +345,24 @@ namespace Server.Game
         List<Vector2Int> CalcCellPathFromParent(Dictionary<Pos, Pos> parent, Pos dest)
         {
             List<Vector2Int> cells = new List<Vector2Int>();
+
+            if (parent.ContainsKey(dest) == false)  // 길이 없다
+            {
+                Pos best = new Pos();   // 그나마 제일 가까운 곳으로
+                int bestDist = Int32.MaxValue;
+
+                foreach (Pos p in parent.Keys)
+                {
+                    int dist = (dest.Y - p.Y) * (dest.Y - p.Y) + (dest.X - p.X) * (dest.X - p.X);
+                    if (dist < bestDist)
+                    {
+                        bestDist = dist;
+                        best = p;
+                    }
+                }
+
+                dest = best;
+            }
 
             Pos pos = dest;
             while (parent[pos] != pos)

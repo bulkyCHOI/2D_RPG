@@ -112,4 +112,11 @@ class PacketHandler
         room.HandleUseItem(player, useItemPacket);
         //room.Push(room.HandleEquipItem, player, equipPacket); //Job 방식으로 변경
     }
+
+    public static void C_PongHandler(PacketSession session, IMessage packet)
+    {
+        //C_Pong pongPacket = (C_Pong)packet;
+        ClientSession clientSession = (ClientSession)session;
+        clientSession.HandlePong();
+    }
 }

@@ -31,6 +31,8 @@ enum MsgId {
 	S_CHANGE_STAT = 20;
 	C_USE_ITEM = 21;
 	S_USE_ITEM = 22;
+	S_PING = 23;
+	C_PONG = 24;
 }
 
 enum CreatureState{
@@ -258,4 +260,12 @@ message C_UseItem
 message S_UseItem
 {
 	int32 itemDbId = 1;
+}
+
+message S_Ping
+{
+}
+
+message C_Pong
+{
 }
