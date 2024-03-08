@@ -24,6 +24,11 @@ namespace ServerCore
 				args.UserToken = socket;
 
 				RegisterConnect(args);
+
+				//TEMP
+				Thread.Sleep(10);	// 10ms	DummyClient에서는 한번에 모든 유저가 몰리는데
+									// Listener에서는 backog = 100으로 설정해두어 한번 대기자가 최대 100명이다.
+									// 그러므로 10ms를 쉬게해서 튕기는 일 없이 모두 들어오게 하기 위함
 			}
 		}
 
@@ -33,23 +38,37 @@ namespace ServerCore
 			if (socket == null)
 				return;
 
-			bool pending = socket.ConnectAsync(args);
-			if (pending == false)
-				OnConnectCompleted(null, args);
+			try
+			{
+				bool pending = socket.ConnectAsync(args);
+				if (pending == false)
+					OnConnectCompleted(null, args);
+			}
+			catch (Exception e)
+			{
+                Console.WriteLine($"RegisterConnect Failed {e}");
+            }
 		}
 
 		void OnConnectCompleted(object sender, SocketAsyncEventArgs args)
 		{
-			if (args.SocketError == SocketError.Success)
+			try
 			{
-				Session session = _sessionFactory.Invoke();
-				session.Start(args.ConnectSocket);
-				session.OnConnected(args.RemoteEndPoint);
+				if (args.SocketError == SocketError.Success)
+				{
+					Session session = _sessionFactory.Invoke();
+					session.Start(args.ConnectSocket);
+					session.OnConnected(args.RemoteEndPoint);
+				}
+				else
+				{
+					Console.WriteLine($"OnConnectCompleted Fail: {args.SocketError}");
+				}
 			}
-			else
+			catch (Exception e)
 			{
-				Console.WriteLine($"OnConnectCompleted Fail: {args.SocketError}");
-			}
+                Console.WriteLine($"OnConnectCompleted Failed {e}");
+            }
 		}
 	}
 }
