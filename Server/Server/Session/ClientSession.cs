@@ -80,7 +80,7 @@ namespace Server
 			{
 				//0.1초가 지났거나, 패킷 1만바이트가 모이면 기다리기
 				long delta = (System.Environment.TickCount64 - _lastSendTicks);
-				if (delta < 100 && _reservedSendBytes < 10000)
+				if (delta < 50 && _reservedSendBytes < 10000)
 					return;
 
 				//모아 보내기

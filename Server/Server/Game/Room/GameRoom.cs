@@ -29,7 +29,7 @@ namespace Server.Game
         public Zone GetZone(Vector2Int cellPos)
         {
             int x = (cellPos.x - Map.MinX) / ZoneCells;
-            int y = (cellPos.y - Map.MinY) / ZoneCells;
+            int y = (Map.MaxY - cellPos.y) / ZoneCells;
 
             return GetZone(y, x);
         }
@@ -62,7 +62,7 @@ namespace Server.Game
             }
 
             //몬스터 생성
-            for (int i = 0; i < 50; i++)
+            for (int i = 0; i < 500; i++)
             {
                 Monster monster = ObjectManager.Instance.Add<Monster>();
                 monster.Init(1);    //임시로 1번 몬스터 셋팅
@@ -274,23 +274,23 @@ namespace Server.Game
         {
             HashSet<Zone> zones = new HashSet<Zone>();
 
-            int MaxY = cellPos.y + range;
-            int MinY = cellPos.y - range;
-            int MaxX = cellPos.x + range;
-            int MinX = cellPos.x - range;
+            int maxY = cellPos.y + range;
+            int minY = cellPos.y - range;
+            int maxX = cellPos.x + range;
+            int minX = cellPos.x - range;
 
             //좌상단
-            Vector2Int leftTop = new Vector2Int(MinX, MaxY);
+            Vector2Int leftTop = new Vector2Int(minX, maxY);
             int minIndexY = (Map.MaxY - leftTop.y) / ZoneCells;
             int minIndexX = (leftTop.x - Map.MinX) / ZoneCells;
             //우하단
-            Vector2Int rightBottom = new Vector2Int(MaxX, MinY);
+            Vector2Int rightBottom = new Vector2Int(maxX, minY);
             int maxIndexY = (Map.MaxY - rightBottom.y) / ZoneCells;
             int maxIndexX = (rightBottom.x - Map.MinX) / ZoneCells;
 
-            for (int y = minIndexY; y <= maxIndexY; y++)
+            for (int x = minIndexX; x <= maxIndexX; x++)
             {
-                for (int x = minIndexX; x <= maxIndexX; x++)
+                for (int y = minIndexY; y <= maxIndexY; y++)
                 {
                     Zone zone = GetZone(y, x);
                     if (zone == null)
