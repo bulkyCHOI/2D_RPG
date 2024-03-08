@@ -59,9 +59,9 @@ namespace Server.DB
             PlayerDb playerDb = new PlayerDb();
             playerDb.PlayerDbId = player.PlayerDbId;
             if(player.Stat.Hp <= 0)
-                playerDb.hp = player.Stat.MaxHp;
+                playerDb.hp = player.Stat.MaxHp;    //조건 처리
             else
-                playerDb.hp = player.Stat.Hp;
+                playerDb.hp = player.Stat.Hp;       //원 코드는 이렇게 그대로 저장
             playerDb.mp = player.Stat.Mp;
             playerDb.level = player.Stat.Level;
             playerDb.totalExp = player.Stat.TotalExp;
