@@ -31,13 +31,15 @@ namespace Server.Game
             int x = (cellPos.x - Map.MinX) / ZoneCells;
             int y = (cellPos.y - Map.MinY) / ZoneCells;
 
-            if(x < 0 
-                || x >= Zones.GetLength(1) 
-                || y < 0 
-                || y >= Zones.GetLength(0))
-            {
+            return GetZone(y, x);
+        }
+
+        public Zone GetZone(int y, int x)
+        {
+            if (x < 0 || x >= Zones.GetLength(1))
                 return null;
-            }
+            if (y < 0 || y >= Zones.GetLength(0))
+                return null;
 
             return Zones[y, x];
         }
@@ -60,7 +62,7 @@ namespace Server.Game
             }
 
             //몬스터 생성
-            for (int i = 0; i < 1000; i++)
+            for (int i = 0; i < 50; i++)
             {
                 Monster monster = ObjectManager.Instance.Add<Monster>();
                 monster.Init(1);    //임시로 1번 몬스터 셋팅
@@ -206,13 +208,36 @@ namespace Server.Game
         //Push를 사용하여 호출하지 않으면 멀티쓰레드에서 호출할 경우 문제가 발생할 수 있다.
         //하지만 즉각적으로 처리해야하는 경우에는 Push를 사용하지 않는다.
         //FindPlayer, Broadcast는 Push를 사용하지 않는다.
-        public Player FindPlayer(Func<GameObject, bool> condition)
+        Player FindPlayer(Func<GameObject, bool> condition)
         {
             foreach (Player p in _players.Values)
             {
                 if (condition.Invoke(p))
                     return p;
             }
+            return null;
+        }
+
+        //살짝 부담스러운 함수   
+        public Player FindClosestPlayer(Vector2Int pos, int range)
+        {
+            List<Player> players = GetAdjacentPlayers(pos, range);
+            players.Sort((a, b) =>
+            {
+                int leftDist = (a.CellPos - pos).cellDistFromZero;
+                int rightDist = (b.CellPos - pos).cellDistFromZero;
+                return leftDist - rightDist;
+            });
+
+            foreach (Player player in players)
+            {
+                List<Vector2Int> path = Map.FindPath(pos, player.CellPos, checkObjects: true);
+                if (path.Count < 2 || path.Count > range)
+                    continue;
+
+                return player;
+            }
+
             return null;
         }
 
@@ -239,22 +264,42 @@ namespace Server.Game
             }
         }
 
-        public List<Zone> GetAdjacentZones(Vector2Int cellPos, int cells = GameRoom.VisionCells)
+        public List<Player> GetAdjacentPlayers(Vector2Int cellPos, int range)   //주변 존내의 플레이어 목록을 반환
+        {
+            List<Zone> zones = GetAdjacentZones(cellPos, range);
+            return zones.SelectMany(z => z.Players).ToList();
+        }
+
+        public List<Zone> GetAdjacentZones(Vector2Int cellPos, int range = GameRoom.VisionCells)
         {
             HashSet<Zone> zones = new HashSet<Zone>();
 
-            int[] delta = new int[2] {-cells, +cells};
-            foreach (int dy in delta)
+            int MaxY = cellPos.y + range;
+            int MinY = cellPos.y - range;
+            int MaxX = cellPos.x + range;
+            int MinX = cellPos.x - range;
+
+            //좌상단
+            Vector2Int leftTop = new Vector2Int(MinX, MaxY);
+            int minIndexY = (Map.MaxY - leftTop.y) / ZoneCells;
+            int minIndexX = (leftTop.x - Map.MinX) / ZoneCells;
+            //우하단
+            Vector2Int rightBottom = new Vector2Int(MaxX, MinY);
+            int maxIndexY = (Map.MaxY - rightBottom.y) / ZoneCells;
+            int maxIndexX = (rightBottom.x - Map.MinX) / ZoneCells;
+
+            for (int y = minIndexY; y <= maxIndexY; y++)
             {
-                foreach (int dx in delta)
+                for (int x = minIndexX; x <= maxIndexX; x++)
                 {
-                    int y = cellPos.y + dy;
-                    int x = cellPos.x + dx;
-                    Zone zone = GetZone(new Vector2Int(x, y));
-                    if (zone != null)
-                        zones.Add(zone);
+                    Zone zone = GetZone(y, x);
+                    if (zone == null)
+                        continue;
+                    
+                    zones.Add(zone);
                 }
             }
+                        
             return zones.ToList();
         }
     }

@@ -66,11 +66,7 @@ namespace Server.Game
             _nextSearchTime = Environment.TickCount64 + 1000;
 
             //주변에 플레이어가 있는지 체크
-            Player target = Room.FindPlayer(p =>
-            {
-                Vector2Int dir = p.CellPos - CellPos;
-                return dir.cellDistFromZero <= _searchCellDist;
-            });
+            Player target = Room.FindClosestPlayer(CellPos, _searchCellDist);
 
             if(target == null)
                 return;
