@@ -11,6 +11,7 @@ using static System.Net.Mime.MediaTypeNames;
 
 class PacketHandler
 {
+    //Step4. 캐릭터 선택
     public static void S_EnterGameHandler(PacketSession session, IMessage packet)
     {
         S_EnterGame enterGamePacket = packet as S_EnterGame;
@@ -51,20 +52,56 @@ class PacketHandler
         S_Die diePacket = packet as S_Die;
     }
 
+    //Step1. 서버에 연결되었다.
     public static void S_ConnectedHandler(PacketSession session, IMessage packet)
     {
         C_Login loginPacket = new C_Login();
+        ServerSession serverSession = (ServerSession)session;
+        
+        loginPacket.UniqueId = $"DummyClient_{serverSession.DummyId.ToString("0000")}";
+        serverSession.Send(loginPacket);
+
     }
 
+    //Step2. 로그인 성공
     // 로그인은 했고, 캐릭터 목록까지 줄게
     public static void S_LoginHandler(PacketSession session, IMessage packet)
     {
         S_Login loginPacket = (S_Login)packet;// as S_Login 100% S_Login이므로 강제 캐스팅: 성능이 더 좋음
+        ServerSession serverSession = (ServerSession)session;
+
+        // TODO: 로비 UI를 보여주고, 캐릭터를 선택해서 게임으로 들어가도록
+        if (loginPacket.Players == null || loginPacket.Players.Count == 0)   // 일단은 없으면 만들어서 들어가자
+        {
+            C_CreatePlayer createPlayerPacket = new C_CreatePlayer();
+            createPlayerPacket.Name = $"Player_{serverSession.DummyId.ToString("0000")}";
+            serverSession.Send(createPlayerPacket);
+        }
+        else //있으면 일단 첫번째 캐릭터로 로그인
+        {
+            LobbyPlayerInfo info = loginPacket.Players[0];
+            C_EnterGame enterGamePacket = new C_EnterGame();
+            enterGamePacket.Name = info.Name;
+            serverSession.Send(enterGamePacket);
+        }
     }
 
+    //Step3. 캐릭터 생성
     public static void S_CreatePlayerHandler(PacketSession session, IMessage packet)
     {
         S_CreatePlayer createPlayerPacket = (S_CreatePlayer)packet;// as S_CreatePlayer 100% S_CreatePlayer이므로 강제 캐스팅: 성능이 더 좋음
+        ServerSession serverSession = (ServerSession)session;
+
+        if (createPlayerPacket.Player == null)   
+        {
+            // dummyPlayer이므로 이런 경우는 없다.
+        }
+        else // 만들기 성공했으니 일단 첫번째 캐릭터로 로그인
+        {
+            C_EnterGame enterGamePacket = new C_EnterGame();
+            enterGamePacket.Name = createPlayerPacket.Player.Name;
+            serverSession.Send(enterGamePacket);
+        }
     }
 
     public static void S_ItemListHandler(PacketSession session, IMessage packet)

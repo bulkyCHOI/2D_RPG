@@ -23,6 +23,10 @@ namespace Server
 		object _lock = new object();	// lock을 위한 오브젝트
 		List<ArraySegment<byte>> _reserveQueue = new List<ArraySegment<byte>>();	// 패킷을 보내기 위한 큐
 
+		//패킷 모아보내기
+		int _reservedSendBytes = 0;
+		long _lastSendTicks = 0;
+
 		long _pingpongTick = 0;	// 핑퐁 시간
 		public void Ping()
 		{
@@ -62,6 +66,7 @@ namespace Server
 			lock (_lock)
 			{
 				_reserveQueue.Add(sendBuffer);
+				_reservedSendBytes += sendBuffer.Length;	// 모아보내기 위해 보낼 패킷의 길이를 더함
             }
             //Send(new ArraySegment<byte>(sendBuffer));
         }
@@ -73,6 +78,15 @@ namespace Server
 
             lock (_lock)
 			{
+				//0.1초가 지났거나, 패킷 1만바이트가 모이면 기다리기
+				long delta = (System.Environment.TickCount64 - _lastSendTicks);
+				if (delta < 100 && _reservedSendBytes < 10000)
+					return;
+
+				//모아 보내기
+				_reservedSendBytes = 0;
+				_lastSendTicks = System.Environment.TickCount64;
+
                 if (_reserveQueue.Count == 0)
                     return;
 
@@ -85,7 +99,7 @@ namespace Server
         
 		public override void OnConnected(EndPoint endPoint)
 		{
-			Console.WriteLine($"OnConnected : {endPoint}");
+			//Console.WriteLine($"OnConnected : {endPoint}");
 
 			{ 
 				S_Connected sConnPacket = new S_Connected();
@@ -112,7 +126,7 @@ namespace Server
 				room.Push(room.LeaveGame, MyPlayer.Info.ObjectId);	// 방에서 플레이어 퇴장	//Job 방식으로 변경
             });
             SessionManager.Instance.Remove(this);
-			Console.WriteLine($"OnDisconnected : {endPoint}");
+			//Console.WriteLine($"OnDisconnected : {endPoint}");
 		}
 
 		public override void OnSend(int numOfBytes)

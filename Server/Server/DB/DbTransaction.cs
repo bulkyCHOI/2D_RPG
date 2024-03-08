@@ -42,7 +42,7 @@ namespace Server.DB
                     if (success)
                     {
                         //Me
-                        Console.WriteLine($"Hp Saved({playerDb.hp})");
+                        //Console.WriteLine($"Hp Saved({playerDb.hp})");
                     }
                 }
             });
@@ -89,7 +89,7 @@ namespace Server.DB
 
         public static void SavePlayerStatus_Step3(int hp)
         {
-            Console.WriteLine($"Hp Saved({hp})");
+            //Console.WriteLine($"Hp Saved({hp})");
         }
 
         public static void RewardPlayer(Player player, RewardData rewardData, GameRoom gameRoom)
@@ -104,7 +104,7 @@ namespace Server.DB
                         ); //소비아이템 겹치기 처리하기 위해
             if (consumableItem != null) //소지한 소비아이템인 경우
             {
-                Console.WriteLine("소비아이템 획득");
+                //Console.WriteLine("소비아이템 획득");
                 Instance.Push(() =>
                 {
                     using (AppDbContext db = new AppDbContext())

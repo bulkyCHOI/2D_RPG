@@ -23,7 +23,7 @@ namespace Server.DB
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder
-                .UseLoggerFactory(_logger)
+                //.UseLoggerFactory(_logger)    //DB관련 로그를 찍어준다.
                 .UseSqlServer(ConfigManager.Config == null ? _connectionString : ConfigManager.Config.connectionString);
         }
 

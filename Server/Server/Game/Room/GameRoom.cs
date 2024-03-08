@@ -60,7 +60,7 @@ namespace Server.Game
             }
 
             //몬스터 생성
-            for (int i = 0; i < 500; i++)
+            for (int i = 0; i < 1000; i++)
             {
                 Monster monster = ObjectManager.Instance.Add<Monster>();
                 monster.Init(1);    //임시로 1번 몬스터 셋팅
