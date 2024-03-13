@@ -32,33 +32,33 @@ public class LoginAccountPakcetRes
     public List<ServerInfo> ServerList = new List<ServerInfo>();
 }
 
-public class WebPacket
-{
-    public static void SendCreateAccount(string account, string password)
-    {
-        CreateAccountPakcetReq packet = new CreateAccountPakcetReq()
-        {
-            AccountName = account,
-            Password = password
-        };
+//public class WebPacket
+//{
+//    public static void SendCreateAccount(string account, string password)
+//    {
+//        CreateAccountPakcetReq packet = new CreateAccountPakcetReq()
+//        {
+//            AccountName = account,
+//            Password = password
+//        };
 
-        Managers.Web.SendPostRequest<CreateAccountPakcetRes>("account/create", packet, (res) =>
-        {
-            Debug.Log(res.CreateOk);
-        });
-    }
+//        Managers.Web.SendPostRequest<CreateAccountPakcetRes>("account/create", packet, (res) =>
+//        {
+//            Debug.Log(res.CreateOk);
+//        });
+//    }
 
-    public static void SendLoginAccount(string account, string password)
-    {
-        LoginAccountPakcetReq packet = new LoginAccountPakcetReq()
-        {
-            AccountName = account,
-            Password = password
-        };
+//    public static void SendLoginAccount(string account, string password)
+//    {
+//        LoginAccountPakcetReq packet = new LoginAccountPakcetReq()
+//        {
+//            AccountName = account,
+//            Password = password
+//        };
 
-        Managers.Web.SendPostRequest<LoginAccountPakcetRes>("account/login", packet, (res) =>
-        {
-            Debug.Log(res.LoginOk);
-        });
-    }
-}
+//        Managers.Web.SendPostRequest<LoginAccountPakcetRes>("account/login", packet, (res) =>
+//        {
+//            Debug.Log(res.LoginOk);
+//        });
+//    }
+//}

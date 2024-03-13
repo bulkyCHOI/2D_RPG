@@ -649,7 +649,7 @@ GameObject:
   - component: {fileID: 3228045008060822572}
   - component: {fileID: 4820417579023070598}
   m_Layer: 5
-  m_Name: HomeScene_Popup_Checking
+  m_Name: UI_CheckingPopup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -682,7 +682,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7263141306362427138}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9a00128818eda43dfaa959b83527b255, type: 3}
   m_Name: 
