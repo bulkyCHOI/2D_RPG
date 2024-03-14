@@ -7,9 +7,6 @@ using UnityEngine.UI;
 public class UI_LoginScene : UI_Scene
 {
     [SerializeField]
-    public Image loginBtn;
-    public Image signupBtn;
-    public Image checkingBtn;
     public GameObject loginPopup;
     public GameObject signupPopup;
     public GameObject checkingPopup;
@@ -21,10 +18,6 @@ public class UI_LoginScene : UI_Scene
     public override void Init()
     {
         base.Init();
-        loginBtn.gameObject.BindEvent((e) =>
-        {
-            OnLoginClick();
-        });
     }
 
     public void OnLoginClick()
