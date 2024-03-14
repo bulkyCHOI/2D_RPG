@@ -17,3 +17,6 @@ namespace AccountServer.DB
         }
     }
 }
+
+//add-migration Init
+//update-database

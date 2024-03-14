@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager
 {
@@ -25,6 +26,8 @@ public class UIManager
         Canvas canvas = Util.GetOrAddComponent<Canvas>(go);
         canvas.renderMode = RenderMode.ScreenSpaceOverlay;
         canvas.overrideSorting = true;
+
+        GraphicRaycaster raycaster = Util.GetOrAddComponent<GraphicRaycaster>(go);  //추가 해야 버튼이 동작한다.
 
         if (sort)
         {
