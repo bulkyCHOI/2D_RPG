@@ -15,8 +15,6 @@ public class LoginScene : BaseScene
 
         Managers.Web.BaseUrl = "http://localhost:5000/api";
 
-        Screen.SetResolution(1280, 800, false);
-
         _loginSceneUI = Managers.UI.ShowSceneUI<UI_LoginScene>();
     }
 

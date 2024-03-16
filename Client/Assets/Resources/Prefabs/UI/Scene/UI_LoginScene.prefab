@@ -8583,9 +8583,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8ff88fb33cab984b9e52b14a2060c5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loginBtn: {fileID: 8668449640399146255}
-  signupBtn: {fileID: 0}
-  checkingBtn: {fileID: 0}
   loginPopup: {fileID: 6238352404207189131}
   signupPopup: {fileID: 3909518044583299155}
   checkingPopup: {fileID: 2828953501231465944}

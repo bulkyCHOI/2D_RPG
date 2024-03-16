@@ -76,7 +76,7 @@ namespace Server
 						serverDb.ServerIP = IpAddress;
                         serverDb.ServerPort = Port;
 						serverDb.BusyCcore = SessionManager.Instance.GetBusyScore();
-                        shared.SaveChanges();
+                        shared.SaveChangesEx();
                     }
                     else
 					{
@@ -87,7 +87,7 @@ namespace Server
                             ServerPort = Port,
 							BusyCcore = SessionManager.Instance.GetBusyScore()
                         });
-                        shared.SaveChanges();
+                        shared.SaveChangesEx();
 					}
 				}
             });
@@ -96,7 +96,7 @@ namespace Server
 		}
 
 
-		public static string Name { get; } = "Nit Server1";
+		public static string Name { get; } = "Nit Server2";
 		public static int Port { get; } = 7777;
 		public static string IpAddress { get; set; } 
 

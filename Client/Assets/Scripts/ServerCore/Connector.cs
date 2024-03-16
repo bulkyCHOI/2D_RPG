@@ -24,17 +24,17 @@ namespace ServerCore
 				args.RemoteEndPoint = endPoint;
 				args.UserToken = socket;
 
-				RegisterConnect(args);
+				RegisterConnect(args);	
 			}
 		}
 
-		void RegisterConnect(SocketAsyncEventArgs args)
+		void RegisterConnect(SocketAsyncEventArgs args)	
 		{
 			Socket socket = args.UserToken as Socket;
 			if (socket == null)
 				return;
 
-			bool pending = socket.ConnectAsync(args);
+			bool pending = socket.ConnectAsync(args);	
 			if (pending == false)
 				OnConnectCompleted(null, args);
 		}

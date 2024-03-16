@@ -118,8 +118,9 @@ class PacketHandler
         C_Login loginPacket = new C_Login();
 
         string path = Application.dataPath;
-        loginPacket.UniqueId = path.GetHashCode().ToString();   //아이디를 path로 대체
         //loginPacket.UniqueId = SystemInfo.deviceUniqueIdentifier;   //디바이스 고유 아이디 알아서 찾아서 넣어주기
+        //loginPacket.UniqueId = path.GetHashCode().ToString();   //아이디를 path로 대체
+        loginPacket.UniqueId = Managers.Network.AccountId.ToString();   //아이디를 로그인때의 ID로 대체
         Managers.Network.Send(loginPacket);
     }
     
