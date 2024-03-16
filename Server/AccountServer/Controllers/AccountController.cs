@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SharedDB;
 
 namespace AccountServer.Controllers
 {
@@ -10,10 +11,12 @@ namespace AccountServer.Controllers
     public class AccountController : ControllerBase
     {
         AppDbContext _context;
+        SharedDbContext _sharedContext;
 
-        public AccountController(AppDbContext context)
+        public AccountController(AppDbContext context, SharedDbContext sharedContext)
         {
             _context = context;
+            _sharedContext = sharedContext;
         }
 
         [HttpPost]
@@ -61,12 +64,43 @@ namespace AccountServer.Controllers
             {
                 res.LoginOk = true;
 
-                //TODO: 서버 리스트를 가져오는 로직을 넣어주세요. 
-                res.ServerList = new List<ServerInfo>()
+                // 토큰발급
+                DateTime expired = DateTime.UtcNow;
+                expired.AddSeconds(600);
+
+                TokenDb tokenDb = _sharedContext.Tokens.Where(t => t.AccountDbId == account.AccountDbId).FirstOrDefault();
+                if(tokenDb != null)
                 {
-                    new ServerInfo() { ServerName = "NitServer1", ServerIp = "127.0.0.1", CrowdedLevel = 0},
-                    new ServerInfo() { ServerName = "NitServer2", ServerIp = "127.0.0.1", CrowdedLevel = 3}
-                };
+                    tokenDb.Token = new Random().Next(Int32.MinValue, Int32.MaxValue);
+                    tokenDb.Expired = expired;
+                    _sharedContext.SaveChangesEx();
+                }
+                else
+                {
+                    tokenDb = new TokenDb()
+                    {
+                        AccountDbId = account.AccountDbId,
+                        Token = new Random().Next(Int32.MinValue, Int32.MaxValue),
+                        Expired = expired
+                    };
+                    _sharedContext.Add(tokenDb);
+                    _sharedContext.SaveChangesEx();
+                }
+
+                res.AccountId = account.AccountDbId;
+                res.Token = tokenDb.Token;
+                res.ServerList = new List<ServerInfo>();
+
+                foreach (var server in _sharedContext.ServerInfos)
+                {
+                    res.ServerList.Add(new ServerInfo()
+                    {
+                        ServerName = server.ServerName,
+                        ServerIp = server.ServerIP,
+                        ServerPort = server.ServerPort,
+                        BusyScore = server.BusyCcore
+                    });
+                }
             }
 
             return res;

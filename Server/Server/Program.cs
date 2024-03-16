@@ -13,6 +13,7 @@ using Server.Data;
 using Server.DB;
 using Server.Game;
 using ServerCore;
+using SharedDB;
 
 namespace Server
 {
@@ -61,6 +62,44 @@ namespace Server
             }
         }
 
+		static void StartServerInfoTask()	//간단한 서버 정보를 주기적으로 업데이트 >> flush를 사용하지 않는다.
+		{
+			var t = new System.Timers.Timer();
+			t.AutoReset = true;
+			t.Elapsed += new System.Timers.ElapsedEventHandler((s, e) =>
+			{
+				using (SharedDbContext shared = new SharedDbContext())
+				{
+					ServerInfoDb serverDb = shared.ServerInfos.Where(s => s.ServerName == Name).FirstOrDefault();
+					if (serverDb != null)
+					{
+						serverDb.ServerIP = IpAddress;
+                        serverDb.ServerPort = Port;
+						serverDb.BusyCcore = SessionManager.Instance.GetBusyScore();
+                        shared.SaveChanges();
+                    }
+                    else
+					{
+                        shared.ServerInfos.Add(new ServerInfoDb()
+						{
+                            ServerName = Name,
+                            ServerIP = IpAddress,
+                            ServerPort = Port,
+							BusyCcore = SessionManager.Instance.GetBusyScore()
+                        });
+                        shared.SaveChanges();
+					}
+				}
+            });
+			t.Interval = 10 * 1000; // 10초
+			t.Start();
+		}
+
+
+		public static string Name { get; } = "Nit Server1";
+		public static int Port { get; } = 7777;
+		public static string IpAddress { get; set; } 
+
 		static void Main(string[] args)
 		{
 			ConfigManager.LoadConfig();
@@ -75,11 +114,15 @@ namespace Server
 			// DNS (Domain Name System)
 			string host = Dns.GetHostName();
 			IPHostEntry ipHost = Dns.GetHostEntry(host);
-			IPAddress ipAddr = ipHost.AddressList[0];
+			IPAddress ipAddr = ipHost.AddressList[1];
 			IPEndPoint endPoint = new IPEndPoint(ipAddr, 7777);
+
+			IpAddress = ipAddr.ToString();
 
 			_listener.Init(endPoint, () => { return SessionManager.Instance.Generate(); });
 			Console.WriteLine("Listening...");
+
+			StartServerInfoTask();
 
 			//DbTask
 			{

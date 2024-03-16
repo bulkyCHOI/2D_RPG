@@ -20,7 +20,7 @@ public class WebManager
         byte[] jsonBytes = null;
         if (obj != null)
         {
-            string json = JsonUtility.ToJson(obj);
+            string json = Newtonsoft.Json.JsonConvert.SerializeObject(obj);
             jsonBytes = System.Text.Encoding.UTF8.GetBytes(json);
         }
 
@@ -38,7 +38,7 @@ public class WebManager
             }
             else
             {
-                T resObj = JsonUtility.FromJson<T>(uwr.downloadHandler.text);
+                T resObj = Newtonsoft.Json.JsonConvert.DeserializeObject<T>(uwr.downloadHandler.text);
                 res.Invoke(resObj);
             }
         }

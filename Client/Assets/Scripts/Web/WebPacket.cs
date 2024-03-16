@@ -23,12 +23,15 @@ public class ServerInfo
 {
     public string ServerName;
     public string ServerIp;
-    public int CrowdedLevel;
+    public int ServerPort;
+    public int BusyScore;
 }
 
 public class LoginAccountPakcetRes
 {
     public bool LoginOk;
+    public int AccountId;
+    public int Token;
     public List<ServerInfo> ServerList = new List<ServerInfo>();
 }
 
