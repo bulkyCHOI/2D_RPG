@@ -7,7 +7,7 @@ namespace DummyClient
 {
     class Program
     {
-        static int DummyClientCount {get; } = 50;
+        static int DummyClientCount {get; } = 5;
         
         static void Main(string[] args)
         {

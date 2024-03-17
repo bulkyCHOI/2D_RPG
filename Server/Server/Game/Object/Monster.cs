@@ -75,6 +75,7 @@ namespace Server.Game
             State = CreatureState.Moving;
         }
 
+
         int _skillRange = 1;
         long _nextMoveTime = 0;
         protected virtual void UpdateMoving()

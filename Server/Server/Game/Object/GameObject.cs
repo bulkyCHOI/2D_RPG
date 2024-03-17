@@ -181,6 +181,7 @@ namespace Server.Game
             PosInfo.MoveDir = MoveDir.Down;
             
             room.EnterGame(this, randPos:true);   //다시 입장   //push로 하지 않아도 된다. 이 함수는 바로 처리된다.
+            //GameLogic.Instance.Find(2).EnterGame(this, randPos: true);   //다시 입장  //Job 방식으로 push
             //room.Push(room.EnterGame, this);   //다시 입장  //Job 방식으로 push
 
             //매우중요!!!!

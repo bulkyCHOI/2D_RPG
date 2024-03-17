@@ -108,7 +108,8 @@ namespace Server
 
             GameLogic.Instance.Push(() =>	//아직 main thread에서 실행중이므로 안해도 되지만 push로 실행
             {
-				GameRoom room = GameLogic.Instance.Add(1);
+				GameRoom room1 = GameLogic.Instance.Add(1);
+                GameRoom room2 = GameLogic.Instance.Add(2);
             });
 
 			// DNS (Domain Name System)

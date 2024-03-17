@@ -15,6 +15,9 @@ namespace Server.Game
     public partial class GameRoom : JobSerializer
     {
         public const int VisionCells = 5;
+
+        public int monsterCount = 5;
+        public int monsterNumber = 1;
         public int RoomId { get; set; }
 
         Dictionary<int, Player> _players = new Dictionary<int, Player>();
@@ -62,10 +65,10 @@ namespace Server.Game
             }
 
             //몬스터 생성
-            for (int i = 0; i < 50; i++)
+            for (int i = 0; i < monsterCount; i++)
             {
                 Monster monster = ObjectManager.Instance.Add<Monster>();
-                monster.Init(1);    //임시로 1번 몬스터 셋팅
+                monster.Init(monsterNumber);    //임시로 1번 몬스터 셋팅
                 //EnterGame(monster);   //job 방식으로 변경
                 Push(EnterGame, monster, true);   //job 방식으로 변경
             }
@@ -90,7 +93,9 @@ namespace Server.Game
                 {
                     respawnPos.x = _rand.Next(Map.MinX, Map.MaxX + 1);
                     respawnPos.y = _rand.Next(Map.MinY, Map.MaxY + 1);
-                    if (Map.Find(respawnPos) == null)
+                    if(Map.CanGo(respawnPos) == false)  //이동불가 지역에 생성되지 않도록
+                        continue;
+                    if (Map.Find(respawnPos) == null)   //
                     {
                         gameObject.CellPos = respawnPos;
                         break;
