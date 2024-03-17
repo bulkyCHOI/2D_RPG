@@ -20,4 +20,9 @@ public class GameScene : BaseScene
     {
         
     }
+    
+    public void MoveScene() //Scene이동시켜주는 함수
+    {
+        //Managers.Scene.LoadScene(Define.Scene.Game);
+    }
 }

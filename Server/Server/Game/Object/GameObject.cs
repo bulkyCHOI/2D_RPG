@@ -179,9 +179,10 @@ namespace Server.Game
             Stat.Hp = Stat.MaxHp;
             PosInfo.State = CreatureState.Idle;
             PosInfo.MoveDir = MoveDir.Down;
-            
-            room.EnterGame(this, randPos:true);   //다시 입장   //push로 하지 않아도 된다. 이 함수는 바로 처리된다.
-            //GameLogic.Instance.Find(2).EnterGame(this, randPos: true);   //다시 입장  //Job 방식으로 push
+
+            //room.EnterGame(this, randPos:true);   //다시 입장   //push로 하지 않아도 된다. 이 함수는 바로 처리된다.
+            GameRoom newRoom = GameLogic.Instance.Find(2);  //2번방으로 강제 셋팅
+            newRoom.EnterGame(this, randPos:true);   //다시 입장   //push로 하지 않아도 된다. 이 함수는 바로 처리된다.
             //room.Push(room.EnterGame, this);   //다시 입장  //Job 방식으로 push
 
             //매우중요!!!!
