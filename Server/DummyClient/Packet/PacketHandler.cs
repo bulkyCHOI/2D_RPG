@@ -133,4 +133,9 @@ class PacketHandler
     {
         C_Pong pongPacket = new C_Pong();
     }
+
+    public static void S_MoveSceneHandler(PacketSession session, IMessage packet)
+    {
+        S_MoveScene moveScene = (S_MoveScene)packet;
+    }
 }

@@ -39,6 +39,10 @@ namespace Server.Game
         public override void OnDead(GameObject attacker)
         {
             base.OnDead(attacker);
+            //MoveScene 패킷을 보내자
+            S_MoveScene moveScene = new S_MoveScene();
+            moveScene.SceneName = "Game2";
+            Session.Send(moveScene);
         }
 
         public void OnLeaveGame()

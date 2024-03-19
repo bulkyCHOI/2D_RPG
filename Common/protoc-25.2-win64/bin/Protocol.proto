@@ -33,6 +33,7 @@ enum MsgId {
 	S_USE_ITEM = 22;
 	S_PING = 23;
 	C_PONG = 24;
+	S_MOVE_SCENE = 25;
 }
 
 enum CreatureState{
@@ -268,4 +269,9 @@ message S_Ping
 
 message C_Pong
 {
+}
+
+message S_MoveScene
+{
+	string sceneName = 1;
 }

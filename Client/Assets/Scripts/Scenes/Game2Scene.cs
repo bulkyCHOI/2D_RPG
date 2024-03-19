@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameScene : BaseScene
+public class Game2Scene : BaseScene
 {
     UI_GameScene _gameSceneUI;
     protected override void Init()
     {
         base.Init();
 
-        SceneType = Define.Scene.Game;
+        SceneType = Define.Scene.Game2;
 
-        Managers.Map.LoadMap(1);
+        Managers.Map.LoadMap(2);
 
         _gameSceneUI = Managers.UI.ShowSceneUI<UI_GameScene>();
     }

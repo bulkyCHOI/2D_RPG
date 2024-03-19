@@ -281,4 +281,11 @@ class PacketHandler
         Managers.Network.Send(pongPacket);
         Debug.Log("[Server] PingCheck");
     }
+
+    public static void S_MoveSceneHandler(PacketSession session, IMessage packet)
+    {
+        S_MoveScene moveScenePacket = (S_MoveScene)packet;
+
+        Managers.Scene.LoadScene(moveScenePacket.SceneName);
+    }
 }

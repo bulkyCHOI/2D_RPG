@@ -10,6 +10,7 @@ public class Define
         Login,
         Lobby,
         Game,
+        Game2
     }
 
     public enum Sound
