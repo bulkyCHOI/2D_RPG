@@ -80,9 +80,12 @@ namespace Server.Game
         public float magnitude { get { return (float)Math.Sqrt(sqrMagnitude); } }
         public int sqrMagnitude { get { return x * x + y * y; } }
         public int cellDistFromZero { get { return Math.Abs(x) + Math.Abs(y); } }
+
     }
     public class Map    //맵의 사이즈를 넓히고 그 일부만을 가지게 하기 위해 구조를 변경했다. >> 2차원 배열 > dictionary 
     {
+        public string mapName { get; set; }
+
         public int MinX { get; set; }
         public int MaxX { get; set; }
         public int MinY { get; set; }
@@ -215,7 +218,7 @@ namespace Server.Game
 
         public void LoadMap(int mapId, string pathPrefix = "../../../../../Common/MapData")
         {
-            string mapName = "Map_" + mapId.ToString("000");
+            mapName = "Map_" + mapId.ToString("000");
 
             // Collision 관련 파일
             string text = File.ReadAllText($"{pathPrefix}/{mapName}.txt");

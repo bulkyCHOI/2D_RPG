@@ -11,7 +11,6 @@ class PacketHandler
 	{
 		S_EnterGame enterGamePacket = packet as S_EnterGame;
         Managers.Object.Add(enterGamePacket.Player, myPlayer: true);
-
         //Debug.Log("S_EnterGameHandler");
         //Debug.Log(enterGamePacket.Player);
 	}
@@ -31,6 +30,7 @@ class PacketHandler
         foreach(ObjectInfo obj in spawnPacket.Objects)
         {
             Managers.Object.Add(obj, myPlayer: false);
+            Debug.Log($"S_SpawnHandler: {obj.ObjectId}");
         }
     }
 
@@ -142,6 +142,7 @@ class PacketHandler
             LobbyPlayerInfo info = loginPacket.Players[0];
             C_EnterGame enterGamePacket = new C_EnterGame();
             enterGamePacket.Name = info.Name;
+            enterGamePacket.RoomNumber = 1;
             Managers.Network.Send(enterGamePacket);
         }
     }
@@ -163,6 +164,7 @@ class PacketHandler
             Debug.Log("CreatePlayer Ok");
             C_EnterGame enterGamePacket = new C_EnterGame();
             enterGamePacket.Name = createPlayerPacket.Player.Name;
+            enterGamePacket.RoomNumber = 1;
             Managers.Network.Send(enterGamePacket);
         }
     }
@@ -282,10 +284,15 @@ class PacketHandler
         Debug.Log("[Server] PingCheck");
     }
 
-    public static void S_MoveSceneHandler(PacketSession session, IMessage packet)
+    public static void S_MoveMapHandler(PacketSession session, IMessage packet)
     {
-        S_MoveScene moveScenePacket = (S_MoveScene)packet;
+        S_MoveMap moveMapPacket = (S_MoveMap)packet;
 
-        Managers.Scene.LoadScene(moveScenePacket.SceneName);
+        //$"Player_{serverSession.DummyId.ToString("0000")}"
+        Managers.Map.LoadMap(moveMapPacket.MapNumber);
+        Debug.Log($"Map Size: ({Managers.Map.MinX}, {Managers.Map.MaxX})");
+        
+        //Managers.Scene.LoadScene($"Game{moveScenePacket.SceneNumber}");
+        
     }
 }

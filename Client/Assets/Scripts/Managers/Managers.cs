@@ -47,7 +47,7 @@ public class Managers : MonoBehaviour
         _network.Update();
     }
 
-    static void Init()
+    static public void Init()
     {
         if (s_instance == null)
         {

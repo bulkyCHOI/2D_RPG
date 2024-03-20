@@ -104,6 +104,7 @@ namespace Server.Game
             }
 
             GameObjectType type = ObjectManager.GetObjectTypeById(gameObject.Id);
+            Console.WriteLine($"Enter Room({RoomId}): {Map.mapName}({Map.MinX},{Map.MaxX}) - [{type}]{gameObject.Id}");
 
             if (type == GameObjectType.Player)
             {
@@ -121,7 +122,6 @@ namespace Server.Game
                     S_EnterGame enterPacket = new S_EnterGame();
                     enterPacket.Player = player.Info;
                     player.Session.Send(enterPacket);
-
                     player.Vision.Update();
                 }
             }

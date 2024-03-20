@@ -33,7 +33,7 @@ enum MsgId {
 	S_USE_ITEM = 22;
 	S_PING = 23;
 	C_PONG = 24;
-	S_MOVE_SCENE = 25;
+	S_MOVE_MAP = 25;
 }
 
 enum CreatureState{
@@ -215,6 +215,7 @@ message S_CreatePlayer
 message C_EnterGame
 {
 	string name = 1;
+	int32 roomNumber = 2;
 }
 
 message S_ItemList
@@ -271,7 +272,7 @@ message C_Pong
 {
 }
 
-message S_MoveScene
+message S_MoveMap
 {
-	string sceneName = 1;
+	int32 mapNumber = 1;
 }

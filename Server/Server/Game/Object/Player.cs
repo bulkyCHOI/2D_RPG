@@ -40,9 +40,9 @@ namespace Server.Game
         {
             base.OnDead(attacker);
             //MoveScene 패킷을 보내자
-            S_MoveScene moveScene = new S_MoveScene();
-            moveScene.SceneName = "Game2";
-            Session.Send(moveScene);
+            S_MoveMap moveMap = new S_MoveMap();
+            moveMap.MapNumber = 2;
+            Session.Send(moveMap);
         }
 
         public void OnLeaveGame()
