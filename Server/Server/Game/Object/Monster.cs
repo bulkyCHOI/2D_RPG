@@ -217,7 +217,7 @@ namespace Server.Game
             if(owner != null && owner.ObjectType == GameObjectType.Player)
             {
                 RewardData reward = GetRandomReward();
-                if(reward != null)
+                //if(reward != null)  //null이어도 경험치는 획득할수 있도록 해준다.
                 {
                     Player player = (Player)owner;
                     DbTransaction.RewardPlayer(player, reward, Stat.TotalExp, Room);

@@ -250,9 +250,17 @@ class PacketHandler
 
     public static void S_ChangeStatHandler(PacketSession session, IMessage packet)
     {
-        S_ChangeStat addItem = (S_ChangeStat)packet;
+        S_ChangeStat changePacket = (S_ChangeStat)packet;
 
         //TODO: 스탯 변경 처리
+        if (Managers.Object.MyPlayer != null)
+        {
+            Managers.Object.MyPlayer.Stat = changePacket.StatInfo;
+            Managers.Object.MyPlayer.RefreshAdditionalStat();
+
+            UI_GameScene gameSceneUI = Managers.UI.SceneUI as UI_GameScene;
+            gameSceneUI.LevelUI.RefreshUI();
+        }
     }
 
     public static void S_UseItemHandler(PacketSession session, IMessage packet)

@@ -94,7 +94,7 @@ namespace Server.DB
 
         public static void RewardPlayer(Player player, RewardData rewardData, int exp, GameRoom gameRoom)
         {
-            if (player == null || rewardData == null || gameRoom == null)
+            if (player == null || gameRoom == null)
                 return;
 
             //TODO : 몬스터에게 획득한 경험치 반영
@@ -107,7 +107,7 @@ namespace Server.DB
                     
                 player.Session.Send(expPacket);
             }
-            if (player.Stat.TotalExp < 0)
+            if (player.Stat.TotalExp <= 0)
             {
                 int level = player.Stat.Level++;
                 StatInfo stat = null;
@@ -122,9 +122,18 @@ namespace Server.DB
                     player.Stat.Defence = stat.Defence;
                     player.Stat.TotalExp = stat.TotalExp;
                 }
+
+                //클라이언트에게 스탯이 변경됨을 알린다.
+                {
+                    S_ChangeStat changeStatPacket = new S_ChangeStat();
+                    changeStatPacket.StatInfo = player.Stat;
+
+                    player.Session.Send(changeStatPacket);
+                }
             }
 
-
+            if (rewardData == null) //획득 아이템이 없다면 패스
+                return;
             Item consumableItem = player.Inventory.Find(
                         i => i.TemplateId == rewardData.itemId  //소지한
                         && i.ItemType == ItemType.Consumable    //소비아이템인 경우
