@@ -34,7 +34,11 @@ public class ObjectManager
 				MyPlayer.PosInfo = info.PosInfo;
 				MyPlayer.Stat = info.StatInfo;
 				MyPlayer.SyncPos();
-			}
+
+				//UI 갱신
+                UI_GameScene gameSceneUI = Managers.UI.SceneUI as UI_GameScene;
+                gameSceneUI.LevelUI.RefreshUI();
+            }
 			else
 			{
 				GameObject go = Managers.Resource.Instantiate("Creature/Player");

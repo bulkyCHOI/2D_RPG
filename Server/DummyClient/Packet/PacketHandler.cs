@@ -82,7 +82,7 @@ class PacketHandler
             LobbyPlayerInfo info = loginPacket.Players[0];
             C_EnterGame enterGamePacket = new C_EnterGame();
             enterGamePacket.Name = info.Name;
-            enterGamePacket.RoomNumber = 1;
+            enterGamePacket.RoomNumber = 2;
             serverSession.Send(enterGamePacket);
         }
     }
@@ -101,7 +101,7 @@ class PacketHandler
         {
             C_EnterGame enterGamePacket = new C_EnterGame();
             enterGamePacket.Name = createPlayerPacket.Player.Name;
-            enterGamePacket.RoomNumber = 1;
+            enterGamePacket.RoomNumber = 2;
             serverSession.Send(enterGamePacket);
         }
     }
@@ -139,5 +139,10 @@ class PacketHandler
     public static void S_MoveMapHandler(PacketSession session, IMessage packet)
     {
         S_MoveMap moveMap = (S_MoveMap)packet;
+    }
+
+    public static void S_AddExpHandler(PacketSession session, IMessage packet)
+    {
+        S_AddExp addExp = (S_AddExp)packet;
     }
 }

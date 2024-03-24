@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.Diagnostics;
 using System.IO;
+using Unity.VisualScripting;
+
 
 
 
@@ -32,6 +34,7 @@ public class MapEditor
         {
             Tilemap tmBase = Util.FindChild<Tilemap>(go, "Tilemap_Base", true);
             Tilemap tm = Util.FindChild<Tilemap>(go, "Tilemap_Collision", true);
+            Tilemap tmPortal = Util.FindChild<Tilemap>(go, "Tilemap_Portal", true);
 
             tmBase.CompressBounds();    //min/max √ ±‚»≠
             tm.CompressBounds();
@@ -51,12 +54,32 @@ public class MapEditor
                         if (tile != null)
                             writer.Write("1");
                         else
+                        {
+                        TileBase checkPortalTile = tmPortal.GetTile(new Vector3Int(x, y, 0));
+                        if (checkPortalTile != null)
+                        { 
+                            Debug.Log(checkPortalTile.name);
+                            string w = checkPortalTile.name.ToString();
+                            writer.Write(w);
+                        }
+                        else
                             writer.Write("0");
+                        }
                     }
                     writer.WriteLine();
                 }
             }
         }
+    }
+
+    private static int GetPortalNumber(string objectName)
+    {
+        switch (objectName)
+        {
+            case "chest":
+                return 1;
+        }
+        return 1;
     }
 #endif
 }

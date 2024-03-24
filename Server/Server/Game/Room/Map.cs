@@ -96,6 +96,7 @@ namespace Server.Game
 
         bool[,] _collision;
         GameObject[,] _objects;
+        int[,] _portal;
 
         public bool CanGo(Vector2Int cellPos, bool checkObjects=true)
         {
@@ -107,6 +108,18 @@ namespace Server.Game
             int x = cellPos.x - MinX;
             int y = MaxY - cellPos.y;
             return !_collision[y, x] && (!checkObjects || _objects[y, x] == null);
+        }
+
+        public int GetMapId(Vector2Int cellPos)
+        {
+            if (cellPos.x < MinX || cellPos.x > MaxX)
+                return 0;
+            if (cellPos.y < MinY || cellPos.y > MaxY)
+                return 0;
+
+            int x = cellPos.x - MinX;
+            int y = MaxY - cellPos.y;
+            return _portal[y, x];
         }
 
         public GameObject Find(Vector2Int cellPos)
@@ -233,6 +246,7 @@ namespace Server.Game
             int yCount = MaxY - MinY + 1;
             _collision = new bool[yCount, xCount];
             _objects = new GameObject[yCount, xCount];
+            _portal = new int[yCount, xCount];
 
             for (int y = 0; y < yCount; y++)
             {
@@ -240,6 +254,9 @@ namespace Server.Game
                 for (int x = 0; x < xCount; x++)
                 {
                     _collision[y, x] = (line[x] == '1' ? true : false);
+                    //TODO 2이상이 값은 다른 방으로 이동하는 포탈이 저장된 포인트로 _portal에 저장
+                    // line[x]에 있는 string을 int값으로 변환하여 _portal에 저장하면 된다.
+                    _portal[y, x] = int.Parse(line[x].ToString());
                 }
             }
         }

@@ -122,7 +122,7 @@ namespace Server
 				if(MyPlayer == null)
 					return;
 
-                GameRoom room = GameLogic.Instance.Find(1);
+                GameRoom room = GameLogic.Instance.Find(2);
 				room.Push(room.LeaveGame, MyPlayer.Info.ObjectId);	// 방에서 플레이어 퇴장	//Job 방식으로 변경
             });
             SessionManager.Instance.Remove(this);

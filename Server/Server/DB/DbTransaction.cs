@@ -92,12 +92,39 @@ namespace Server.DB
             //Console.WriteLine($"Hp Saved({hp})");
         }
 
-        public static void RewardPlayer(Player player, RewardData rewardData, GameRoom gameRoom)
+        public static void RewardPlayer(Player player, RewardData rewardData, int exp, GameRoom gameRoom)
         {
             if (player == null || rewardData == null || gameRoom == null)
                 return;
 
-            
+            //TODO : 몬스터에게 획득한 경험치 반영
+            //Console.WriteLine($"Exp: {player.Stat.TotalExp}");
+            player.Stat.TotalExp -= exp;
+            //클라이언트에게 획득한 경험치를 알린다.
+            {
+                S_AddExp expPacket = new S_AddExp();
+                expPacket.Exp = exp;
+                    
+                player.Session.Send(expPacket);
+            }
+            if (player.Stat.TotalExp < 0)
+            {
+                int level = player.Stat.Level++;
+                StatInfo stat = null;
+                DataManager.StatDict.TryGetValue(level, out stat);
+                if (stat != null)
+                {
+                    player.Stat.MaxHp = stat.MaxHp;
+                    player.Stat.Hp = player.Stat.MaxHp;
+                    player.Stat.MaxMp = stat.MaxMp;
+                    player.Stat.Mp = player.Stat.MaxMp;
+                    player.Stat.Attack = stat.Attack;
+                    player.Stat.Defence = stat.Defence;
+                    player.Stat.TotalExp = stat.TotalExp;
+                }
+            }
+
+
             Item consumableItem = player.Inventory.Find(
                         i => i.TemplateId == rewardData.itemId  //소지한
                         && i.ItemType == ItemType.Consumable    //소비아이템인 경우
@@ -142,7 +169,7 @@ namespace Server.DB
                     }
                 });
             }
-            else
+            else //일반 장비일경우 or 소지하지 않은 소비아이템    
             {
                 // 1) DB에 저장 요청
                 // 2) DB에 저장 요청이 완료되면

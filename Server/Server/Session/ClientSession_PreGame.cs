@@ -183,7 +183,7 @@ namespace Server
                         speed = stat.Speed,
                         attack = stat.Attack,
                         defence = stat.Defence,
-                        totalExp = 0,
+                        totalExp = stat.TotalExp,
                         AccountDbId = AccountDbId
                     };
 

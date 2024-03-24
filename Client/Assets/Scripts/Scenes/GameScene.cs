@@ -11,7 +11,7 @@ public class GameScene : BaseScene
 
         SceneType = Define.Scene.Game;
 
-        Managers.Map.LoadMap(1);
+        Managers.Map.LoadMap(2);    //초기 마을맵이 2번이다.
 
         _gameSceneUI = Managers.UI.ShowSceneUI<UI_GameScene>();
     }

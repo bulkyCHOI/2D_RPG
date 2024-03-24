@@ -63,6 +63,9 @@ public class MapManager
 		GameObject collision = Util.FindChild(go, "Tilemap_Collision", true);
 		if (collision != null)
 			collision.SetActive(false);
+		GameObject portal = Util.FindChild(go, "Tilemap_Portal", true);
+		if (portal != null)
+            portal.SetActive(false);
 
 		CurrentGrid = go.GetComponent<Grid>();
 

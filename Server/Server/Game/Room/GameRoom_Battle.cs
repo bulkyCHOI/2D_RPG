@@ -2,6 +2,7 @@
 using Google.Protobuf.Protocol;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Server.Data;
+using ServerCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +33,31 @@ namespace Server.Game
             info.PosInfo.State = movePosInfo.State;
             info.PosInfo.MoveDir = movePosInfo.MoveDir;
             Map.ApplyMove(player, new Vector2Int(movePosInfo.PosX, movePosInfo.PosY)); //이동
+
+            int mapId = Map.GetMapId(player.CellPos);
+            Console.WriteLine($"Player Position: ({player.CellPos.x}, {player.CellPos.y})");
+            Console.WriteLine($"MapId: {mapId}");
+            if (mapId > 0)
+            {
+                Console.WriteLine($"Player({player.Info.Name}) Move to Room({mapId})");
+
+
+                S_Die diePacket = new S_Die();
+                diePacket.ObjectId = player.Info.ObjectId;
+                diePacket.AttackerId = player.Info.ObjectId;
+                player.Room.Broadcast(player.CellPos, diePacket);
+
+                GameRoom room = player.Room;   //Room에서 나가기 전에 Room을 저장해놓는다.
+                room.LeaveGame(player.Info.ObjectId); //push로 하지 않아도 된다. 이 함수는 바로 처리된다.
+
+                GameRoom newRoom = GameLogic.Instance.Find(mapId);  //2번방으로 강제 셋팅
+                newRoom.EnterGame(player, randPos: true);   //다시 입장   //push로 하지 않아도 된다. 이 함수는 바로 처리된다.
+
+                //MoveScene 패킷을 보내자
+                S_MoveMap moveMap = new S_MoveMap();
+                moveMap.MapNumber = mapId;
+                player.Session.Send(moveMap);
+            }
 
 
             // 방에 있는 모든 플레이어에게 전송

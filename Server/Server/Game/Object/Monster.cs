@@ -220,7 +220,7 @@ namespace Server.Game
                 if(reward != null)
                 {
                     Player player = (Player)owner;
-                    DbTransaction.RewardPlayer(player, reward, Room);
+                    DbTransaction.RewardPlayer(player, reward, Stat.TotalExp, Room);
                 }
             }
         }

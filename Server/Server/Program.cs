@@ -108,8 +108,9 @@ namespace Server
 
             GameLogic.Instance.Push(() =>	//아직 main thread에서 실행중이므로 안해도 되지만 push로 실행
             {
-				GameRoom room1 = GameLogic.Instance.Add(1);
-                GameRoom room2 = GameLogic.Instance.Add(2);
+				GameRoom room1 = GameLogic.Instance.Add(2);	//1번맵은 만들수 없음 map에 기본적으로 0/1로 이동여부를 판단하고, 2부터는 포탈번호임
+                GameRoom room2 = GameLogic.Instance.Add(3);
+                GameRoom room3 = GameLogic.Instance.Add(4);
             });
 
 			// DNS (Domain Name System)

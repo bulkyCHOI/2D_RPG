@@ -10,7 +10,7 @@ namespace Server.Game
     {
         public static GameLogic Instance { get; } = new GameLogic();
         Dictionary<int, GameRoom> _rooms = new Dictionary<int, GameRoom>();
-        int _roomId = 1;
+        int _roomId = 2;    //2번방부터 시작이다
 
         public void Update()
         {

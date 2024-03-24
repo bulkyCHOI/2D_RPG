@@ -45,7 +45,7 @@ public class CreatureController : BaseController
     public override int Mp
     {
         get { return Stat.Mp; }
-        set { base.Hp = value; UpdateMpBar(); }
+        set { base.Mp = value; UpdateMpBar(); }
     }
 
     protected void AddMpBar()

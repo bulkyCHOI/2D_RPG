@@ -34,6 +34,7 @@ enum MsgId {
 	S_PING = 23;
 	C_PONG = 24;
 	S_MOVE_MAP = 25;
+	S_ADD_EXP = 26;
 }
 
 enum CreatureState{
@@ -275,4 +276,9 @@ message C_Pong
 message S_MoveMap
 {
 	int32 mapNumber = 1;
+}
+
+message S_AddExp
+{
+	int32 exp = 1;
 }

@@ -142,7 +142,7 @@ class PacketHandler
             LobbyPlayerInfo info = loginPacket.Players[0];
             C_EnterGame enterGamePacket = new C_EnterGame();
             enterGamePacket.Name = info.Name;
-            enterGamePacket.RoomNumber = 1;
+            enterGamePacket.RoomNumber = 2;
             Managers.Network.Send(enterGamePacket);
         }
     }
@@ -164,7 +164,7 @@ class PacketHandler
             Debug.Log("CreatePlayer Ok");
             C_EnterGame enterGamePacket = new C_EnterGame();
             enterGamePacket.Name = createPlayerPacket.Player.Name;
-            enterGamePacket.RoomNumber = 1;
+            enterGamePacket.RoomNumber = 2;
             Managers.Network.Send(enterGamePacket);
         }
     }
@@ -294,5 +294,17 @@ class PacketHandler
         
         //Managers.Scene.LoadScene($"Game{moveScenePacket.SceneNumber}");
         
+    }
+
+    public static void S_AddExpHandler(PacketSession session, IMessage packet)
+    {
+        S_AddExp expPacket = (S_AddExp)packet;
+
+        //플레이어의 경험치를 증가시킨다.
+        Managers.Object.MyPlayer.Stat.TotalExp -= expPacket.Exp;
+        Debug.Log($"경험치 획득: {expPacket.Exp}, 남은 경험치: {Managers.Object.MyPlayer.Stat.TotalExp}");
+
+        UI_GameScene gameSceneUI = Managers.UI.SceneUI as UI_GameScene;
+        gameSceneUI.LevelUI.RefreshUI();
     }
 }

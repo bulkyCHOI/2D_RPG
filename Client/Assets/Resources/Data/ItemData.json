@@ -20,28 +20,28 @@
       "id": "100",
       "name": "뼈 갑옷",
       "armorType": "Armor",
-      "defence": "5",
+      "defence": "10",
       "iconPath": "Textures/Item/armor"
     },
     {
       "id": "101",
       "name": "뼈 투구",
       "armorType": "Helmet",
-      "defence": "1",
+      "defence": "5",
       "iconPath": "Textures/Item/helmets"
     },
     {
       "id": "102",
       "name": "뼈 신발",
       "armorType": "Boots",
-      "defence": "1",
+      "defence": "2",
       "iconPath": "Textures/Item/boots"
     },
     {
       "id": "103",
       "name": "뼈 바지",
       "armorType": "Pants",
-      "defence": "3",
+      "defence": "8",
       "iconPath": "Textures/Item/pants"
     },
     {

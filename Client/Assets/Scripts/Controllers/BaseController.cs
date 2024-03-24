@@ -77,7 +77,7 @@ public class BaseController : MonoBehaviour
 
     public void SyncPos()   //위치 동기화(바로 이동)
     {
-        Vector3 destPos = Managers.Map.CurrentGrid.CellToWorld(CellPos) + new Vector3(0.5f, 0.5f);
+        Vector3 destPos = Managers.Map.CurrentGrid.CellToWorld(CellPos) + new Vector3(0.5f, 1.0f);
         transform.position = destPos;
     }
 
@@ -255,7 +255,7 @@ public class BaseController : MonoBehaviour
     {
         _animator = GetComponent<Animator>();
         _sprite = GetComponent<SpriteRenderer>();
-        Vector3 pos = Managers.Map.CurrentGrid.CellToWorld(CellPos) + new Vector3(0.5f, 0.5f);
+        Vector3 pos = Managers.Map.CurrentGrid.CellToWorld(CellPos) + new Vector3(0.5f, 1.0f);
         transform.position = pos;
 
         UpdateAnimation();
@@ -287,7 +287,7 @@ public class BaseController : MonoBehaviour
     // 스르륵 이동하는 것을 처리
     protected virtual void UpdateMoving()
     {
-        Vector3 destPos = Managers.Map.CurrentGrid.CellToWorld(CellPos) + new Vector3(0.5f, 0.5f);
+        Vector3 destPos = Managers.Map.CurrentGrid.CellToWorld(CellPos) + new Vector3(0.5f, 1.0f);
         Vector3 moveDir = destPos - transform.position;
 
         // 도착 여부 체크
