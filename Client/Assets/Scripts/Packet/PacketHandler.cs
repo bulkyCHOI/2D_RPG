@@ -309,8 +309,8 @@ class PacketHandler
         S_AddExp expPacket = (S_AddExp)packet;
 
         //플레이어의 경험치를 증가시킨다.
-        Managers.Object.MyPlayer.Stat.TotalExp -= expPacket.Exp;
-        Debug.Log($"경험치 획득: {expPacket.Exp}, 남은 경험치: {Managers.Object.MyPlayer.Stat.TotalExp}");
+        Managers.Object.MyPlayer.Stat.CurrentExp += expPacket.Exp;
+        Debug.Log($"경험치 획득: {expPacket.Exp}, 경험치: {Managers.Object.MyPlayer.Stat.CurrentExp}/{Managers.Object.MyPlayer.Stat.TotalExp}");
 
         UI_GameScene gameSceneUI = Managers.UI.SceneUI as UI_GameScene;
         gameSceneUI.LevelUI.RefreshUI();

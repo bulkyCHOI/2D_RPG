@@ -99,7 +99,7 @@ namespace Server.DB
 
             //TODO : 몬스터에게 획득한 경험치 반영
             //Console.WriteLine($"Exp: {player.Stat.TotalExp}");
-            player.Stat.TotalExp -= exp;
+            player.Stat.CurrentExp += exp;
             //클라이언트에게 획득한 경험치를 알린다.
             {
                 S_AddExp expPacket = new S_AddExp();
@@ -107,7 +107,7 @@ namespace Server.DB
                     
                 player.Session.Send(expPacket);
             }
-            if (player.Stat.TotalExp <= 0)
+            if (player.Stat.CurrentExp >= player.Stat.TotalExp)
             {
                 int level = player.Stat.Level++;
                 StatInfo stat = null;
@@ -121,6 +121,7 @@ namespace Server.DB
                     player.Stat.Attack = stat.Attack;
                     player.Stat.Defence = stat.Defence;
                     player.Stat.TotalExp = stat.TotalExp;
+                    player.Stat.CurrentExp = 0;
                 }
 
                 //클라이언트에게 스탯이 변경됨을 알린다.

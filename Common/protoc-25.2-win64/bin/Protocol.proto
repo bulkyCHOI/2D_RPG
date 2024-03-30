@@ -7,6 +7,9 @@ option csharp_namespace = "Google.Protobuf.Protocol";
 // C_ client to server
 // S_ server to client
 
+// add-migration ¤·¤·¤·
+// update-database
+
 enum MsgId {
 	S_ENTER_GAME = 0;
 	S_LEAVE_GAME = 1;
@@ -153,6 +156,7 @@ message StatInfo
 	int32 attack = 7;
 	int32 defence = 8;
 	int32 totalExp = 9;
+	int32 currentExp = 10;
 }
 
 message C_Skill {

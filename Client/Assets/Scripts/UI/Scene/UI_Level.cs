@@ -1,3 +1,4 @@
+using Google.Protobuf.Protocol;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -19,10 +20,13 @@ public class UI_Level : UI_Base
 
     public void RefreshUI()
     {
-        _totalExp = Managers.Data.StatDict;
-        _currentExp = Managers.Object.MyPlayer.Stat.TotalExp;
+        //level = Managers.Object.MyPlayer.Stat.Level;
+        //StatInfo statInfo = null;
+        //Managers.Data.StatDict.TryGetValue(level, out statInfo);
+        _totalExp = Managers.Object.MyPlayer.Stat.TotalExp;
+        _currentExp = Managers.Object.MyPlayer.Stat.CurrentExp;
         _level.text = $"{Managers.Object.MyPlayer.Stat.Level.ToString()}";
-        _exp.text = $"{Managers.Object.MyPlayer.Stat.TotalExp}";
+        _exp.text = $"{_currentExp}/{_totalExp}";
 
     }
 }
