@@ -84,6 +84,12 @@ namespace Server.DB
                 db.Entry(playerDb).Property(nameof(playerDb.mp)).IsModified = true;
                 db.Entry(playerDb).Property(nameof(playerDb.level)).IsModified = true;
                 db.Entry(playerDb).Property(nameof(playerDb.totalExp)).IsModified = true;
+                db.Entry(playerDb).Property(nameof(playerDb.currentExp)).IsModified = true;
+                db.Entry(playerDb).Property(nameof(playerDb.attack)).IsModified = true;
+                db.Entry(playerDb).Property(nameof(playerDb.defence)).IsModified = true;
+                db.Entry(playerDb).Property(nameof(playerDb.speed)).IsModified = true;
+                db.Entry(playerDb).Property(nameof(playerDb.maxHp)).IsModified = true;
+                db.Entry(playerDb).Property(nameof(playerDb.maxMp)).IsModified = true;
                 bool success = db.SaveChangesEx();
                 if (success)
                 {
@@ -136,6 +142,9 @@ namespace Server.DB
 
                     player.Session.Send(changeStatPacket);
                 }
+
+                //DB에 저장
+                SavePlayerStatus_Step1(player, gameRoom);
             }
             Console.WriteLine($"Exp: {exp}: {player.Stat.CurrentExp}/{player.Stat.TotalExp}");
 
