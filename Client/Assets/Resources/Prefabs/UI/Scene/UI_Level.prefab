@@ -404,6 +404,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _level: {fileID: 8690822134923667594}
   _exp: {fileID: 8690822136459216664}
+  _expBar: {fileID: 5517279410397940256}
+  _totalExp: 0
+  _currentExp: 0
 --- !u!1 &8690822136459216670
 GameObject:
   m_ObjectHideFlags: 0

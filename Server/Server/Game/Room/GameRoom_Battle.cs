@@ -35,11 +35,11 @@ namespace Server.Game
             Map.ApplyMove(player, new Vector2Int(movePosInfo.PosX, movePosInfo.PosY)); //이동
 
             int mapId = Map.GetMapId(player.CellPos);
-            Console.WriteLine($"Player Position: ({player.CellPos.x}, {player.CellPos.y})");
-            Console.WriteLine($"MapId: {mapId}");
+            //Console.WriteLine($"Player Position: ({player.CellPos.x}, {player.CellPos.y})");
+            //Console.WriteLine($"MapId: {mapId}");
             if (mapId > 0)
             {
-                Console.WriteLine($"Player({player.Info.Name}) Move to Room({mapId})");
+                //Console.WriteLine($"Player({player.Info.Name}) Move to Room({mapId})");
 
 
                 S_Die diePacket = new S_Die();
@@ -96,7 +96,7 @@ namespace Server.Game
                     GameObject target = Map.Find(skillPos);
                     if (target != null)
                     {
-                        Console.WriteLine("Hit GameObject !");
+                        //Console.WriteLine("Hit GameObject !");
                         target.OnDamaged(player, player.TotalAttack);
                     }
                     else

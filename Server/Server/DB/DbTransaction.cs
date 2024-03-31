@@ -65,6 +65,12 @@ namespace Server.DB
             playerDb.mp = player.Stat.Mp;
             playerDb.level = player.Stat.Level;
             playerDb.totalExp = player.Stat.TotalExp;
+            playerDb.currentExp = player.Stat.CurrentExp;
+            playerDb.attack = player.Stat.Attack;
+            playerDb.defence = player.Stat.Defence;
+            playerDb.speed = player.Stat.Speed;
+            playerDb.maxHp = player.Stat.MaxHp;
+            playerDb.maxMp = player.Stat.MaxMp;
 
             Instance.Push<PlayerDb, GameRoom>(SavePlayerStatus_Step2, playerDb, gameRoom);
         }
@@ -98,7 +104,6 @@ namespace Server.DB
                 return;
 
             //TODO : 몬스터에게 획득한 경험치 반영
-            //Console.WriteLine($"Exp: {player.Stat.TotalExp}");
             player.Stat.CurrentExp += exp;
             //클라이언트에게 획득한 경험치를 알린다.
             {
@@ -127,11 +132,12 @@ namespace Server.DB
                 //클라이언트에게 스탯이 변경됨을 알린다.
                 {
                     S_ChangeStat changeStatPacket = new S_ChangeStat();
-                    changeStatPacket.StatInfo = player.Stat;
+                    changeStatPacket.StatInfo = new StatInfo(player.Stat);
 
                     player.Session.Send(changeStatPacket);
                 }
             }
+            Console.WriteLine($"Exp: {exp}: {player.Stat.CurrentExp}/{player.Stat.TotalExp}");
 
             if (rewardData == null) //획득 아이템이 없다면 패스
                 return;

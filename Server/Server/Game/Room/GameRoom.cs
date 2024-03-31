@@ -16,7 +16,7 @@ namespace Server.Game
     {
         public const int VisionCells = 5;
 
-        public int monsterCount = 5;
+        public int monsterCount = 20;
         public int monsterNumber = 1;
         public int RoomId { get; set; }
 
@@ -104,7 +104,7 @@ namespace Server.Game
             }
 
             GameObjectType type = ObjectManager.GetObjectTypeById(gameObject.Id);
-            Console.WriteLine($"Enter Room({RoomId}): {Map.mapName}({Map.MinX},{Map.MaxX}) - [{type}]{gameObject.Id}");
+            //Console.WriteLine($"Enter Room({RoomId}): {Map.mapName}({Map.MinX},{Map.MaxX}) - [{type}]{gameObject.Id}");
 
             if (type == GameObjectType.Player)
             {

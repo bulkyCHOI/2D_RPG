@@ -9,7 +9,7 @@ public class UI_Level : UI_Base
     [SerializeField]
     public TMP_Text _level;
     public TMP_Text _exp;
-    public GameObject _expBar;
+    public Transform _expBar;
     public int _totalExp;
     public int _currentExp;
 
@@ -28,5 +28,12 @@ public class UI_Level : UI_Base
         _level.text = $"{Managers.Object.MyPlayer.Stat.Level.ToString()}";
         _exp.text = $"{_currentExp}/{_totalExp}";
 
+        SetExpBar((float)_currentExp / _totalExp);
+    }
+
+    public void SetExpBar(float ratio)
+    {
+        ratio = Mathf.Clamp01(ratio);
+        _expBar.localScale = new Vector3(ratio, 1, 1);
     }
 }
