@@ -135,7 +135,7 @@ namespace Server.Game
     public class Consumable : Item
     {
         public ConsumableType ConsumableType { get; private set; }
-        public int MaxCount { get; private set; }
+        public int RecoveryAmount { get; private set; }
 
         public Consumable(int templateId) : base(ItemType.Consumable)
         {
@@ -154,8 +154,8 @@ namespace Server.Game
                 TemplateId = data.id;
                 Count = 1;
                 ConsumableType = data.consumableType;
-                MaxCount = data.maxCount;
-                IsStackable = (data.maxCount > 1);
+                RecoveryAmount = data.recoveryAmount;
+                IsStackable = true;
             }
         }
     }

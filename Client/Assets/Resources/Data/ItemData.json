@@ -71,15 +71,71 @@
       "id": "200",
       "name": "HP 물약",
       "consumableType": "HpPortion",
-      "maxCount": "10",
-      "iconPath": "Textures/Item/hp"
+      "recoveryAmount": "100",
+      "iconPath": "Textures/Potion/equip_icon_potion_red_0"
     },
     {
       "id": "201",
       "name": "MP 물약",
       "consumableType": "MpPortion",
-      "maxCount": "5",
-      "iconPath": "Textures/Item/mp"
+      "recoveryAmount": "50",
+      "iconPath": "Textures/Potion/equip_icon_potion_blue_0"
+    },
+    {
+      "id": "202",
+      "name": "HP 물약",
+      "consumableType": "HpPortion",
+      "recoveryAmount": "200",
+      "iconPath": "Textures/Potion/equip_icon_potion_red_1"
+    },
+    {
+      "id": "203",
+      "name": "MP 물약",
+      "consumableType": "MpPortion",
+      "recoveryAmount": "100",
+      "iconPath": "Textures/Potion/equip_icon_potion_blue_1"
+    },
+{
+      "id": "204",
+      "name": "HP 물약",
+      "consumableType": "HpPortion",
+      "recoveryAmount": "400",
+      "iconPath": "Textures/Potion/equip_icon_potion_red_2"
+    },
+    {
+      "id": "205",
+      "name": "MP 물약",
+      "consumableType": "MpPortion",
+      "recoveryAmount": "200",
+      "iconPath": "Textures/Potion/equip_icon_potion_blue_2"
+    },
+{
+      "id": "206",
+      "name": "HP 물약",
+      "consumableType": "HpPortion",
+      "recoveryAmount": "800",
+      "iconPath": "Textures/Potion/equip_icon_potion_red_3"
+    },
+    {
+      "id": "207",
+      "name": "MP 물약",
+      "consumableType": "MpPortion",
+      "recoveryAmount": "400",
+      "iconPath": "Textures/Potion/equip_icon_potion_blue_3"
+    },
+    {
+      "id": "208",
+      "name": "HP 물약",
+      "consumableType": "HpPortion",
+      "recoveryAmount": "1600",
+      "iconPath": "Textures/Potion/equip_icon_potion_red_4"
+    },
+    {
+      "id": "209",
+      "name": "MP 물약",
+      "consumableType": "MpPortion",
+      "recoveryAmount": "800",
+      "iconPath": "Textures/Potion/equip_icon_potion_blue_4"
     }
   ]
 }

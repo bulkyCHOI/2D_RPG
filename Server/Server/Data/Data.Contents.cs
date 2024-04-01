@@ -86,7 +86,7 @@ namespace Server.Data
     public class ConsumableData : ItemData
     {
         public ConsumableType consumableType;
-        public int maxCount;
+        public int recoveryAmount;
     }
 
     [Serializable]

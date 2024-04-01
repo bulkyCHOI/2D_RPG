@@ -134,6 +134,25 @@ public class MyPlayerController : PlayerController
             if (actionUI.item4 != null)
                 actionUI.SlotClick(actionUI.item4);
         }
+        else if(Input.GetKeyDown(KeyCode.F))
+        {
+            UI_GameScene gameSceneUI = Managers.UI.SceneUI as UI_GameScene;
+            UI_Vendor vendorUI = gameSceneUI.VendorUI;
+            UI_Inventory invenUI = gameSceneUI.InvenUI;
+
+            if (vendorUI.gameObject.activeSelf == false)
+            {
+                vendorUI.gameObject.SetActive(true);
+                invenUI.gameObject.SetActive(true);
+                vendorUI.RefreshUI();
+                invenUI.RefreshUI();
+            }
+            else
+            {
+                vendorUI.gameObject.SetActive(false);
+                invenUI.gameObject.SetActive(false);
+            }
+        }
     }
     // 키보드 입력
     void GetDirInput()

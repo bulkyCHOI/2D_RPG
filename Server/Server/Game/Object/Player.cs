@@ -184,14 +184,14 @@ namespace Server.Game
                 if (consumable.ConsumableType == ConsumableType.HpPortion)
                 {
                     //메모리 선 적용 
-                    OnHealed(this, (int)(Stat.MaxHp * 0.2f));
+                    OnHealed(this, consumable.RecoveryAmount);
                     item.Count -= 1;
                     Inventory.EditItemCount(item);
                 }
                 else if (consumable.ConsumableType == ConsumableType.MpPortion)
                 {
                     //메모리 선 적용
-                    OnGenMana(this, (int)(Stat.MaxMp * 0.2f));
+                    OnGenMana(this, consumable.RecoveryAmount);
                     item.Count -= 1;
                     Inventory.EditItemCount(item);
                 }
