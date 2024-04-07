@@ -22,10 +22,11 @@ namespace Server.Game
             }
         }
 
-        public GameRoom Add(int mapId)
+        public GameRoom Add(int mapId, int monsterCnt = 10)
         {
             GameRoom room = new GameRoom();
             //room.Init(mapId); //기존의 lock 방식
+            room.monsterCount = monsterCnt;
             room.Push(room.Init, mapId, 10);    //Job 방식으로 push
 
             room.RoomId = _roomId;

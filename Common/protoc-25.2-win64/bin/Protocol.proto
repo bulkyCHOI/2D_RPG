@@ -38,6 +38,8 @@ enum MsgId {
 	C_PONG = 24;
 	S_MOVE_MAP = 25;
 	S_ADD_EXP = 26;
+	C_VENDOR_INTERACTION = 27;
+	S_VENDOR_INTERACTION = 28;
 }
 
 enum CreatureState{
@@ -59,6 +61,7 @@ enum GameObjectType{
 	PLAYER = 1;
 	MONSTER = 2;
 	PROJECTILE = 3;
+	NPC = 4;
 }
 
 enum SkillType
@@ -286,3 +289,21 @@ message S_AddExp
 {
 	int32 exp = 1;
 }
+
+enum VendorType{
+	NORMAL = 0;
+	POTION = 1;
+	BLACKSMITH = 2;
+	GROCER = 3;
+}
+
+message C_VendorInteraction
+{
+}
+
+message S_VendorInteraction
+{
+	VendorType vendorType = 1;
+	repeated ItemInfo items = 2;
+}
+

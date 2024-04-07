@@ -60,7 +60,9 @@ class PacketManager
 		_onRecv.Add((ushort)MsgId.SMoveMap, MakePacket<S_MoveMap>);
 		_handler.Add((ushort)MsgId.SMoveMap, PacketHandler.S_MoveMapHandler);		
 		_onRecv.Add((ushort)MsgId.SAddExp, MakePacket<S_AddExp>);
-		_handler.Add((ushort)MsgId.SAddExp, PacketHandler.S_AddExpHandler);
+		_handler.Add((ushort)MsgId.SAddExp, PacketHandler.S_AddExpHandler);		
+		_onRecv.Add((ushort)MsgId.SVendorInteraction, MakePacket<S_VendorInteraction>);
+		_handler.Add((ushort)MsgId.SVendorInteraction, PacketHandler.S_VendorInteractionHandler);
 	}
 
 	public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)

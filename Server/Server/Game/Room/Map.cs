@@ -221,6 +221,18 @@ namespace Server.Game
                     next.Projectiles.Add(p);
                 }
             }
+            else if (type == GameObjectType.Npc)
+            {
+                Console.WriteLine("NPC applyMove");
+                NPC n = (NPC)gameobject;
+                Zone now = gameobject.Room.GetZone(gameobject.CellPos);
+                Zone next = gameobject.Room.GetZone(dest);
+                if (now != next)
+                {
+                    now.NPCs.Remove(n);
+                    next.NPCs.Add(n);
+                }
+            }
 
             //실제 좌표 이동
             posInfo.PosX = dest.x;

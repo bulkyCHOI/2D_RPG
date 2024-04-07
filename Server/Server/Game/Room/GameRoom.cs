@@ -23,6 +23,7 @@ namespace Server.Game
         Dictionary<int, Player> _players = new Dictionary<int, Player>();
         Dictionary<int, Monster> _monsters = new Dictionary<int, Monster>();
         Dictionary<int, Projectile> _projectiles = new Dictionary<int, Projectile>();
+        Dictionary<int, NPC> _npcs = new Dictionary<int, NPC>();
 
         public Zone[,] Zones { get; private set; }
         public int ZoneCells { get; private set; }
@@ -71,6 +72,19 @@ namespace Server.Game
                 monster.Init(monsterNumber);    //임시로 1번 몬스터 셋팅
                 //EnterGame(monster);   //job 방식으로 변경
                 Push(EnterGame, monster, true);   //job 방식으로 변경
+            }
+
+            //Console.WriteLine($"mapid: {mapId}");
+            if (mapId == 2)
+            {
+                //NPC 생성
+                for (int i = 0; i < 3; i++)
+                {
+                    NPC npc = ObjectManager.Instance.Add<NPC>();
+                    npc.Init(i+1);    //임시로 1번 몬스터 셋팅
+                    //EnterGame(npc);   //job 방식으로 변경
+                    Push(EnterGame, npc, true);   //job 방식으로 변경
+                }
             }
         }
 
@@ -144,6 +158,20 @@ namespace Server.Game
 
                 GetZone(projectile.CellPos).Projectiles.Add(projectile);    //zone에 추가
                 projectile.Update();    //job 방식으로 변경 //투사체에 대한 update를 1회 호출하고 그 후에는 재귀적으로 호출한다.
+            }
+            else if(type == GameObjectType.Npc)
+            {
+                Console.WriteLine("NPC create");
+                NPC npc = gameObject as NPC;
+                _npcs.Add(gameObject.Id, npc);
+                npc.Room = this;
+
+                GetZone(npc.CellPos).NPCs.Add(npc);    //zone에 추가
+                Map.ApplyMove(npc, new Vector2Int(npc.CellPos.x, npc.CellPos.y)); //초기 위치로 이동
+            }
+            else
+            {
+                return;
             }
             //타인한테 정보 전송
             {

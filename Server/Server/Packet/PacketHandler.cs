@@ -119,4 +119,17 @@ class PacketHandler
         ClientSession clientSession = (ClientSession)session;
         clientSession.HandlePong();
     }
+
+    public static void C_VendorInteractionHandler(PacketSession session, IMessage packet)
+    {
+        ClientSession clientSession = (ClientSession)session;
+        Player player = clientSession.MyPlayer;
+        if (player == null)
+            return;
+        GameRoom room = player.Room;
+        if (room == null)
+            return;
+
+        room.Push(room.HandleVendorInteraction, player); //Job 방식으로 변경
+    }
 }

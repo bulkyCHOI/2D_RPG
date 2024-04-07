@@ -317,4 +317,9 @@ class PacketHandler
         UI_GameScene gameSceneUI = Managers.UI.SceneUI as UI_GameScene;
         gameSceneUI.LevelUI.RefreshUI();
     }
+
+    public static void S_VendorInteractionHandler(PacketSession session, IMessage packet)
+    {
+        S_VendorInteraction vendorInvenPacket = (S_VendorInteraction)packet;
+    }
 }

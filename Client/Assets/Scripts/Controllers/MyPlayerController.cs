@@ -136,22 +136,27 @@ public class MyPlayerController : PlayerController
         }
         else if(Input.GetKeyDown(KeyCode.F))
         {
-            UI_GameScene gameSceneUI = Managers.UI.SceneUI as UI_GameScene;
-            UI_Vendor vendorUI = gameSceneUI.VendorUI;
-            UI_Inventory invenUI = gameSceneUI.InvenUI;
+            //UI_GameScene gameSceneUI = Managers.UI.SceneUI as UI_GameScene;
+            //UI_Vendor vendorUI = gameSceneUI.VendorUI;
+            //UI_Inventory invenUI = gameSceneUI.InvenUI;
 
-            if (vendorUI.gameObject.activeSelf == false)
-            {
-                vendorUI.gameObject.SetActive(true);
-                invenUI.gameObject.SetActive(true);
-                vendorUI.RefreshUI();
-                invenUI.RefreshUI();
-            }
-            else
-            {
-                vendorUI.gameObject.SetActive(false);
-                invenUI.gameObject.SetActive(false);
-            }
+            //if (vendorUI.gameObject.activeSelf == false)
+            //{
+            //    vendorUI.gameObject.SetActive(true);
+            //    invenUI.gameObject.SetActive(true);
+            //    vendorUI.RefreshUI();
+            //    invenUI.RefreshUI();
+            //}
+            //else
+            //{
+            //    vendorUI.gameObject.SetActive(false);
+            //    invenUI.gameObject.SetActive(false);
+            //}
+            //패킷을 만들어서 서버로 보내자
+            //캐릭터가 서있는 위치/방향으로 앞에 누가 있는지 확인
+            C_VendorInteraction vendorInven = new C_VendorInteraction();
+            Managers.Network.Send(vendorInven);
+
         }
     }
     // 키보드 입력

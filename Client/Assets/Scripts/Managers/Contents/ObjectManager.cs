@@ -73,6 +73,17 @@ public class ObjectManager
 			ac.Stat = info.StatInfo;
 			ac.SyncPos();
         }
+		else if (type == GameObjectType.Npc)
+		{
+            GameObject go = Managers.Resource.Instantiate("Creature/NPC");
+            go.name = info.Name;
+            _objects.Add(info.ObjectId, go);
+            NPCController npc = go.GetComponent<NPCController>();
+            npc.Id = info.ObjectId;
+            npc.PosInfo = info.PosInfo;
+            npc.Stat = info.StatInfo;
+            npc.SyncPos();
+        }
     }
 
 	public void Remove(int id)
