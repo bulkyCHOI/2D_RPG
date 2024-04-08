@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using static Define;
 
-public class NPCController : BaseController
+public class NPCController : CreatureController
 {
 	protected VendorType _vendorType { get; set; } = VendorType.Normal;
 	
 	protected override void Init()
 	{
-		base.Init();
+		//base.Init();
 	}
 	
 }

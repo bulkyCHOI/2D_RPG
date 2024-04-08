@@ -61,7 +61,8 @@ namespace Server
                                 Speed = playerDB.speed,
                                 Attack = playerDB.attack,
                                 Defence = playerDB.defence,
-                                TotalExp = playerDB.totalExp
+                                TotalExp = playerDB.totalExp,
+                                CurrentExp = playerDB.currentExp
                             }
                         };
                         //메모리에도 들고 있어야 한다. >> 나중에 Client가 EnterGame할때 사용
@@ -184,6 +185,7 @@ namespace Server
                         attack = stat.Attack,
                         defence = stat.Defence,
                         totalExp = stat.TotalExp,
+                        currentExp = stat.CurrentExp,
                         AccountDbId = AccountDbId
                     };
 
@@ -207,7 +209,8 @@ namespace Server
                             Speed = player.speed,
                             Attack = player.attack,
                             Defence = player.defence,
-                            TotalExp = player.totalExp
+                            TotalExp = player.totalExp,
+                            CurrentExp = player.currentExp
                         }
                     };
                     LobbyPlayers.Add(info);

@@ -75,13 +75,19 @@ namespace Server.Game
             }
 
             //Console.WriteLine($"mapid: {mapId}");
-            if (mapId == 2)
+            if (mapId == 2) //
             {
                 //NPC 생성
                 for (int i = 0; i < 3; i++)
                 {
                     NPC npc = ObjectManager.Instance.Add<NPC>();
                     npc.Init(i+1);    //임시로 1번 몬스터 셋팅
+                    if (i == 0)
+                        npc.VendorType = VendorType.Potion;
+                    else if (i == 1)
+                        npc.VendorType = VendorType.Blacksmith;
+                    else if (i == 2)
+                        npc.VendorType = VendorType.Grocer;
                     //EnterGame(npc);   //job 방식으로 변경
                     Push(EnterGame, npc, true);   //job 방식으로 변경
                 }
@@ -161,7 +167,7 @@ namespace Server.Game
             }
             else if(type == GameObjectType.Npc)
             {
-                Console.WriteLine("NPC create");
+                //Console.WriteLine("NPC create");
                 NPC npc = gameObject as NPC;
                 _npcs.Add(gameObject.Id, npc);
                 npc.Room = this;

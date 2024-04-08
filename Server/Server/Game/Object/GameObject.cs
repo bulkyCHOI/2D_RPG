@@ -116,6 +116,8 @@ namespace Server.Game
         {
             if (Room == null)
                 return;
+            if (ObjectType == GameObjectType.Npc)
+                return;
 
             damage = Math.Max(0, damage - TotalDefence);
             Stat.Hp = Math.Max(0, Stat.Hp - damage);
@@ -180,9 +182,15 @@ namespace Server.Game
             PosInfo.State = CreatureState.Idle;
             PosInfo.MoveDir = MoveDir.Down;
 
-            //room.EnterGame(this, randPos:true);   //다시 입장   //push로 하지 않아도 된다. 이 함수는 바로 처리된다.
-            GameRoom newRoom = GameLogic.Instance.Find(2);  //2번방으로 강제 셋팅
-            newRoom.EnterGame(this, randPos:true);   //다시 입장   //push로 하지 않아도 된다. 이 함수는 바로 처리된다.
+            if (ObjectType == GameObjectType.Player)    //플레이어는 2번방인 마을로
+            {
+                GameRoom newRoom = GameLogic.Instance.Find(2);  //2번방으로 강제 셋팅
+                newRoom.EnterGame(this, randPos:true);   //다시 입장   //push로 하지 않아도 된다. 이 함수는 바로 처리된다.
+            }
+            else    //플레이어 외는 그냥 지금 맵으로 재입장
+            {
+                room.EnterGame(this, randPos:true);   //다시 입장   //push로 하지 않아도 된다. 이 함수는 바로 처리된다.
+            }
             //room.Push(room.EnterGame, this);   //다시 입장  //Job 방식으로 push
 
             //매우중요!!!!

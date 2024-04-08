@@ -27,6 +27,7 @@ namespace Server.DB
             playerDb.mp = player.Stat.Mp;
             playerDb.level = player.Stat.Level;
             playerDb.totalExp = player.Stat.TotalExp;
+            playerDb.currentExp = player.Stat.CurrentExp;
 
             //You
             Instance.Push(() => 
@@ -38,6 +39,7 @@ namespace Server.DB
                     db.Entry(playerDb).Property(nameof(playerDb.mp)).IsModified = true;
                     db.Entry(playerDb).Property(nameof(playerDb.level)).IsModified = true;
                     db.Entry(playerDb).Property(nameof(playerDb.totalExp)).IsModified = true;
+                    db.Entry(playerDb).Property(nameof(playerDb.currentExp)).IsModified = true;
                     bool success = db.SaveChangesEx();
                     if (success)
                     {

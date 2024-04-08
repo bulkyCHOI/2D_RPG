@@ -11,6 +11,7 @@ namespace Server.Game
     public class NPC : GameObject
     {
         public int TemplateId { get; private set; }
+        public VendorType VendorType { get; set; } = VendorType.Normal;
 
         public NPC()
         {

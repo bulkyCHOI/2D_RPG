@@ -26,6 +26,9 @@ namespace Server.Game
             Vector2Int vendorPos = player.GetFrontCellPos(playerInfo.PosInfo.MoveDir);
             GameObject target = Map.Find(vendorPos);
             if (target == null) return;
+            if (target.ObjectType != GameObjectType.Npc) return;
+            NPC npc = (NPC)target;
+            Console.WriteLine($"Interaction with: {npc.VendorType}"); 
 
         }
     }
