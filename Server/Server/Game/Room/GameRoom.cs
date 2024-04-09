@@ -83,13 +83,22 @@ namespace Server.Game
                     NPC npc = ObjectManager.Instance.Add<NPC>();
                     npc.Init(i+1);    //임시로 1번 몬스터 셋팅
                     if (i == 0)
+                    {
                         npc.VendorType = VendorType.Potion;
+                        npc.CellPos = new Vector2Int(15, 2);
+                    }
                     else if (i == 1)
+                    {
                         npc.VendorType = VendorType.Blacksmith;
+                        npc.CellPos = new Vector2Int(15, 10);
+                    }
                     else if (i == 2)
+                    {
                         npc.VendorType = VendorType.Grocer;
+                        npc.CellPos = new Vector2Int(3, 2);
+                    }
                     //EnterGame(npc);   //job 방식으로 변경
-                    Push(EnterGame, npc, true);   //job 방식으로 변경
+                    Push(EnterGame, npc, false);   //job 방식으로 변경
                 }
             }
         }

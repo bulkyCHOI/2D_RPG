@@ -15,6 +15,7 @@ namespace Server.Game
     {
         public void HandleVendorInteraction(Player player)
         {
+            Console.WriteLine("Interaction start");
             if (player == null)
                 return;
 
