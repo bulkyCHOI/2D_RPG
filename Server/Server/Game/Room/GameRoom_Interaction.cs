@@ -35,6 +35,20 @@ namespace Server.Game
             S_VendorInteraction vInteraction = new S_VendorInteraction();
             vInteraction.VendorType = npc.VendorType;
             //아이템리스트를 보내야 한다.
+            if (npc.VendorData != null && npc.VendorData.items != null)
+            {
+                foreach (var item in npc.VendorData.items)
+                {
+                    ItemData itemInfo = null;
+                    DataManager.ItemDict.TryGetValue(item.itemId, out itemInfo);
+                    if (itemInfo == null)
+                        continue;
+
+                    VendorItemInfo itemData = new VendorItemInfo();
+                    itemData.ItemId = item.itemId;
+                    vInteraction.Items.Add(itemData);
+                }
+            }   
             player.Session.Send(vInteraction);
         }
     }

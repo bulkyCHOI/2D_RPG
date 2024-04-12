@@ -1,3 +1,4 @@
+using Google.Protobuf.Protocol;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,28 +21,25 @@ public class UI_Vendor : UI_Base
             UI_Vendor_Item item = go.GetOrAddComponent<UI_Vendor_Item>();
             Items.Add(item);
         }
-        RefreshUI();
+        RefreshUI(null);
     }
 
-    public void RefreshUI()
+    public void RefreshUI(List<VendorItemInfo> items)
     {
         if (Items.Count == 0)   //init이 안된경우 0이므로 크래시 발생
             return;
-        //List<Item> items = Managers.Inventory.Items.Values.ToList();    //InventoryManager의 Items를 List로 변환
-        List<Item> items = null;
-        items.Sort((left, right) => { return left.Slot - right.Slot; }); //sorting
-
+        
         for (int i = 0; i < 30; i++)
         {
             Items[i].SetItem(null);
             //Items[i].RemoveItem();
         }
-        foreach(Item item in items)
+        foreach (VendorItemInfo item in items)
         {
             if (item.Slot < 0 || 30 <= item.Slot)
                 continue;
 
-            Items[item.Slot].SetItem(item);  
+            Items[item.Slot].SetItem(item);
         }
 
         //구조를 바꿔 아이템 리스트로 하는게 아니고 슬롯단위로 없으면 비활성화 시키는 RemoveItem()써야한다.

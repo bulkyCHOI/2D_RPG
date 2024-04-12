@@ -3,8 +3,8 @@
     {
       "id": "1",
       "name": "물약상인",
-      "vendeorType": "potion",
-      "vendorItems": [
+      "vendorType": "potion",
+      "items": [
         {
           "itemId": "200",
           "slot": "0",
@@ -60,7 +60,7 @@
     {
       "id": "2",
       "name": "잡화상인",
-      "vendeorType": "weapon",
+      "vendorType": "Grocer",
       "vendorItems": [
         
       ]
@@ -68,7 +68,7 @@
     {
       "id": "3",
       "name": "대장장이",
-      "vendeorType": "armor",
+      "vendorType": "BlackSmith",
       "vendorItems": [
       ]
     }

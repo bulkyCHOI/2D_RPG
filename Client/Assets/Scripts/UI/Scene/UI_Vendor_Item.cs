@@ -13,10 +13,9 @@ public class UI_Vendor_Item : UI_Base
     [SerializeField]
     Text _text = null;
 
-    public int ItemDbId { get; private set; }
     public int TemplateId { get; private set; }
-    public int Count { get; private set; }
-    public bool Equipped { get; private set; }
+    public int Slot { get; private set; }
+    public int Price { get; private set; }
 
     public override void Init()
     {
@@ -33,32 +32,30 @@ public class UI_Vendor_Item : UI_Base
             //if(itemData.itemType == ItemType.Consumable)
             //    return;
 
-            C_EquipItem equipPacket = new C_EquipItem();
-            equipPacket.ItemDbId = ItemDbId;
-            equipPacket.Equipped = !Equipped;
-            Managers.Network.Send(equipPacket);
+            //C_EquipItem equipPacket = new C_EquipItem();
+            //equipPacket.ItemDbId = ItemDbId;
+            //equipPacket.Equipped = !Equipped;
+            //Managers.Network.Send(equipPacket);
 
         });
     }
 
-    public void SetItem(Item item)
+    public void SetItem(VendorItemInfo item)
     {
         if (item == null)
         {
-            ItemDbId = 0;
             TemplateId = 0;
-            Count = 0;
-            Equipped = false;
+            Slot = 0;
+            Price = 0;
 
             _icon.gameObject.SetActive(false);
             _frame.gameObject.SetActive(false);
         }
         else
         {
-            ItemDbId = item.itemDbId;
-            TemplateId = item.TemplateId;
-            Count = item.Count;
-            Equipped = item.Equipped;
+            TemplateId = item.ItemId    ;
+            Slot = item.Slot;
+            Price = item.Price;
 
             Data.ItemData itemData = null;
             Managers.Data.ItemDict.TryGetValue(TemplateId, out itemData);
@@ -67,11 +64,6 @@ public class UI_Vendor_Item : UI_Base
             _icon.sprite = icon;
 
             _icon.gameObject.SetActive(true);
-            _frame.gameObject.SetActive(Equipped);
-            if (itemData.itemType == ItemType.Consumable)
-                _text.text = Count.ToString();
-            else
-                _text.text = "";
         }
     }
 
