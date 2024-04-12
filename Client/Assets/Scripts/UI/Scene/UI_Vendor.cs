@@ -27,7 +27,8 @@ public class UI_Vendor : UI_Base
     {
         if (Items.Count == 0)   //init이 안된경우 0이므로 크래시 발생
             return;
-        List<Item> items = Managers.Inventory.Items.Values.ToList();    //InventoryManager의 Items를 List로 변환
+        //List<Item> items = Managers.Inventory.Items.Values.ToList();    //InventoryManager의 Items를 List로 변환
+        List<Item> items = null;
         items.Sort((left, right) => { return left.Slot - right.Slot; }); //sorting
 
         for (int i = 0; i < 30; i++)

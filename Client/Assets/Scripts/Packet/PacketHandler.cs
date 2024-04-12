@@ -321,5 +321,25 @@ class PacketHandler
     public static void S_VendorInteractionHandler(PacketSession session, IMessage packet)
     {
         S_VendorInteraction vendorInvenPacket = (S_VendorInteraction)packet;
+        if (vendorInvenPacket.VendorType == VendorType.Grocer)
+        {
+            UI_GameScene gameSceneUI = Managers.UI.SceneUI as UI_GameScene;
+            UI_Vendor vendorUI = gameSceneUI.VendorUI;
+            UI_Inventory invenUI = gameSceneUI.InvenUI;
+
+            if (vendorUI.gameObject.activeSelf == false)
+            {
+                vendorUI.gameObject.SetActive(true);
+                invenUI.gameObject.SetActive(true);
+                vendorUI.RefreshUI();
+                invenUI.RefreshUI();
+            }
+            else
+            {
+                vendorUI.gameObject.SetActive(false);
+                invenUI.gameObject.SetActive(false);
+            }
+        }
+
     }
 }

@@ -12,6 +12,8 @@ namespace Server.Game
     {
         public int TemplateId { get; private set; }
         public VendorType VendorType { get; set; } = VendorType.Normal;
+        public VendorData VendorData { get; set; } = null;
+        
 
         public NPC()
         {
@@ -20,12 +22,13 @@ namespace Server.Game
         public void Init(int templateId)
         {
             TemplateId = templateId;
-
-            //MonsterData monsterData = null;
-            //DataManager.MonsterDict.TryGetValue(templateId, out monsterData);
-            //Stat.MergeFrom(monsterData.stat);
-            //Stat.Hp = Stat.MaxHp;
-            //State = CreatureState.Idle;
+            VendorData vendorData = null;
+            DataManager.VendorDict.TryGetValue(templateId, out vendorData);
+            VendorType = vendorData.vendorType;
+            VendorData = vendorData;
+            //아이템
+            //vendorData.itemList
+                        
         }
     }
 }

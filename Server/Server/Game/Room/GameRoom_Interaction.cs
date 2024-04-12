@@ -15,7 +15,7 @@ namespace Server.Game
     {
         public void HandleVendorInteraction(Player player)
         {
-            Console.WriteLine("Interaction start");
+            //Console.WriteLine("Interaction start");
             if (player == null)
                 return;
 
@@ -29,8 +29,13 @@ namespace Server.Game
             if (target == null) return;
             if (target.ObjectType != GameObjectType.Npc) return;
             NPC npc = (NPC)target;
-            Console.WriteLine($"Interaction with: {npc.VendorType}"); 
+            //Console.WriteLine($"Interaction with: {npc.VendorType}"); 
 
+            //패킷을 보내자
+            S_VendorInteraction vInteraction = new S_VendorInteraction();
+            vInteraction.VendorType = npc.VendorType;
+            //아이템리스트를 보내야 한다.
+            player.Session.Send(vInteraction);
         }
     }
 }

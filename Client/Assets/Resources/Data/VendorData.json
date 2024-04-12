@@ -1,0 +1,76 @@
+{
+  "vendors": [
+    {
+      "id": "1",
+      "name": "물약상인",
+      "vendeorType": "potion",
+      "vendorItems": [
+        {
+          "itemId": "200",
+          "slot": "0",
+          "price": "10"
+        },
+        {
+          "itemId": "201",
+          "slot": "5",
+          "price": "10"
+        },
+        {
+          "itemId": "202",
+          "slot": "1",
+          "price": "30"
+        },
+        {
+          "itemId": "203",
+          "slot": "6",
+          "price": "30"
+        },
+        {
+          "itemId": "204",
+          "slot": "2",
+          "price": "100"
+        },
+        {
+          "itemId": "205",
+          "slot": "7",
+          "price": "100"
+        },
+        {
+          "itemId": "206",
+          "slot": "3",
+          "price": "400"
+        },
+        {
+          "itemId": "207",
+          "slot": "8",
+          "price": "400"
+        },
+        {
+          "itemId": "208",
+          "slot": "4",
+          "price": "1000"
+        },
+        {
+          "itemId": "209",
+          "slot": "9",
+          "price": "1000"
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "name": "잡화상인",
+      "vendeorType": "weapon",
+      "vendorItems": [
+        
+      ]
+    },
+    {
+      "id": "3",
+      "name": "대장장이",
+      "vendeorType": "armor",
+      "vendorItems": [
+      ]
+    }
+  ]
+} 

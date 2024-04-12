@@ -301,9 +301,16 @@ message C_VendorInteraction
 {
 }
 
+message VendorItemInfo
+{
+	int32 itemId = 1;
+	int32 slot = 2;
+	int32 price = 3;
+}
+
 message S_VendorInteraction
 {
 	VendorType vendorType = 1;
-	repeated ItemInfo items = 2;
+	repeated VendorItemInfo items = 2;
 }
 

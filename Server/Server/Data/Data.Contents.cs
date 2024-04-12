@@ -153,4 +153,39 @@ namespace Server.Data
         }
     }
     #endregion
+
+    #region Vendor
+    [Serializable]
+    public class VendorItemData
+    {
+        public int itemId;
+        public int slot;
+        public int price;
+    }
+
+    [Serializable]
+    public class VendorData
+    {
+        public int id;
+        public string name;
+        public VendorType vendorType;
+        public List<VendorItemData> items;
+    }
+
+    [Serializable]
+    public class VendorLoader : ILoader<int, VendorData>
+    {
+        public List<VendorData> vendors = new List<VendorData>();
+
+        public Dictionary<int, VendorData> MakeDict()
+        {
+            Dictionary<int, VendorData> dict = new Dictionary<int, VendorData>();
+            foreach (VendorData vendor in vendors)
+            {
+                dict.Add(vendor.id, vendor);
+            }
+            return dict;
+        }
+    }
+    #endregion
 }

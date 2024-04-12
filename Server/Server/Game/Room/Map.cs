@@ -168,10 +168,15 @@ namespace Server.Game
             if (gameobject.Room.Map != this)
                 return false;
 
-            PositionInfo posInfo = gameobject.Info.PosInfo;
             if (CanGo(dest, checkObjects) == false)
-                return false;
+            {
+                // dest에 gameobject가 있으므로 해당 정보를 출력
+                GameObject go = Find(dest);
+                if (go != null)
+                    return false;
+            }
 
+            PositionInfo posInfo = gameobject.Info.PosInfo;
             if(collision)
             {
                 {   // 기존 좌표 제거
@@ -223,7 +228,7 @@ namespace Server.Game
             }
             else if (type == GameObjectType.Npc)
             {
-                Console.WriteLine("NPC applyMove");
+                //Console.WriteLine("NPC applyMove");
                 NPC n = (NPC)gameobject;
                 Zone now = gameobject.Room.GetZone(gameobject.CellPos);
                 Zone next = gameobject.Room.GetZone(dest);
