@@ -46,6 +46,8 @@ namespace Server.Game
 
                     VendorItemInfo itemData = new VendorItemInfo();
                     itemData.ItemId = item.itemId;
+                    itemData.Slot = item.slot;
+                    itemData.Price = item.price;
                     vInteraction.Items.Add(itemData);
                 }
             }   

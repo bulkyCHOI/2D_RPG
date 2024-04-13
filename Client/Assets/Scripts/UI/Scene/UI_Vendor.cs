@@ -21,19 +21,23 @@ public class UI_Vendor : UI_Base
             UI_Vendor_Item item = go.GetOrAddComponent<UI_Vendor_Item>();
             Items.Add(item);
         }
-        RefreshUI(null);
+        RefreshUI();
     }
 
-    public void RefreshUI(List<VendorItemInfo> items)
+    public void RefreshUI(List<VendorItemInfo> items = null)
     {
         if (Items.Count == 0)   //init이 안된경우 0이므로 크래시 발생
             return;
-        
+
         for (int i = 0; i < 30; i++)
         {
             Items[i].SetItem(null);
             //Items[i].RemoveItem();
         }
+        
+        if (items == null)
+            return;
+        items.Sort((left, right) => { return left.Slot - right.Slot; }); //sorting
         foreach (VendorItemInfo item in items)
         {
             if (item.Slot < 0 || 30 <= item.Slot)
