@@ -343,4 +343,27 @@ class PacketHandler
             invenUI.gameObject.SetActive(false);
         }
     }
+
+    public static void S_SellItemHandler(PacketSession session, IMessage packet)
+    {
+        S_SellItem sellItemPacket = (S_SellItem)packet;
+
+        //아이템을 판매하고 인벤토리에서 제거
+        Item item = Managers.Inventory.Get(sellItemPacket.ItemDbId);
+        if (item == null)
+            return;
+
+        item.Count -= 1;
+        Managers.Inventory.EditItemCount(item);
+
+        if (item.Count <= 0)
+        {
+            Managers.Inventory.Remove(item);
+        }
+
+        UI_GameScene gameSceneUI = Managers.UI.SceneUI as UI_GameScene;
+        gameSceneUI.InvenUI.RefreshUI();
+        gameSceneUI.ActionUI.RefreshUI();
+        gameSceneUI.VendorUI.RefreshUI();
+    }
 }

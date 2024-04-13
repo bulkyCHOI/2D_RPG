@@ -21,7 +21,7 @@ public class UI_Vendor_Item : UI_Base
     {
         _icon.gameObject.BindEvent((e) =>
         {
-            Debug.Log("아이템 클릭");
+            Debug.Log($"아이템 구매: {TemplateId}({Price})");
 
             Data.ItemData itemData = null;
             Managers.Data.ItemDict.TryGetValue(TemplateId, out itemData);

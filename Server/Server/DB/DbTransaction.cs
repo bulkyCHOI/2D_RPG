@@ -28,6 +28,7 @@ namespace Server.DB
             playerDb.level = player.Stat.Level;
             playerDb.totalExp = player.Stat.TotalExp;
             playerDb.currentExp = player.Stat.CurrentExp;
+            playerDb.gold = player.Stat.Gold;
 
             //You
             Instance.Push(() => 
@@ -40,6 +41,7 @@ namespace Server.DB
                     db.Entry(playerDb).Property(nameof(playerDb.level)).IsModified = true;
                     db.Entry(playerDb).Property(nameof(playerDb.totalExp)).IsModified = true;
                     db.Entry(playerDb).Property(nameof(playerDb.currentExp)).IsModified = true;
+                    db.Entry(playerDb).Property(nameof(playerDb.gold)).IsModified = true;
                     bool success = db.SaveChangesEx();
                     if (success)
                     {
@@ -68,6 +70,7 @@ namespace Server.DB
             playerDb.level = player.Stat.Level;
             playerDb.totalExp = player.Stat.TotalExp;
             playerDb.currentExp = player.Stat.CurrentExp;
+            playerDb.gold = player.Stat.Gold;
             playerDb.attack = player.Stat.Attack;
             playerDb.defence = player.Stat.Defence;
             playerDb.speed = player.Stat.Speed;
@@ -87,6 +90,7 @@ namespace Server.DB
                 db.Entry(playerDb).Property(nameof(playerDb.level)).IsModified = true;
                 db.Entry(playerDb).Property(nameof(playerDb.totalExp)).IsModified = true;
                 db.Entry(playerDb).Property(nameof(playerDb.currentExp)).IsModified = true;
+                db.Entry(playerDb).Property(nameof(playerDb.gold)).IsModified = true;
                 db.Entry(playerDb).Property(nameof(playerDb.attack)).IsModified = true;
                 db.Entry(playerDb).Property(nameof(playerDb.defence)).IsModified = true;
                 db.Entry(playerDb).Property(nameof(playerDb.speed)).IsModified = true;
@@ -135,6 +139,7 @@ namespace Server.DB
                     player.Stat.Defence = stat.Defence;
                     player.Stat.TotalExp = stat.TotalExp;
                     player.Stat.CurrentExp = 0;
+                    player.Stat.Gold = player.Stat.Gold;
                 }
 
                 //클라이언트에게 스탯이 변경됨을 알린다.

@@ -212,5 +212,59 @@ namespace Server.Game
 
             RefreshAdditionalStat();
         }
+
+        public void HandleBuyItem(C_BuyItem buyPacket)
+        {
+            ItemData itemData = DataManager.ItemDict.Values.FirstOrDefault(i => i.id == buyPacket.TemplateId);
+            if (itemData == null)
+                return;
+
+            if (Stat.Gold < itemData.price)
+                return;
+
+            Stat.Gold -= itemData.price;
+
+            Item item = Item.MakeItem(itemData.id);
+            if (item == null)
+                return;
+
+            Inventory.AddItem(item);
+
+            //DB에 적용
+            DbTransaction.BuyItemNoti(this, item);
+
+            //클라에게 전송
+            S_BuyItem buyItem = new S_BuyItem();
+            buyItem.Item = new ItemInfo();
+            buyItem.Item.MergeFrom(item.Info);
+            Session.Send(buyItem);
+
+            RefreshAdditionalStat();
+        }
+
+        public void HandleSellItem(C_SellItem sellPacket)
+        {
+            Item item = Inventory.GetItem(sellPacket.ItemDbId);
+            if (item == null)
+                return;
+
+            ItemData itemData = DataManager.ItemDict.Values.FirstOrDefault(i => i.id == item.TemplateId);
+            if (itemData == null)
+                return;
+
+            Stat.Gold += itemData.price / 2;
+
+            Inventory.Items.Remove(sellPacket.ItemDbId);
+
+            //DB에 적용
+            DbTransaction.SellItemNoti(this, item);
+
+            //클라에게 전송
+            S_SellItem sellItem = new S_SellItem();
+            sellItem.ItemDbId = sellPacket.ItemDbId;
+            Session.Send(sellItem);
+
+            RefreshAdditionalStat();
+        }
     }
 }

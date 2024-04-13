@@ -132,4 +132,34 @@ class PacketHandler
 
         room.Push(room.HandleVendorInteraction, player); //Job 방식으로 변경
     }
+
+    public static void C_BuyItemHandler(PacketSession session, IMessage packet)
+    {
+        C_BuyItem buyItemPacket = (C_BuyItem)packet;
+        ClientSession clientSession = (ClientSession)session;
+
+        Player player = clientSession.MyPlayer;
+        if (player == null)
+            return;
+        GameRoom room = player.Room;
+        if (room == null)
+            return;
+
+        room.Push(room.HandleBuyItem, player, buyItemPacket); //Job 방식으로 변경
+    }
+
+    public static void C_SellItemHandler(PacketSession session, IMessage packet)
+    {
+        C_SellItem sellItemPacket = (C_SellItem)packet;
+        ClientSession clientSession = (ClientSession)session;
+
+        Player player = clientSession.MyPlayer;
+        if (player == null)
+            return;
+        GameRoom room = player.Room;
+        if (room == null)
+            return;
+
+        room.Push(room.HandleSellItem, player, sellItemPacket); //Job 방식으로 변경
+    }
 }

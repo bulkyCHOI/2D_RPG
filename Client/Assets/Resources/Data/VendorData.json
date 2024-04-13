@@ -62,7 +62,21 @@
       "name": "잡화상인",
       "vendorType": "Grocer",
       "vendorItems": [
-        
+        {
+          "itemId": "110",
+          "slot": "0",
+          "price": "1000"
+        },
+        {
+          "itemId": "111",
+          "slot": "1",
+          "price": "1000"
+        },
+        {
+          "itemId": "112",
+          "slot": "2",
+          "price": "1000"
+        }
       ]
     },
     {

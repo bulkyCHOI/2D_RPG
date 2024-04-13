@@ -32,12 +32,23 @@ public class UI_Inventory_Item : UI_Base
             //TODO: 아이템 사용 >> C_USE_ITEM
             //if(itemData.itemType == ItemType.Consumable)
             //    return;
+            UI_GameScene gameSceneUI = Managers.UI.SceneUI as UI_GameScene;
+            UI_Vendor vendorUI = gameSceneUI.VendorUI;
 
-            C_EquipItem equipPacket = new C_EquipItem();
-            equipPacket.ItemDbId = ItemDbId;
-            equipPacket.Equipped = !Equipped;
-            Managers.Network.Send(equipPacket);
-
+            if (vendorUI.gameObject.activeSelf == false)
+            {
+                C_EquipItem equipPacket = new C_EquipItem();
+                equipPacket.ItemDbId = ItemDbId;
+                equipPacket.Equipped = !Equipped;
+                Managers.Network.Send(equipPacket);
+            }
+            //else
+            //{
+            //    C_BuyItem buyPacket = new C_BuyItem();
+            //    buyPacket.ItemDbId = ItemDbId;
+            //    buyPacket.Count = 1;
+            //    Managers.Network.Send(buyPacket);
+            //}
         });
     }
 

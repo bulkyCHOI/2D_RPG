@@ -40,6 +40,9 @@ enum MsgId {
 	S_ADD_EXP = 26;
 	C_VENDOR_INTERACTION = 27;
 	S_VENDOR_INTERACTION = 28;
+	C_SELL_ITEM = 29;
+	S_SELL_ITEM = 30;
+	C_BUY_ITEM = 31;
 }
 
 enum CreatureState{
@@ -160,6 +163,7 @@ message StatInfo
 	int32 defence = 8;
 	int32 totalExp = 9;
 	int32 currentExp = 10;
+	int32 gold = 11;
 }
 
 message C_Skill {
@@ -312,5 +316,20 @@ message S_VendorInteraction
 {
 	VendorType vendorType = 1;
 	repeated VendorItemInfo items = 2;
+}
+
+message C_SellItem
+{
+	int32 itemDbId = 1;
+}
+
+message S_SellItem
+{
+	int32 itemDbId = 1;
+}
+
+message C_BuyItem	//클라이언트로 보낼때는 S_ADD_ITEM으로 보내기
+{
+	int32 itemId = 1;
 }
 

@@ -64,6 +64,13 @@
       "armorType": "Boots",
       "defence": "15",
       "iconPath": "Textures/Item/boots"
+    },
+    {
+      "id": "113",
+      "name": "철 바지",
+      "armorType": "Pants",
+      "defence": "15",
+      "iconPath": "Textures/Item/boots"
     }
   ],
   "consumables": [

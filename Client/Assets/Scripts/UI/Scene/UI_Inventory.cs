@@ -2,10 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UI_Inventory : UI_Base
 {
     public List<UI_Inventory_Item> Items { get; } = new List<UI_Inventory_Item>();
+
+    [SerializeField]
+    Text _goldText = null;
     public override void Init()
     {
         Items.Clear();
@@ -42,6 +46,9 @@ public class UI_Inventory : UI_Base
 
             Items[item.Slot].SetItem(item);  
         }
+
+        _goldText.text = $"{Managers.Object.MyPlayer.Stat.Gold.ToString("#,##0")}";
+        
 
         //구조를 바꿔 아이템 리스트로 하는게 아니고 슬롯단위로 없으면 비활성화 시키는 RemoveItem()써야한다.
 

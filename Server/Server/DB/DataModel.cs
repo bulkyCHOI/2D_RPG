@@ -36,8 +36,8 @@ namespace Server.DB
         public int attack { get; set; }
         public int defence { get; set; }
         public int totalExp { get; set; }
-        public int currentExp { get; set; } 
-
+        public int currentExp { get; set; }
+        public int gold { get; set; }
     }
     [Table("Item")]
     public class ItemDb

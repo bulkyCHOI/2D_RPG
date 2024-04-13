@@ -28,5 +28,21 @@ namespace Server.Game
 
             player.HandleUseItem(usePacket);
         }
+
+        public void HandleBuyItem(Player player, C_BuyItem buyPacket)
+        {
+            if (player == null)
+                return;
+
+            player.HandleBuyItem(buyPacket);
+        }
+
+        public void HandleSellItem(Player player, C_SellItem sellPacket)
+        {
+            if (player == null)
+                return;
+
+            player.HandleSellItem(sellPacket);
+        }
     }
 }

@@ -40,7 +40,11 @@ class PacketManager
 		_onRecv.Add((ushort)MsgId.CPong, MakePacket<C_Pong>);
 		_handler.Add((ushort)MsgId.CPong, PacketHandler.C_PongHandler);		
 		_onRecv.Add((ushort)MsgId.CVendorInteraction, MakePacket<C_VendorInteraction>);
-		_handler.Add((ushort)MsgId.CVendorInteraction, PacketHandler.C_VendorInteractionHandler);
+		_handler.Add((ushort)MsgId.CVendorInteraction, PacketHandler.C_VendorInteractionHandler);		
+		_onRecv.Add((ushort)MsgId.CSellItem, MakePacket<C_SellItem>);
+		_handler.Add((ushort)MsgId.CSellItem, PacketHandler.C_SellItemHandler);		
+		_onRecv.Add((ushort)MsgId.CBuyItem, MakePacket<C_BuyItem>);
+		_handler.Add((ushort)MsgId.CBuyItem, PacketHandler.C_BuyItemHandler);
 	}
 
 	public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)
