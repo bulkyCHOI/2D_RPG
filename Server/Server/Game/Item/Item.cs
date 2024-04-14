@@ -37,6 +37,11 @@ namespace Server.Game
             get { return Info.Equipped; }
             set { Info.Equipped = value; }
         }
+        public int Price
+        {
+            get { return Info.Price; }
+            set { Info.Price = value; }
+        }
 
         public ItemType ItemType { get; private set; }
         public bool IsStackable { get; protected set; }
@@ -71,6 +76,7 @@ namespace Server.Game
                 item.Count = itemDb.Count;
                 item.Slot = itemDb.Slot;
                 item.Equipped = itemDb.Equipped;
+                item.Price = itemData.price;
             }
             return item;
         }
@@ -100,6 +106,7 @@ namespace Server.Game
                 WeaponType = data.weaponType;
                 Damage = data.damage;
                 IsStackable = false;
+                Price = data.price;
             }
         }
     }
@@ -128,6 +135,7 @@ namespace Server.Game
                 ArmorType = data.armorType;
                 Defence = data.defence;
                 IsStackable = false;
+                Price = data.price;
             }
         }
     }
@@ -156,6 +164,7 @@ namespace Server.Game
                 ConsumableType = data.consumableType;
                 RecoveryAmount = data.recoveryAmount;
                 IsStackable = true;
+                Price = data.price;
             }
         }
     }

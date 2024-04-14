@@ -28,7 +28,12 @@ public class UI_Vendor_Item : UI_Base
 
             if(itemData == null)
                 return;
-            //TODO: 아이템 사용 >> C_USE_ITEM
+            
+            //아이템 구매
+            C_BuyItem buyPacket = new C_BuyItem();
+            buyPacket.ItemId = TemplateId;
+            Managers.Network.Send(buyPacket);
+
             //if(itemData.itemType == ItemType.Consumable)
             //    return;
 

@@ -1,4 +1,5 @@
-﻿using Google.Protobuf;
+﻿using Data;
+using Google.Protobuf;
 using Google.Protobuf.Protocol;
 using ServerCore;
 using System.Collections;
@@ -353,6 +354,11 @@ class PacketHandler
         if (item == null)
             return;
 
+        //판매한 아이템의 가격만큼 돈을 증가시킨다.
+        ItemData itemData = null;
+        Managers.Data.ItemDict.TryGetValue(item.TemplateId, out itemData);
+        Managers.Object.MyPlayer.Stat.Gold += itemData.price/2;
+
         item.Count -= 1;
         Managers.Inventory.EditItemCount(item);
 
@@ -364,6 +370,6 @@ class PacketHandler
         UI_GameScene gameSceneUI = Managers.UI.SceneUI as UI_GameScene;
         gameSceneUI.InvenUI.RefreshUI();
         gameSceneUI.ActionUI.RefreshUI();
-        gameSceneUI.VendorUI.RefreshUI();
+        //gameSceneUI.VendorUI.RefreshUI(); //굳이 refresh할 필요가 없다. >> items를 받아야 하는데 받기 어려움
     }
 }

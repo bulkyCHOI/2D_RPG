@@ -69,6 +69,7 @@ namespace Server.Data
         public int id;
         public string name;
         public ItemType itemType;
+        public int price;
     }
 
     public class WeaponData : ItemData

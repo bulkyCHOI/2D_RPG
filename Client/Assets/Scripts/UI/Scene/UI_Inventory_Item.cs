@@ -42,13 +42,13 @@ public class UI_Inventory_Item : UI_Base
                 equipPacket.Equipped = !Equipped;
                 Managers.Network.Send(equipPacket);
             }
-            //else
-            //{
-            //    C_BuyItem buyPacket = new C_BuyItem();
-            //    buyPacket.ItemDbId = ItemDbId;
-            //    buyPacket.Count = 1;
-            //    Managers.Network.Send(buyPacket);
-            //}
+            else
+            {
+                Debug.Log("ÆÇ¸Å");
+                C_SellItem sellPacket = new C_SellItem();
+                sellPacket.ItemDbId = ItemDbId;
+                Managers.Network.Send(sellPacket);
+            }
         });
     }
 

@@ -1,5 +1,6 @@
 ﻿using Google.Protobuf.Protocol;
 using Microsoft.EntityFrameworkCore;
+using Server.Data;
 using Server.DB;
 using Server.Game.Room;
 using System;
@@ -209,13 +210,12 @@ namespace Server.Game
                 useItem.ItemDbId = usePacket.ItemDbId;
                 Session.Send(useItem);
             }
-
             RefreshAdditionalStat();
         }
 
         public void HandleBuyItem(C_BuyItem buyPacket)
         {
-            ItemData itemData = DataManager.ItemDict.Values.FirstOrDefault(i => i.id == buyPacket.TemplateId);
+            ItemData itemData = DataManager.ItemDict.Values.FirstOrDefault(i => i.id == buyPacket.ItemId);
             if (itemData == null)
                 return;
 
@@ -224,22 +224,9 @@ namespace Server.Game
 
             Stat.Gold -= itemData.price;
 
-            Item item = Item.MakeItem(itemData.id);
-            if (item == null)
-                return;
-
-            Inventory.AddItem(item);
-
             //DB에 적용
             DbTransaction.BuyItemNoti(this, item);
-
-            //클라에게 전송
-            S_BuyItem buyItem = new S_BuyItem();
-            buyItem.Item = new ItemInfo();
-            buyItem.Item.MergeFrom(item.Info);
-            Session.Send(buyItem);
-
-            RefreshAdditionalStat();
+            
         }
 
         public void HandleSellItem(C_SellItem sellPacket)
@@ -263,8 +250,6 @@ namespace Server.Game
             S_SellItem sellItem = new S_SellItem();
             sellItem.ItemDbId = sellPacket.ItemDbId;
             Session.Send(sellItem);
-
-            RefreshAdditionalStat();
         }
     }
 }

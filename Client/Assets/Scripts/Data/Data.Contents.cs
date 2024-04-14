@@ -69,6 +69,7 @@ namespace Data
         public string name;
         public ItemType itemType;
         public string iconPath;
+        public int price;
     }
 
     [Serializable]  //안붙이면 인식을 못하는 문제가 있음

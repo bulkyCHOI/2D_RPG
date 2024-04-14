@@ -5,6 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+// add-migration ㅇㅇㅇ
+// update-database
+
 namespace Server.DB
 {
     [Table("Account")]

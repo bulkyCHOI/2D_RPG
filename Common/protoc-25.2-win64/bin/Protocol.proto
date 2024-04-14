@@ -241,7 +241,8 @@ message ItemInfo
 	int32 templateId = 2;
 	int32 count = 3;
 	int32 slot = 4;
-	bool equipped = 5;
+	int32 price = 5;
+	bool equipped = 6;
 }
 
 message S_AddItem

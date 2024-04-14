@@ -67,6 +67,63 @@ namespace Server.DB
                 }
             });
         }
+
+        public static void BuyItemNoti(Player player, Item item)
+        {
+            if (player == null || item == null)
+                return;
+
+            //Me
+            ItemDb itemDb = new ItemDb()
+            {
+                TemplateId = item.TemplateId,
+                Count = item.Count,
+            };
+
+            //You
+            Instance.Push(() =>
+            {
+                using (AppDbContext db = new AppDbContext())
+                {
+                    db.Items.Add(itemDb);
+
+                    bool success = db.SaveChangesEx();
+                    if (success)
+                    {
+                        //Me는 미처리
+                        //실패하면 Kick
+                    }
+                }
+            });
+        }
+
+        public static void SellItemNoti(Player player, Item item)
+        {
+            if (player == null || item == null)
+                return;
+
+            //You
+            Instance.Push(() =>
+            {
+                using (AppDbContext db = new AppDbContext())
+                {
+                    ItemDb updateItemDB = db.Items.FirstOrDefault(i => i.ItemDbId == item.Info.ItemDbId);
+
+                    updateItemDB.Count --;
+                    if(updateItemDB.Count <= 0)
+                        db.Items.Remove(updateItemDB);
+
+
+
+                    bool success = db.SaveChangesEx();
+                    if (success)
+                    {
+                        //Me는 미처리
+                        //실패하면 Kick
+                    }
+                }
+            });
+        }
     }
 }
 
