@@ -59,7 +59,7 @@
     },
     {
       "id": "2",
-      "name": "잡화상인",
+      "name": "장비상인",
       "vendorType": "Grocer",
       "vendorItems": [
         {

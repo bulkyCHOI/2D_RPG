@@ -81,22 +81,20 @@ namespace Server.Game
                 for (int i = 0; i < 3; i++)
                 {
                     NPC npc = ObjectManager.Instance.Add<NPC>();
+                    npc.Init(i+1);    //2번 상인(포션)
                     if (i == 0)
                     {
-                        npc.Init(i+1);    //2번 상인(포션)
                         //npc.VendorType = VendorType.Potion;
                         npc.CellPos = new Vector2Int(15, 2);
                     }
                     else if (i == 1)
                     {
-                        npc.Init(i+1);    //3번 상인(잡화)
-                        npc.VendorType = VendorType.Grocer;
+                        //npc.VendorType = VendorType.Grocer;
                         npc.CellPos = new Vector2Int(3, 2);
                     }
                     else if (i == 2)
                     {
-                        npc.Init(i+1);    //4번 상인(무기)   
-                        npc.VendorType = VendorType.Blacksmith;
+                        //npc.VendorType = VendorType.Blacksmith;
                         npc.CellPos = new Vector2Int(15, 10);
                     }
                     //EnterGame(npc);   //job 방식으로 변경

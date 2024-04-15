@@ -24,6 +24,8 @@ namespace Server.Game
             TemplateId = templateId;
             VendorData vendorData = null;
             DataManager.VendorDict.TryGetValue(templateId, out vendorData);
+            Name = vendorData.name;
+            Info.Name = vendorData.name;
             VendorType = vendorData.vendorType;
             VendorData = vendorData;
             //아이템

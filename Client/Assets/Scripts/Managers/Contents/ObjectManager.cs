@@ -59,7 +59,7 @@ public class ObjectManager
             go.name = info.Name;
             _objects.Add(info.ObjectId, go);
             MonsterController mc = go.GetComponent<MonsterController>();
-            //mc._name.text = info.Name;
+            mc._name.text = info.Name;
             mc.PosInfo = info.PosInfo;
             mc.Stat = info.StatInfo;
             mc.SyncPos();
