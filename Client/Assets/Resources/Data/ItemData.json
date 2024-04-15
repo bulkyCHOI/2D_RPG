@@ -5,7 +5,7 @@
       "name": "견습생의 검",
       "weaponType": "Melee",
       "damage": "30",
-      "price": "1000",
+      "price": "3000",
       "iconPath": "Textures/Item/sword"
     },
     {
@@ -13,7 +13,7 @@
       "name": "견습생의 활",
       "weaponType": "Range",
       "damage": "5",
-      "price": "1000",
+      "price": "3000",
       "iconPath": "Textures/Item/bow"
     }
   ],
@@ -23,7 +23,7 @@
       "name": "뼈 갑옷",
       "armorType": "Armor",
       "defence": "10",
-      "price": "1000",
+      "price": "1500",
       "iconPath": "Textures/Item/armor"
     },
     {
@@ -31,7 +31,7 @@
       "name": "뼈 투구",
       "armorType": "Helmet",
       "defence": "5",
-      "price": "1000",
+      "price": "500",
       "iconPath": "Textures/Item/helmets"
     },
     {
@@ -39,7 +39,7 @@
       "name": "뼈 신발",
       "armorType": "Boots",
       "defence": "2",
-      "price": "1000",
+      "price": "500",
       "iconPath": "Textures/Item/boots"
     },
     {
@@ -55,7 +55,7 @@
       "name": "철 갑옷",
       "armorType": "Armor",
       "defence": "25",
-      "price": "1000",
+      "price": "5000",
       "iconPath": "Textures/Item/armor"
     },
     {
@@ -63,7 +63,7 @@
       "name": "철 투구",
       "armorType": "Helmet",
       "defence": "15",
-      "price": "1000",
+      "price": "3000",
       "iconPath": "Textures/Item/helmets"
     },
     {
@@ -71,7 +71,7 @@
       "name": "철 신발",
       "armorType": "Boots",
       "defence": "15",
-      "price": "1000",
+      "price": "3000",
       "iconPath": "Textures/Item/boots"
     },
     {
@@ -79,7 +79,7 @@
       "name": "철 바지",
       "armorType": "Pants",
       "defence": "15",
-      "price": "1000",
+      "price": "4000",
       "iconPath": "Textures/Item/boots"
     }
   ],
@@ -89,7 +89,7 @@
       "name": "HP 물약",
       "consumableType": "HpPortion",
       "recoveryAmount": "100",
-      "price": "1000",
+      "price": "10",
       "iconPath": "Textures/Potion/equip_icon_potion_red_0"
     },
     {
@@ -97,7 +97,7 @@
       "name": "MP 물약",
       "consumableType": "MpPortion",
       "recoveryAmount": "50",
-      "price": "1000",
+      "price": "10",
       "iconPath": "Textures/Potion/equip_icon_potion_blue_0"
     },
     {
@@ -105,7 +105,7 @@
       "name": "HP 물약",
       "consumableType": "HpPortion",
       "recoveryAmount": "200",
-      "price": "1000",
+      "price": "30",
       "iconPath": "Textures/Potion/equip_icon_potion_red_1"
     },
     {
@@ -113,7 +113,7 @@
       "name": "MP 물약",
       "consumableType": "MpPortion",
       "recoveryAmount": "100",
-      "price": "1000",
+      "price": "30",
       "iconPath": "Textures/Potion/equip_icon_potion_blue_1"
     },
     {
@@ -121,7 +121,7 @@
       "name": "HP 물약",
       "consumableType": "HpPortion",
       "recoveryAmount": "400",
-      "price": "1000",
+      "price": "100",
       "iconPath": "Textures/Potion/equip_icon_potion_red_2"
     },
     {
@@ -129,7 +129,7 @@
       "name": "MP 물약",
       "consumableType": "MpPortion",
       "recoveryAmount": "200",
-      "price": "1000",
+      "price": "100",
       "iconPath": "Textures/Potion/equip_icon_potion_blue_2"
     },
     {
@@ -137,7 +137,7 @@
       "name": "HP 물약",
       "consumableType": "HpPortion",
       "recoveryAmount": "800",
-      "price": "1000",
+      "price": "400",
       "iconPath": "Textures/Potion/equip_icon_potion_red_3"
     },
     {
@@ -145,7 +145,7 @@
       "name": "MP 물약",
       "consumableType": "MpPortion",
       "recoveryAmount": "400",
-      "price": "1000",
+      "price": "400",
       "iconPath": "Textures/Potion/equip_icon_potion_blue_3"
     },
     {

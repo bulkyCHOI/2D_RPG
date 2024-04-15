@@ -223,10 +223,21 @@ namespace Server.Game
                 return;
 
             Stat.Gold -= itemData.price;
+            //골드차감된 내역 플레이어에게 전송
+            S_ChangeStat changeStat = new S_ChangeStat();
+            changeStat.StatInfo = Stat;
+            Session.Send(changeStat);
 
             //DB에 적용
-            DbTransaction.BuyItemNoti(this, item);
-            
+            RewardData rewardData = new RewardData()
+            {
+                probability = 100,
+                itemId = itemData.id,
+                itemCount = 1
+            };
+
+            DbTransaction.RewardPlayer(this, rewardData, 0, Room);
+            //DbTransaction.BuyItemNoti(this, item);
         }
 
         public void HandleSellItem(C_SellItem sellPacket)
@@ -241,7 +252,11 @@ namespace Server.Game
 
             Stat.Gold += itemData.price / 2;
 
-            Inventory.Items.Remove(sellPacket.ItemDbId);
+            //인벤토리에서 갯수 감소
+            item.Count -= 1;
+            Inventory.EditItemCount(item);
+            if(item.Count <= 0)
+                Inventory.Items.Remove(sellPacket.ItemDbId);
 
             //DB에 적용
             DbTransaction.SellItemNoti(this, item);

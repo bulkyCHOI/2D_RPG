@@ -146,8 +146,13 @@ class PacketHandler
         S_AddExp addExp = (S_AddExp)packet;
     }
 
-    internal static void S_VendorInteractionHandler(PacketSession session, IMessage packet)
+    public static void S_VendorInteractionHandler(PacketSession session, IMessage packet)
     {
         S_VendorInteraction vendorInteraction = (S_VendorInteraction)packet;
+    }
+
+    public static void S_SellItemHandler(PacketSession session, IMessage packet)
+    {
+        S_SellItem sellItem = (S_SellItem)packet;
     }
 }
