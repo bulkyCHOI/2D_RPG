@@ -28,6 +28,7 @@ namespace Server.Game
             Info.Name = monsterData.name;
             Stat.MergeFrom(monsterData.stat);
             Stat.Hp = Stat.MaxHp;
+            Stat.Mp = Stat.MaxMp;
             State = CreatureState.Idle;
         }
 
