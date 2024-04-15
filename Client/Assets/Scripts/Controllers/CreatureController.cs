@@ -3,12 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
 using UnityEngine;
+using UnityEngine.UI;
 using static Define;
 
 public class CreatureController : BaseController
 {
 	HpBar _hpBar;
     MpBar _mpBar;
+
+    [SerializeField]
+    public Text _name;
 
     public override StatInfo Stat 
 	{

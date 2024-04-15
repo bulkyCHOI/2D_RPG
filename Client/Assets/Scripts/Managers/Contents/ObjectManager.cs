@@ -30,6 +30,7 @@ public class ObjectManager
 				_objects.Add(info.ObjectId, go);
 
 				MyPlayer = go.GetComponent<MyPlayerController>();
+				MyPlayer._name.text = info.Name;	
 				MyPlayer.Id = info.ObjectId;
 				MyPlayer.PosInfo = info.PosInfo;
 				MyPlayer.Stat = info.StatInfo;
@@ -45,7 +46,8 @@ public class ObjectManager
 				go.name = info.Name;
 				_objects.Add(info.ObjectId, go);
 				PlayerController pc = go.GetComponent<PlayerController>();
-				pc.Id = info.ObjectId;
+                pc._name.text = info.Name;
+                pc.Id = info.ObjectId;
 				pc.PosInfo = info.PosInfo;
 				pc.Stat = info.StatInfo;
 				pc.SyncPos();
@@ -57,6 +59,7 @@ public class ObjectManager
             go.name = info.Name;
             _objects.Add(info.ObjectId, go);
             MonsterController mc = go.GetComponent<MonsterController>();
+            //mc._name.text = info.Name;
             mc.PosInfo = info.PosInfo;
             mc.Stat = info.StatInfo;
             mc.SyncPos();
@@ -79,6 +82,7 @@ public class ObjectManager
             go.name = info.Name;
             _objects.Add(info.ObjectId, go);
             NPCController npc = go.GetComponent<NPCController>();
+			npc._name.text = info.Name;
             npc.Id = info.ObjectId;
             npc.PosInfo = info.PosInfo;
             npc.Stat = info.StatInfo;
