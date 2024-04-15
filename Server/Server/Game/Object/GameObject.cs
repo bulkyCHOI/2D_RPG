@@ -16,6 +16,8 @@ namespace Server.Game
             set { Info.ObjectId = value; } 
         }
 
+        public string Name { get; set;}
+
         public GameRoom Room { get; set; }
 
         public ObjectInfo Info { get; set; } = new ObjectInfo();
