@@ -66,7 +66,7 @@ public class UI_LoginScene : UI_Scene
 
         Managers.Web.SendPostRequest<LoginAccountPakcetRes>("account/login", packet, (res) =>
         {
-            Debug.Log(res.LoginOk);
+            //Debug.Log(res.LoginOk);
             login_userName.text = "";
             login_password.text = "";
 
@@ -88,7 +88,7 @@ public class UI_LoginScene : UI_Scene
 
     public void OnSignupBtnClick()
     {
-        Debug.Log("Signup Btn Click");
+        //Debug.Log("Signup Btn Click");
         string userName = signup_userName.text;
         string password = signup_password.text;
 
@@ -100,7 +100,7 @@ public class UI_LoginScene : UI_Scene
 
         Managers.Web.SendPostRequest<CreateAccountPakcetRes>("account/create", packet, (res) =>
         {
-            Debug.Log(res.CreateOk);
+            //Debug.Log(res.CreateOk);
 
             signup_userName.text = "";
             signup_password.text = "";

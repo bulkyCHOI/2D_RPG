@@ -7,8 +7,9 @@ using UnityEngine.Networking;
 
 public class WebManager
 {
+    //public string BaseUrl { get; set; } = "https://localhost:443/api";
+    public string BaseUrl { get; set; } = "http://59.10.202.71/api";
     //public string BaseUrl { get; set; } = "http://localhost:80/api";
-    public string BaseUrl { get; set; } = "http://192.168.0.3:80/api";
 
     public void SendPostRequest<T>(string uri, object obj, Action<T> res)
     {
@@ -32,13 +33,7 @@ public class WebManager
             uwr.downloadHandler = new DownloadHandlerBuffer();
             uwr.uploadHandler.contentType = "application/json";
 
-            //보안 인증서 검사 우회
-            ServicePointManager.ServerCertificateValidationCallback += (sender, certificate, chain, sslPolicyErrors) => true;
-
             yield return uwr.SendWebRequest();
-
-            // 검사 우회 후 콜백 제거
-            ServicePointManager.ServerCertificateValidationCallback -= (sender, certificate, chain, sslPolicyErrors) => true;
 
             if (uwr.isNetworkError || uwr.isHttpError)
             {
