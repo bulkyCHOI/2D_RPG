@@ -135,7 +135,10 @@ class PacketHandler
         if(loginPacket.Players == null || loginPacket.Players.Count == 0)   // 일단은 없으면 만들어서 들어가자
         {
             C_CreatePlayer createPlayerPacket = new C_CreatePlayer();
-            createPlayerPacket.Name = $"Player_{Random.Range(0,10000).ToString("0000")}";
+            
+            //내계정명을 이름으로
+            createPlayerPacket.Name = Managers.Network.AccountName;  //캐릭터의 닉네임을 계정명으로
+            //createPlayerPacket.Name = $"Player_{Random.Range(0,10000).ToString("0000")}";
             Managers.Network.Send(createPlayerPacket);
         }
         else //있으면 일단 첫번째 캐릭터로 로그인

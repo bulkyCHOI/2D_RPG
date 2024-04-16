@@ -77,6 +77,7 @@ public class UI_LoginScene : UI_Scene
                 loginPopup.SetActive(false);
 
                 Managers.Network.AccountId = res.AccountId;
+                Managers.Network.AccountName = userName;
                 Managers.Network.Token = res.Token;
 
                 UI_SelectServerPopup popup = Managers.UI.ShowPopupUI<UI_SelectServerPopup>();
