@@ -6,7 +6,7 @@ using UnityEngine.Networking;
 
 public class WebManager
 {
-    public string BaseUrl { get; set; } = "http://localhost:5000/api";
+    public string BaseUrl { get; set; } = "http://localhost:80/api";
 
     public void SendPostRequest<T>(string uri, object obj, Action<T> res)
     {

@@ -96,8 +96,8 @@ namespace Server
 		}
 
 
-		public static string Name { get; } = "Nit Server2";
-		public static int Port { get; } = 7777;
+		public static string Name { get; } = "Nit Server Public";
+		public static int Port { get; } = 80;
 		public static string IpAddress { get; set; } 
 
 		static void Main(string[] args)
@@ -117,7 +117,9 @@ namespace Server
 			string host = Dns.GetHostName();
 			IPHostEntry ipHost = Dns.GetHostEntry(host);
 			IPAddress ipAddr = ipHost.AddressList[1];
-			IPEndPoint endPoint = new IPEndPoint(ipAddr, 7777);
+			//string ipAddressString = "175.214.85.227";
+			//IPAddress ipAddr = IPAddress.Parse(ipAddressString);
+			IPEndPoint endPoint = new IPEndPoint(ipAddr, 80);
 
 			IpAddress = ipAddr.ToString();
 

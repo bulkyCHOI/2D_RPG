@@ -13,7 +13,7 @@ public class LoginScene : BaseScene
 
         SceneType = Define.Scene.Login;
 
-        Managers.Web.BaseUrl = "http://localhost:5000/api";
+        Managers.Web.BaseUrl = "http://localhost:80/api";
 
         _loginSceneUI = Managers.UI.ShowSceneUI<UI_LoginScene>();
     }
