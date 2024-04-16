@@ -15,6 +15,7 @@ namespace Server.DB
     {
         public int AccountDbId { get; set; }
         public string AccountName { get; set; }
+        public string Password { get; set; }
         public ICollection<PlayerDb> Players { get; set; }
     }
 

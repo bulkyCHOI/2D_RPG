@@ -64,7 +64,11 @@ class PacketManager
 		_onRecv.Add((ushort)MsgId.SVendorInteraction, MakePacket<S_VendorInteraction>);
 		_handler.Add((ushort)MsgId.SVendorInteraction, PacketHandler.S_VendorInteractionHandler);		
 		_onRecv.Add((ushort)MsgId.SSellItem, MakePacket<S_SellItem>);
-		_handler.Add((ushort)MsgId.SSellItem, PacketHandler.S_SellItemHandler);
+		_handler.Add((ushort)MsgId.SSellItem, PacketHandler.S_SellItemHandler);		
+		_onRecv.Add((ushort)MsgId.SLoginAccount, MakePacket<S_LoginAccount>);
+		_handler.Add((ushort)MsgId.SLoginAccount, PacketHandler.S_LoginAccountHandler);		
+		_onRecv.Add((ushort)MsgId.SCreateAccount, MakePacket<S_CreateAccount>);
+		_handler.Add((ushort)MsgId.SCreateAccount, PacketHandler.S_CreateAccountHandler);
 	}
 
 	public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)

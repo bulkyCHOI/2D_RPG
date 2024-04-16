@@ -43,6 +43,10 @@ enum MsgId {
 	C_SELL_ITEM = 29;
 	S_SELL_ITEM = 30;
 	C_BUY_ITEM = 31;
+	C_LOGIN_ACCOUNT = 32;
+	S_LOGIN_ACCOUNT = 33;
+	C_CREATE_ACCOUNT = 34;
+	S_CREATE_ACCOUNT = 35;
 }
 
 enum CreatureState{
@@ -333,4 +337,36 @@ message C_BuyItem	//클라이언트로 보낼때는 S_ADD_ITEM으로 보내기
 {
 	int32 itemId = 1;
 }
+
+message C_LoginAccount
+{
+	string accountId = 1;
+	string password = 2;
+}
+
+message ServerInfo
+{
+	string name = 2;
+	string ip = 3;
+	int32 port = 4;
+	int32 busyScore = 5;
+}
+
+message S_LoginAccount
+{
+	bool loginOk = 1;
+	repeated ServerInfo serverList = 2;
+}
+
+message C_CreateAccount
+{
+	string accountId = 1;
+	string password = 2;
+}
+
+message S_CreateAccount
+{
+	bool createOk = 1;
+}
+
 

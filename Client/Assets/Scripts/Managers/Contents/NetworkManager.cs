@@ -19,6 +19,24 @@ public class NetworkManager
         _session.Send(packet);
     }
 
+    public void ConnectToServer(string host, int port)
+    {
+        try
+        {
+            IPAddress ipAddr = IPAddress.Parse(host);
+            IPEndPoint endPoint = new IPEndPoint(ipAddr, port);
+
+            Connector connector = new Connector();
+
+            connector.Connect(endPoint,
+                               () => { return _session; },
+                                              1);
+        }
+        catch (Exception e)
+        {
+            Debug.Log(e.ToString());
+        }
+    }
     public void ConnectToGame(ServerInfo serverInfo)
     {
         // DNS (Domain Name System)

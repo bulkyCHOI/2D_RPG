@@ -225,5 +225,62 @@ namespace Server
             }
         }
 
+        public void HandleLoginAccount(C_LoginAccount loginAccountPkt)
+        {
+            //DB와 대조
+            using (AppDbContext db = new AppDbContext())
+            {
+                AccountDb account = db.Accounts
+                    .Where(p => p.AccountName == loginAccountPkt.AccountId && p.Password == loginAccountPkt.Password).FirstOrDefault();
+
+                if(account == null)
+                {
+                    //실패
+                    Send(new S_LoginAccount() { LoginOk = false });
+                }
+                else
+                {
+                    //성공
+                    S_LoginAccount sLoginAccount = new S_LoginAccount() { LoginOk = true };
+                    
+                    Send(new S_LoginAccount() { LoginOk = true });
+
+
+
+                    
+                }
+            }
+        }
+
+        public void HandleCreateAccount(C_CreateAccount createAccountPkt)
+        {
+            //DB에 추가
+            using (AppDbContext db = new AppDbContext())
+            {
+                AccountDb account = db.Accounts
+                    .Where(p => p.AccountName == createAccountPkt.AccountId).FirstOrDefault();
+
+                if(account == null)
+                {
+                    //성공
+                    db.Accounts.Add(new AccountDb()
+                    {
+                        AccountName = createAccountPkt.AccountId,
+                        Password = createAccountPkt.Password
+                    });
+
+                    bool success = db.SaveChangesEx();
+                    if(success == false)
+                        return;
+
+                    Send(new S_CreateAccount() { CreateOk = true });
+                }
+                else
+                {
+                    //실패
+                    Send(new S_CreateAccount() { CreateOk = false });
+                }
+            }
+        }
     }
 }

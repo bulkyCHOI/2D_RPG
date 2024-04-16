@@ -155,4 +155,14 @@ class PacketHandler
     {
         S_SellItem sellItem = (S_SellItem)packet;
     }
+
+    public static void S_LoginAccountHandler(PacketSession session, IMessage packet)
+    {
+        S_LoginAccount loginAccount = (S_LoginAccount)packet;
+    }
+
+    public static void S_CreateAccountHandler(PacketSession session, IMessage packet)
+    {
+        S_CreateAccount createAccount = (S_CreateAccount)packet;
+    }
 }

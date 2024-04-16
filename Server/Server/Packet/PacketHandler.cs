@@ -162,4 +162,18 @@ class PacketHandler
 
         room.Push(room.HandleSellItem, player, sellItemPacket); //Job 방식으로 변경
     }
+
+    public static void C_LoginAccountHandler(PacketSession session, IMessage packet)
+    {
+        C_LoginAccount loginAccountPacket = (C_LoginAccount)packet;
+        ClientSession clientSession = (ClientSession)session;
+        clientSession.HandleLoginAccount(loginAccountPacket);
+    }
+
+    public static void C_CreateAccountHandler(PacketSession session, IMessage packet)
+    {
+        C_CreateAccount createAccountPacket = (C_CreateAccount)packet;
+        ClientSession clientSession = (ClientSession)session;
+        clientSession.HandleCreateAccount(createAccountPacket);
+    }
 }

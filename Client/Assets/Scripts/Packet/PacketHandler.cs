@@ -116,13 +116,13 @@ class PacketHandler
     public static void S_ConnectedHandler(PacketSession session, IMessage packet)
     {
         Debug.Log("S_ConnectedHandler");
-        C_Login loginPacket = new C_Login();
+        //C_Login loginPacket = new C_Login();
 
-        string path = Application.dataPath;
-        //loginPacket.UniqueId = SystemInfo.deviceUniqueIdentifier;   //디바이스 고유 아이디 알아서 찾아서 넣어주기
-        //loginPacket.UniqueId = path.GetHashCode().ToString();   //아이디를 path로 대체
-        loginPacket.UniqueId = Managers.Network.AccountId.ToString();   //아이디를 로그인때의 ID로 대체
-        Managers.Network.Send(loginPacket);
+        ////string path = Application.dataPath;
+        ////loginPacket.UniqueId = SystemInfo.deviceUniqueIdentifier;   //디바이스 고유 아이디 알아서 찾아서 넣어주기
+        ////loginPacket.UniqueId = path.GetHashCode().ToString();   //아이디를 path로 대체
+        //loginPacket.UniqueId = Managers.Network.AccountId.ToString();   //아이디를 로그인때의 ID로 대체
+        //Managers.Network.Send(loginPacket);
     }
     
     // 로그인은 했고, 캐릭터 목록까지 줄게
@@ -374,5 +374,45 @@ class PacketHandler
         gameSceneUI.InvenUI.RefreshUI();
         gameSceneUI.ActionUI.RefreshUI();
         //gameSceneUI.VendorUI.RefreshUI(); //굳이 refresh할 필요가 없다. >> items를 받아야 하는데 받기 어려움
+    }
+
+    public static void S_LoginAccountHandler(PacketSession session, IMessage packet)
+    {
+        S_LoginAccount loginAccountPacket = (S_LoginAccount)packet;
+
+        if (loginAccountPacket.LoginOk)
+        {
+            UI_SelectServerPopup popup = Managers.UI.ShowPopupUI<UI_SelectServerPopup>();
+            List<ServerInfo> serverList = new List<ServerInfo>();
+            foreach (Google.Protobuf.Protocol.ServerInfo server in loginAccountPacket.ServerList)
+            {
+                ServerInfo si = new ServerInfo();
+                si.ServerName = server.Name;
+                si.ServerIp = server.Ip;
+                si.ServerPort = server.Port;
+                si.BusyScore = server.BusyScore;
+                serverList.Add(si);
+            }
+            popup.SetServers(serverList);
+        }
+        else
+        {
+            Debug.Log("Login Fail");
+        }
+    }
+
+    public static void S_CreateAccountHandler(PacketSession session, IMessage packet)
+    {
+        S_CreateAccount createAccountPacket = (S_CreateAccount)packet;
+
+        if (createAccountPacket.CreateOk)
+        {
+            Debug.Log("Create Account Ok");
+            //UI닫기
+        }
+        else
+        {
+            Debug.Log("Create Account Fail");
+        }
     }
 }
