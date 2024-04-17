@@ -4,6 +4,7 @@ using Server.Data;
 using Server.DB;
 using Server.Game;
 using ServerCore;
+using SharedDB;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -225,8 +226,33 @@ namespace Server
             }
         }
 
+        public List<ServerInfo> getServerInfo()
+        {
+            using (SharedDbContext db = new SharedDbContext())
+            {
+                ServerInfoDb serverInfo = db.ServerInfos.FirstOrDefault();
+                if(serverInfo == null)
+                    return null;
+                else
+                {
+                    List<ServerInfo> serverInfos = new List<ServerInfo>();
+                    foreach (var server in db.ServerInfos)
+                    {
+                        serverInfos.Add(new ServerInfo()
+                        {
+                            Name = server.ServerName,
+                            Ip = server.ServerIP,
+                            Port = server.ServerPort,
+                            BusyScore = server.BusyCcore
+                        });
+                    }
+                    return serverInfos;
+                }
+            }
+        }
         public void HandleLoginAccount(C_LoginAccount loginAccountPkt)
         {
+
             //DB와 대조
             using (AppDbContext db = new AppDbContext())
             {
@@ -242,12 +268,13 @@ namespace Server
                 {
                     //성공
                     S_LoginAccount sLoginAccount = new S_LoginAccount() { LoginOk = true };
-                    
-                    Send(new S_LoginAccount() { LoginOk = true });
-
-
-
-                    
+                    //serverList 가져오기
+                    List<ServerInfo> serverInfos = getServerInfo();
+                    if(serverInfos != null)
+                    {
+                        sLoginAccount.ServerList.AddRange(serverInfos);
+                    }
+                    Send(sLoginAccount);
                 }
             }
         }
