@@ -318,8 +318,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Changed name.
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: d70f485aa27dc43f79a8fd168f58435c, type: 2}
-  m_sharedMaterial: {fileID: 5416806443266638455, guid: d70f485aa27dc43f79a8fd168f58435c, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: dddb4756dc8a2fe4b8d1efad8b6a5baf, type: 2}
+  m_sharedMaterial: {fileID: 7473392196506233929, guid: dddb4756dc8a2fe4b8d1efad8b6a5baf, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -402,7 +402,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3942181135009914037
 RectTransform:
   m_ObjectHideFlags: 0
@@ -444,7 +444,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -5542,7 +5542,6 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 10308, guid: 0000000000000000f000000000000000, type: 0}
-  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5917,7 +5916,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8247225808401604984
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6104,11 +6103,11 @@ RectTransform:
   - {fileID: 2930875455568053196}
   - {fileID: 2021342390072974484}
   - {fileID: 3011209398354297670}
-  m_Father: {fileID: 7432256951805789881}
+  m_Father: {fileID: 8839027887541873798}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -305}
+  m_AnchoredPosition: {x: 0, y: 7}
   m_SizeDelta: {x: 738.6, y: 407.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1269164253936196112
@@ -7096,7 +7095,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 129}
+  m_AnchoredPosition: {x: 0, y: -230}
   m_SizeDelta: {x: 848, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7631611299261604412
@@ -7260,8 +7259,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: I do not have enough Gold!
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: d70f485aa27dc43f79a8fd168f58435c, type: 2}
-  m_sharedMaterial: {fileID: 5416806443266638455, guid: d70f485aa27dc43f79a8fd168f58435c, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: dddb4756dc8a2fe4b8d1efad8b6a5baf, type: 2}
+  m_sharedMaterial: {fileID: 7473392196506233929, guid: dddb4756dc8a2fe4b8d1efad8b6a5baf, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -8183,8 +8182,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: The name is already in use.
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: d70f485aa27dc43f79a8fd168f58435c, type: 2}
-  m_sharedMaterial: {fileID: 5416806443266638455, guid: d70f485aa27dc43f79a8fd168f58435c, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: dddb4756dc8a2fe4b8d1efad8b6a5baf, type: 2}
+  m_sharedMaterial: {fileID: 7473392196506233929, guid: dddb4756dc8a2fe4b8d1efad8b6a5baf, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -8539,6 +8538,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 3166564053994073246}
   - {fileID: 8839027887541873798}
   - {fileID: 8634029216645743436}
   - {fileID: 6109578245976901566}
@@ -8546,8 +8546,8 @@ RectTransform:
   - {fileID: 2355263968338196573}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -8586,6 +8586,12 @@ MonoBehaviour:
   loginPopup: {fileID: 6238352404207189131}
   signupPopup: {fileID: 3909518044583299155}
   checkingPopup: {fileID: 2828953501231465944}
+  tabToStart: {fileID: 5582177850548298981}
+  loadingPopup: {fileID: 0}
+  errorMsg1Popup: {fileID: 4222302887296047419}
+  errorMsg2Popup: {fileID: 6661397844667000183}
+  alramMsg1Popup: {fileID: 1175495196363699091}
+  alramMsg2Popup: {fileID: 7925146588459548042}
   login_userName: {fileID: 5888252332538841465}
   login_password: {fileID: 7976836203237405614}
   signup_userName: {fileID: 873533523661705515}
@@ -8751,12 +8757,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 3166564053994073246}
+  - {fileID: 6666324708807701543}
   - {fileID: 7432256951805789881}
   m_Father: {fileID: 8049118442089019283}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -8775,7 +8781,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6045646275177390570
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14577,7 +14583,6 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 10308, guid: 0000000000000000f000000000000000, type: 0}
-  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -15110,7 +15115,6 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 6666324708807701543}
   - {fileID: 131372161484611771}
   m_Father: {fileID: 8839027887541873798}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -20051,7 +20055,6 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 10308, guid: 0000000000000000f000000000000000, type: 0}
-  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -20678,7 +20681,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6200760610033108905
 RectTransform:
   m_ObjectHideFlags: 0
@@ -21244,7 +21247,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2355263968338196573
 RectTransform:
   m_ObjectHideFlags: 0
@@ -21522,7 +21525,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5963639247928332440
 RectTransform:
   m_ObjectHideFlags: 0
@@ -21734,8 +21737,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "You\u2019ve got a item."
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: d70f485aa27dc43f79a8fd168f58435c, type: 2}
-  m_sharedMaterial: {fileID: 5416806443266638455, guid: d70f485aa27dc43f79a8fd168f58435c, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: dddb4756dc8a2fe4b8d1efad8b6a5baf, type: 2}
+  m_sharedMaterial: {fileID: 7473392196506233929, guid: dddb4756dc8a2fe4b8d1efad8b6a5baf, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -22351,7 +22354,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1159292290612102349}
-  m_Father: {fileID: 8839027887541873798}
+  m_Father: {fileID: 8049118442089019283}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}

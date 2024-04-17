@@ -28,7 +28,11 @@ public class Item   //Item 정보를 메모리에 가지고 있는 클래스
         get { return Info.Slot; }
         set { Info.Slot = value; }
     }
-
+    public int Grade
+    {
+        get { return Info.Grade; }
+        set { Info.Grade = value; }
+    }
     public bool Equipped
     {
         get { return Info.Equipped; }
@@ -69,6 +73,7 @@ public class Item   //Item 정보를 메모리에 가지고 있는 클래스
             item.Count = itemInfo.Count;
             item.Slot = itemInfo.Slot;
             item.Equipped = itemInfo.Equipped;
+            item.Grade = itemInfo.Grade;
         }
         return item;
     }

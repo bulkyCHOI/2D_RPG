@@ -13,6 +13,12 @@ public class UI_LoginScene : UI_Scene
     public GameObject loginPopup;
     public GameObject signupPopup;
     public GameObject checkingPopup;
+    public GameObject loadingPopup;
+    public GameObject errorMsg1Popup;
+    public GameObject errorMsg2Popup;
+    public GameObject alramMsg1Popup;
+    public GameObject alramMsg2Popup;
+
     public TMP_InputField login_userName;
     public TMP_InputField login_password;
     public TMP_InputField signup_userName;
@@ -84,6 +90,19 @@ public class UI_LoginScene : UI_Scene
 
         //로딩중 표시 필요
     }
+
+    //게임오브젝트를 n초 후에 비활성화
+    public void SetActiveFalse(GameObject obj, float time)
+    {
+        StartCoroutine(ActiveFalse(obj, time));
+    }
+
+    IEnumerator ActiveFalse(GameObject obj, float time)
+    {
+        yield return new WaitForSeconds(time);
+        obj.SetActive(false);
+    }
+
     //public void OnLoginBtnClick()
     //{
     //    Debug.Log("Login Btn Click");

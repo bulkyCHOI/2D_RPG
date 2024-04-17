@@ -70,8 +70,9 @@ namespace Server.Data
         public string name;
         public ItemType itemType;
         public int price;
+        public int grade;
     }
-
+ 
     public class WeaponData : ItemData
     {
         public WeaponType weaponType;

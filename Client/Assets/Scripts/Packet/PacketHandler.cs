@@ -4,6 +4,7 @@ using Google.Protobuf.Protocol;
 using ServerCore;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 class PacketHandler
@@ -409,10 +410,20 @@ class PacketHandler
         {
             Debug.Log("Create Account Ok");
             //UI닫기
+            UI_LoginScene loginSceneUI = Managers.UI.SceneUI as UI_LoginScene;
+            loginSceneUI.signupPopup.SetActive(false);
+            loginSceneUI.loginPopup.SetActive(true);
+            loginSceneUI.alramMsg2Popup.SetActive(true);
+            loginSceneUI.alramMsg2Popup.GetComponentInChildren<TMP_Text>().text = "생성 성공!";
+            loginSceneUI.SetActiveFalse(loginSceneUI.alramMsg2Popup, 2.0f);
         }
         else
         {
             Debug.Log("Create Account Fail");
+            UI_LoginScene loginSceneUI = Managers.UI.SceneUI as UI_LoginScene;
+            loginSceneUI.errorMsg2Popup.SetActive(true);
+            loginSceneUI.errorMsg2Popup.GetComponentInChildren<TMP_Text>().text = "생성 실패!";
+            loginSceneUI.SetActiveFalse(loginSceneUI.errorMsg2Popup, 2.0f);
         }
     }
 }

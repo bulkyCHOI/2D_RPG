@@ -26,9 +26,9 @@ public class ObjectManager
 			if (myPlayer)
 			{
 				GameObject go = Managers.Resource.Instantiate("Creature/MyPlayer");
-				go.name = info.Name;
+                
+                go.name = info.Name;
 				_objects.Add(info.ObjectId, go);
-
 				MyPlayer = go.GetComponent<MyPlayerController>();
 				MyPlayer._name.text = info.Name;	
 				MyPlayer.Id = info.ObjectId;
@@ -55,7 +55,8 @@ public class ObjectManager
 		}
 		else if (type == GameObjectType.Monster)
 		{
-            GameObject go = Managers.Resource.Instantiate("Creature/Monster");
+            GameObject go = Managers.Resource.Instantiate($"Creature/Monster{info.StatInfo.Level.ToString("000")}");
+            Debug.Log($"monster Level: {info.StatInfo.Level}");
             go.name = info.Name;
             _objects.Add(info.ObjectId, go);
             MonsterController mc = go.GetComponent<MonsterController>();

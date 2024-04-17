@@ -9,6 +9,8 @@ public class UI_Inventory_Item : UI_Base
     [SerializeField]
     Image _icon = null;
     [SerializeField]
+    Image _background = null;
+    [SerializeField]
     Image _frame = null;
     [SerializeField]
     Text _text = null;
@@ -16,6 +18,7 @@ public class UI_Inventory_Item : UI_Base
     public int ItemDbId { get; private set; }
     public int TemplateId { get; private set; }
     public int Count { get; private set; }
+    public int Grade { get; private set; }
     public bool Equipped { get; private set; }
 
     public override void Init()
@@ -48,6 +51,7 @@ public class UI_Inventory_Item : UI_Base
                 C_SellItem sellPacket = new C_SellItem();
                 sellPacket.ItemDbId = ItemDbId;
                 Managers.Network.Send(sellPacket);
+                RemoveItem();
             }
         });
     }
@@ -59,6 +63,7 @@ public class UI_Inventory_Item : UI_Base
             ItemDbId = 0;
             TemplateId = 0;
             Count = 0;
+            Grade = 0;
             Equipped = false;
 
             _icon.gameObject.SetActive(false);
@@ -69,13 +74,37 @@ public class UI_Inventory_Item : UI_Base
             ItemDbId = item.itemDbId;
             TemplateId = item.TemplateId;
             Count = item.Count;
+            Grade = item.Grade;
             Equipped = item.Equipped;
+            
 
             Data.ItemData itemData = null;
             Managers.Data.ItemDict.TryGetValue(TemplateId, out itemData);
 
             Sprite icon = Managers.Resource.Load<Sprite>(itemData.iconPath);
             _icon.sprite = icon;
+
+            switch (Grade)
+            {
+                case 0:
+                    _background.color = new Color(0.5f, 0.5f, 0.5f, 0.8f);
+                    break;
+                case 1:
+                    _background.color = new Color(0.1f, 0.7f, 0.1f, 0.8f);
+                    break;
+                case 2:
+                    _background.color = new Color(0f, 0f, 1f, 0.8f);
+                    break;
+                case 3:
+                    _background.color = new Color(1f, 0f, 1f, 0.8f);
+                    break;
+                case 4:
+                    _background.color = new Color(0.9f, 0.5f, 0.1f, 0.8f);
+                    break;
+                case 5:
+                    _background.color = new Color(1f, 0f, 0f, 0.8f);
+                    break;
+            }
 
             _icon.gameObject.SetActive(true);
             _frame.gameObject.SetActive(Equipped);
@@ -90,6 +119,7 @@ public class UI_Inventory_Item : UI_Base
     {
         _icon.gameObject.SetActive(false);
         _frame.gameObject.SetActive(false);
+        _background.color = new Color(0,0,0,0.5f);
         _text.text = "";
     }
 }

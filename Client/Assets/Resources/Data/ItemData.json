@@ -6,14 +6,52 @@
       "weaponType": "Melee",
       "damage": "30",
       "price": "3000",
+      "grade": "0",
       "iconPath": "Textures/Item/sword"
     },
     {
       "id": "2",
       "name": "견습생의 활",
       "weaponType": "Range",
-      "damage": "5",
+      "damage": "10",
       "price": "3000",
+      "grade": "0",
+      "iconPath": "Textures/Item/bow"
+    },
+    {
+      "id": "3",
+      "name": "견습생의 지팡이",
+      "weaponType": "Range",
+      "damage": "50",
+      "price": "3000",
+      "grade": "0",
+      "iconPath": "Textures/Item/bow"
+    },
+    {
+      "id": "11",
+      "name": "철 검",
+      "weaponType": "Melee",
+      "damage": "40",
+      "price": "6000",
+      "grade": "1",
+      "iconPath": "Textures/Item/sword"
+    },
+    {
+      "id": "12",
+      "name": "철 활",
+      "weaponType": "Range",
+      "damage": "10",
+      "price": "6000",
+      "grade": "1",
+      "iconPath": "Textures/Item/bow"
+    },
+    {
+      "id": "13",
+      "name": "철 지팡이",
+      "weaponType": "Range",
+      "damage": "60",
+      "price": "6000",
+      "grade": "1",
       "iconPath": "Textures/Item/bow"
     }
   ],
@@ -24,62 +62,142 @@
       "armorType": "Armor",
       "defence": "10",
       "price": "1500",
+      "grade": "0",
       "iconPath": "Textures/Item/armor"
     },
     {
       "id": "101",
       "name": "뼈 투구",
       "armorType": "Helmet",
-      "defence": "5",
+      "defence": "3",
       "price": "500",
+      "grade": "0",
       "iconPath": "Textures/Item/helmets"
     },
     {
       "id": "102",
       "name": "뼈 신발",
       "armorType": "Boots",
-      "defence": "2",
+      "defence": "1",
       "price": "500",
+      "grade": "0",
       "iconPath": "Textures/Item/boots"
     },
     {
       "id": "103",
       "name": "뼈 바지",
       "armorType": "Pants",
-      "defence": "8",
+      "defence": "5",
       "price": "1000",
+      "grade": "0",
       "iconPath": "Textures/Item/pants"
     },
     {
       "id": "110",
       "name": "철 갑옷",
       "armorType": "Armor",
-      "defence": "25",
+      "defence": "15",
       "price": "5000",
+      "grade": "1",
       "iconPath": "Textures/Item/armor"
     },
     {
       "id": "111",
       "name": "철 투구",
       "armorType": "Helmet",
-      "defence": "15",
+      "defence": "5",
       "price": "3000",
+      "grade": "1",
       "iconPath": "Textures/Item/helmets"
     },
     {
       "id": "112",
       "name": "철 신발",
       "armorType": "Boots",
-      "defence": "15",
+      "defence": "2",
       "price": "3000",
+      "grade": "1",
       "iconPath": "Textures/Item/boots"
     },
     {
       "id": "113",
       "name": "철 바지",
       "armorType": "Pants",
+      "defence": "8",
+      "price": "4000",
+      "grade": "1",
+      "iconPath": "Textures/Item/boots"
+    },
+    {
+      "id": "120",
+      "name": "강철 갑옷",
+      "armorType": "Armor",
+      "defence": "25",
+      "price": "5000",
+      "grade": "2",
+      "iconPath": "Textures/Item/armor"
+    },
+    {
+      "id": "121",
+      "name": "강철 투구",
+      "armorType": "Helmet",
+      "defence": "15",
+      "price": "3000",
+      "grade": "2",
+      "iconPath": "Textures/Item/helmets"
+    },
+    {
+      "id": "122",
+      "name": "강철 신발",
+      "armorType": "Boots",
+      "defence": "15",
+      "price": "3000",
+      "grade": "2",
+      "iconPath": "Textures/Item/boots"
+    },
+    {
+      "id": "123",
+      "name": "강철 바지",
+      "armorType": "Pants",
       "defence": "15",
       "price": "4000",
+      "grade": "2",
+      "iconPath": "Textures/Item/boots"
+    },
+    {
+      "id": "130",
+      "name": "미스릴 갑옷",
+      "armorType": "Armor",
+      "defence": "25",
+      "price": "5000",
+      "grade": "3",
+      "iconPath": "Textures/Item/armor"
+    },
+    {
+      "id": "131",
+      "name": "미스릴 투구",
+      "armorType": "Helmet",
+      "defence": "15",
+      "price": "3000",
+      "grade": "3",
+      "iconPath": "Textures/Item/helmets"
+    },
+    {
+      "id": "132",
+      "name": "미스릴 신발",
+      "armorType": "Boots",
+      "defence": "15",
+      "price": "3000",
+      "grade": "3",
+      "iconPath": "Textures/Item/boots"
+    },
+    {
+      "id": "133",
+      "name": "미스릴 바지",
+      "armorType": "Pants",
+      "defence": "15",
+      "price": "4000",
+      "grade": "3",
       "iconPath": "Textures/Item/boots"
     }
   ],

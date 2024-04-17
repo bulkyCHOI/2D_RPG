@@ -54,6 +54,61 @@
           "itemCount": "1"
         }
       ]
+    },
+    {
+      "id": "2",
+      "name": "도플갱어2",
+      "stat": {
+        "level": "2",
+        "maxHp": "200",
+        "maxMp": "10",
+        "speed": "5.0",
+        "attack": "30",
+        "defence": "30",
+        "totalExp": "30"
+      },
+      "rewards": [
+        {
+          "probability": "10",
+          "itemId": "11",
+          "itemCount": "1"
+        },
+        {
+          "probability": "10",
+          "itemId": "12",
+          "itemCount": "1"
+        },
+        {
+          "probability": "10",
+          "itemId": "110",
+          "itemCount": "1"
+        },
+        {
+          "probability": "10",
+          "itemId": "111",
+          "itemCount": "1"
+        },
+        {
+          "probability": "10",
+          "itemId": "112",
+          "itemCount": "1"
+        },
+        {
+          "probability": "10",
+          "itemId": "113",
+          "itemCount": "1"
+        },
+        {
+          "probability": "10",
+          "itemId": "202",
+          "itemCount": "1"
+        },
+        {
+          "probability": "10",
+          "itemId": "203",
+          "itemCount": "1"
+        }
+      ]
     }
   ]
 } 
