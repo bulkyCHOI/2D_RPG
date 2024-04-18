@@ -61,20 +61,65 @@
       "id": "2",
       "name": "장비상인",
       "vendorType": "Grocer",
-      "vendorItems": [
+      "items": [
         {
-          "itemId": "110",
+          "itemId": "131",
           "slot": "0",
           "price": "1000"
         },
         {
-          "itemId": "111",
-          "slot": "1",
+          "itemId": "130",
+          "slot": "5",
           "price": "1000"
         },
         {
-          "itemId": "112",
-          "slot": "2",
+          "itemId": "133",
+          "slot": "10",
+          "price": "1000"
+        },
+        {
+          "itemId": "132",
+          "slot": "15",
+          "price": "1000"
+        },
+        {
+          "itemId": "31",
+          "slot": "20",
+          "price": "1000"
+        },
+        {
+          "itemId": "32",
+          "slot": "25",
+          "price": "1000"
+        },
+        {
+          "itemId": "141",
+          "slot": "0",
+          "price": "1000"
+        },
+        {
+          "itemId": "140",
+          "slot": "5",
+          "price": "1000"
+        },
+        {
+          "itemId": "143",
+          "slot": "10",
+          "price": "1000"
+        },
+        {
+          "itemId": "142",
+          "slot": "15",
+          "price": "1000"
+        },
+        {
+          "itemId": "41",
+          "slot": "20",
+          "price": "1000"
+        },
+        {
+          "itemId": "42",
+          "slot": "25",
           "price": "1000"
         }
       ]
@@ -83,7 +128,7 @@
       "id": "3",
       "name": "대장장이",
       "vendorType": "BlackSmith",
-      "vendorItems": [
+      "items": [
       ]
     }
   ]

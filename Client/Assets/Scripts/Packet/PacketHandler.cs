@@ -426,4 +426,20 @@ class PacketHandler
             loginSceneUI.SetActiveFalse(loginSceneUI.errorMsg2Popup, 2.0f);
         }
     }
+
+    public static void S_ChangeMpHandler(PacketSession session, IMessage packet)
+    {
+        S_ChangeMp changeMPPacket = (S_ChangeMp)packet;
+
+        //서버에서 MP 변경 패킷이 왔을때 처리해주는 부분
+        GameObject go = Managers.Object.FindById(changeMPPacket.ObjectId);
+        if (go == null)
+            return;
+
+        CreatureController cc = go.GetComponent<CreatureController>();
+        if (go != null)
+        {
+            cc.Mp = changeMPPacket.Mp;
+        }
+    }
 }

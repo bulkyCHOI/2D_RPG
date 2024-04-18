@@ -47,6 +47,7 @@ enum MsgId {
 	S_LOGIN_ACCOUNT = 33;
 	C_CREATE_ACCOUNT = 34;
 	S_CREATE_ACCOUNT = 35;
+	S_CHANGE_MP = 36;
 }
 
 enum CreatureState{
@@ -370,4 +371,9 @@ message S_CreateAccount
 	bool createOk = 1;
 }
 
+message S_ChangeMp
+{
+	int32 objectId = 1;
+	int32 mp = 2;
+}
 

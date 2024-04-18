@@ -7,7 +7,7 @@
         "level": "1",
         "maxHp": "100",
         "maxMp": "50",
-        "speed": "5.0",
+        "speed": "3.0",
         "attack": "10",
         "defence": "10",
         "totalExp": "10"
@@ -52,7 +52,7 @@
         "level": "2",
         "maxHp": "200",
         "maxMp": "10",
-        "speed": "4.0",
+        "speed": "3.5",
         "attack": "20",
         "defence": "20",
         "totalExp": "30"
@@ -97,7 +97,7 @@
         "level": "3",
         "maxHp": "400",
         "maxMp": "10",
-        "speed": "5.0",
+        "speed": "3.0",
         "attack": "60",
         "defence": "60",
         "totalExp": "100"
@@ -142,7 +142,7 @@
         "level": "4",
         "maxHp": "800",
         "maxMp": "10",
-        "speed": "5.0",
+        "speed": "3.5",
         "attack": "100",
         "defence": "100",
         "totalExp": "200"
@@ -187,7 +187,7 @@
         "level": "5",
         "maxHp": "1000",
         "maxMp": "10",
-        "speed": "5.0",
+        "speed": "3.5",
         "attack": "600",
         "defence": "600",
         "totalExp": "10000"

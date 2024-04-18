@@ -106,8 +106,8 @@ namespace Server.Game
                 {
                     WeaponType weaponType = ((Weapon)item).WeaponType;
                     unequipItem = Inventory.Find(
-                        i => i.ItemType == ItemType.Weapon && i.Equipped);
-                        //&& weaponType == ((Weapon)i).WeaponType);
+                        i => i.ItemType == ItemType.Weapon && i.Equipped
+                        && weaponType == ((Weapon)i).WeaponType);
                 }
                 else if (item.ItemType == ItemType.Armor)
                 {

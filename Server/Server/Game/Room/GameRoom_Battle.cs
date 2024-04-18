@@ -105,7 +105,7 @@ namespace Server.Game
                     break;
                 case SkillType.SkillProjectile: //발사체 스킬
                     Arrow arrow = ObjectManager.Instance.Add<Arrow>();
-                    if (arrow != null)
+                    if (arrow != null && player.Stat.Mp >= 50)
                     {
                         arrow.Owner = player;
                         arrow.Data = skillData;
@@ -117,6 +117,12 @@ namespace Server.Game
                         //EnterGame(arrow);//job 방식으로 변경
                         Push(EnterGame, arrow, false);//job 방식으로 변경 //randPos = false
 
+                        //플레이어 마나 감소
+                        player.Stat.Mp -= 50;
+                        S_ChangeMp changeMpPacket = new S_ChangeMp();
+                        changeMpPacket.ObjectId = playerInfo.ObjectId;
+                        changeMpPacket.Mp = player.Stat.Mp;
+                        Broadcast(player.CellPos, changeMpPacket);
                     }
                     else
                         return;

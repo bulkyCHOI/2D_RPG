@@ -156,11 +156,10 @@ namespace Server.Game
 
             Stat.Mp = Math.Min(Stat.MaxMp, Stat.Mp + recoveryMana);
 
-            //TODO changeMpPacket 만들어야함
-            //S_ChangeHp changeHpPacket = new S_ChangeHp();
-            //changeHpPacket.ObjectId = Id;
-            //changeHpPacket.Hp = Stat.Hp;
-            //Room.Broadcast(changeHpPacket);
+            S_ChangeMp changeMpPacket = new S_ChangeMp();
+            changeMpPacket.ObjectId = Id;
+            changeMpPacket.Mp = Stat.Mp;
+            Room.Broadcast(CellPos, changeMpPacket);
         }
 
         public virtual void OnDead(GameObject attacker)
