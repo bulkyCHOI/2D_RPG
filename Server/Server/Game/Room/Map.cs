@@ -288,7 +288,7 @@ namespace Server.Game
         int[] _deltaX = new int[] { 0, 0, -1, 1 };
         int[] _cost = new int[] { 10, 10, 10, 10 };
 
-        public List<Vector2Int> FindPath(Vector2Int startCellPos, Vector2Int destCellPos, bool checkObjects = true, int maxDist = 10)
+        public List<Vector2Int> FindPath(Vector2Int startCellPos, Vector2Int destCellPos, bool checkObjects = true, int maxDist = 5)
         {
             List<Pos> path = new List<Pos>();
 
