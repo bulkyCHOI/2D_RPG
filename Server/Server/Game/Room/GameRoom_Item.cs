@@ -44,5 +44,13 @@ namespace Server.Game
 
             player.HandleSellItem(sellPacket);
         }
+
+        public void HandleEnchantItem(Player player, C_EnchantItem enchantPacket)
+        {
+            if (player == null)
+                return;
+
+            player.HandleEnchantItem(enchantPacket);
+        }
     }
 }

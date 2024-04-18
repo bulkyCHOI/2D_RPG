@@ -37,21 +37,29 @@ public class UI_Inventory_Item : UI_Base
             //    return;
             UI_GameScene gameSceneUI = Managers.UI.SceneUI as UI_GameScene;
             UI_Vendor vendorUI = gameSceneUI.VendorUI;
+            UI_Enchant enchantUI = gameSceneUI.EnchantUI;
 
-            if (vendorUI.gameObject.activeSelf == false)
-            {
-                C_EquipItem equipPacket = new C_EquipItem();
-                equipPacket.ItemDbId = ItemDbId;
-                equipPacket.Equipped = !Equipped;
-                Managers.Network.Send(equipPacket);
-            }
-            else
+            if (vendorUI.gameObject.activeSelf == true)
             {
                 Debug.Log("판매");
                 C_SellItem sellPacket = new C_SellItem();
                 sellPacket.ItemDbId = ItemDbId;
                 Managers.Network.Send(sellPacket);
                 RemoveItem();
+            }
+            else if (enchantUI.gameObject.activeSelf == true)
+            {
+                Debug.Log("강화");
+                C_EnchantItem enchantPacket = new C_EnchantItem();
+                enchantPacket.ItemDbId = ItemDbId;
+                Managers.Network.Send(enchantPacket);
+            }
+            else
+            {
+                C_EquipItem equipPacket = new C_EquipItem();
+                equipPacket.ItemDbId = ItemDbId;
+                equipPacket.Equipped = !Equipped;
+                Managers.Network.Send(equipPacket);
             }
         });
     }

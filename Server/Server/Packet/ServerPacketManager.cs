@@ -48,7 +48,9 @@ class PacketManager
 		_onRecv.Add((ushort)MsgId.CLoginAccount, MakePacket<C_LoginAccount>);
 		_handler.Add((ushort)MsgId.CLoginAccount, PacketHandler.C_LoginAccountHandler);		
 		_onRecv.Add((ushort)MsgId.CCreateAccount, MakePacket<C_CreateAccount>);
-		_handler.Add((ushort)MsgId.CCreateAccount, PacketHandler.C_CreateAccountHandler);
+		_handler.Add((ushort)MsgId.CCreateAccount, PacketHandler.C_CreateAccountHandler);		
+		_onRecv.Add((ushort)MsgId.CEnchantItem, MakePacket<C_EnchantItem>);
+		_handler.Add((ushort)MsgId.CEnchantItem, PacketHandler.C_EnchantItemHandler);
 	}
 
 	public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)

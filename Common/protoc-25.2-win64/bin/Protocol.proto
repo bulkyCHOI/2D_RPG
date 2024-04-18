@@ -250,7 +250,8 @@ message ItemInfo
 	int32 slot = 4;
 	int32 price = 5;
 	int32 grade = 6;
-	bool equipped = 7;
+	int32 enchant = 7;
+	bool equipped = 8;
 }
 
 message S_AddItem

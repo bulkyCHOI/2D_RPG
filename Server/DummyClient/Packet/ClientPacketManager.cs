@@ -70,7 +70,9 @@ class PacketManager
 		_onRecv.Add((ushort)MsgId.SCreateAccount, MakePacket<S_CreateAccount>);
 		_handler.Add((ushort)MsgId.SCreateAccount, PacketHandler.S_CreateAccountHandler);		
 		_onRecv.Add((ushort)MsgId.SChangeMp, MakePacket<S_ChangeMp>);
-		_handler.Add((ushort)MsgId.SChangeMp, PacketHandler.S_ChangeMpHandler);
+		_handler.Add((ushort)MsgId.SChangeMp, PacketHandler.S_ChangeMpHandler);		
+		_onRecv.Add((ushort)MsgId.SEnchantItem, MakePacket<S_EnchantItem>);
+		_handler.Add((ushort)MsgId.SEnchantItem, PacketHandler.S_EnchantItemHandler);
 	}
 
 	public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)

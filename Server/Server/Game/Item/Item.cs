@@ -47,6 +47,11 @@ namespace Server.Game
             get { return Info.Grade; }
             set { Info.Grade = value; }
         }
+        public int Enchant
+        {
+            get { return Info.Enchant; }
+            set { Info.Enchant = value; }
+        }
 
         public ItemType ItemType { get; private set; }
         public bool IsStackable { get; protected set; }

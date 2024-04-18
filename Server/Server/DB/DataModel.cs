@@ -49,6 +49,7 @@ namespace Server.DB
         public int ItemDbId { get; set; }
         public int TemplateId { get; set; }
         public int Count { get; set; }
+        public int Enchant { get; set; }
         public int Slot { get; set; }
         public bool Equipped { get; set; } = false;
 

@@ -165,4 +165,14 @@ class PacketHandler
     {
         S_CreateAccount createAccount = (S_CreateAccount)packet;
     }
+
+    public static void S_ChangeMpHandler(PacketSession session, IMessage packet)
+    {
+        S_ChangeMp changeMp = (S_ChangeMp)packet;
+    }
+
+    public static void S_EnchantItemHandler(PacketSession session, IMessage packet)
+    {
+        S_EnchantItem enchantItem = (S_EnchantItem)packet;
+    }
 }

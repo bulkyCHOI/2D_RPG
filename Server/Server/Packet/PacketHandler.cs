@@ -176,4 +176,19 @@ class PacketHandler
         ClientSession clientSession = (ClientSession)session;
         clientSession.HandleCreateAccount(createAccountPacket);
     }
+
+    public static void C_EnchantItemHandler(PacketSession session, IMessage packet)
+    {
+        C_EnchantItem enchantItemPacket = (C_EnchantItem)packet;
+        ClientSession clientSession = (ClientSession)session;
+
+        Player player = clientSession.MyPlayer;
+        if (player == null)
+            return;
+        GameRoom room = player.Room;
+        if (room == null)
+            return;
+
+        //room.Push(room.HandleEnchantItem, player, enchantItemPacket); //Job 방식으로 변경
+    }
 }

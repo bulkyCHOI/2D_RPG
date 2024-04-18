@@ -266,5 +266,45 @@ namespace Server.Game
             sellItem.ItemDbId = sellPacket.ItemDbId;
             Session.Send(sellItem);
         }
+
+        public void HandleEnchantItem(C_EnchantItem enchantPacket)
+        {
+            Item item = Inventory.GetItem(enchantPacket.ItemDbId);
+            if (item == null)
+                return;
+
+            if (item.ItemType == ItemType.Consumable)
+                return;
+
+            int enchantPrice = item.Grade * item.Price;
+            if (Stat.Gold < enchantPrice)
+                return;
+
+            Stat.Gold -= enchantPrice;
+            //골드차감된 내역 플레이어에게 전송
+            S_ChangeStat changeStat = new S_ChangeStat();
+            changeStat.StatInfo = Stat;
+            Session.Send(changeStat);
+
+            //50% 확률로 강화 성공
+            Random random = new Random();
+            if (random.Next(0, 2) == 0)
+            {
+                item.Enchant += 1;
+                item.Price *= 2;
+            }
+            else
+            {
+                item.Enchant = 0;
+            }
+
+            //DB에 적용
+            DbTransaction.EnchantItemNoti(this, item);
+
+            //클라에게 전송
+            S_EnchantItem enchantItem = new S_EnchantItem();
+            enchantItem.ItemDbId = enchantPacket.ItemDbId;
+            Session.Send(enchantItem);
+        }
     }
 }

@@ -329,8 +329,9 @@ class PacketHandler
         UI_GameScene gameSceneUI = Managers.UI.SceneUI as UI_GameScene;
         UI_Vendor vendorUI = gameSceneUI.VendorUI;
         UI_Inventory invenUI = gameSceneUI.InvenUI;
+        UI_Enchant enchantUI = gameSceneUI.EnchantUI;
 
-        if (vendorUI.gameObject.activeSelf == false)
+        if (vendorUI.gameObject.activeSelf == false && vendorInvenPacket.VendorType!=VendorType.Blacksmith)
         {
             vendorUI.gameObject.SetActive(true);
             invenUI.gameObject.SetActive(true);
@@ -342,9 +343,16 @@ class PacketHandler
             vendorUI.RefreshUI(newItemList);
             invenUI.RefreshUI();
         }
+        else if(enchantUI.gameObject.activeSelf == false && vendorInvenPacket.VendorType == VendorType.Blacksmith)
+        {
+            enchantUI.gameObject.SetActive(true);
+            invenUI.gameObject.SetActive(true);
+            invenUI.RefreshUI();
+        }
         else
         {
             vendorUI.gameObject.SetActive(false);
+            enchantUI.gameObject.SetActive(false);
             invenUI.gameObject.SetActive(false);
         }
     }
@@ -441,5 +449,21 @@ class PacketHandler
         {
             cc.Mp = changeMPPacket.Mp;
         }
+    }
+
+    public static void S_EnchantItemHandler(PacketSession session, IMessage packet)
+    {
+        S_EnchantItem enchantPacket = (S_EnchantItem)packet;
+
+        //서버에서 인챈트 패킷이 왔을때 처리해주는 부분
+        GameObject go = Managers.Object.FindById(enchantPacket.ItemDbId);
+        if (go == null)
+            return;
+
+        //CreatureController cc = go.GetComponent<CreatureController>();
+        //if (go != null)
+        //{
+        //    cc.Enchant(enchantPacket.Info);
+        //}
     }
 }
