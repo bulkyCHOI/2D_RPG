@@ -40,7 +40,7 @@
       "id": "12",
       "name": "철 활",
       "weaponType": "Range",
-      "damage": "10",
+      "damage": "15",
       "price": "6000",
       "grade": "1",
       "iconPath": "Textures/Item/bow"
@@ -49,7 +49,7 @@
       "id": "13",
       "name": "철 지팡이",
       "weaponType": "Range",
-      "damage": "60",
+      "damage": "70",
       "price": "6000",
       "grade": "1",
       "iconPath": "Textures/Item/bow"
@@ -58,8 +58,8 @@
       "id": "21",
       "name": "강철 검",
       "weaponType": "Melee",
-      "damage": "40",
-      "price": "6000",
+      "damage": "50",
+      "price": "10000",
       "grade": "1",
       "iconPath": "Textures/Item/sword"
     },
@@ -67,8 +67,8 @@
       "id": "22",
       "name": "강철 활",
       "weaponType": "Range",
-      "damage": "10",
-      "price": "6000",
+      "damage": "20",
+      "price": "10000",
       "grade": "1",
       "iconPath": "Textures/Item/bow"
     },
@@ -76,8 +76,8 @@
       "id": "23",
       "name": "강철 지팡이",
       "weaponType": "Range",
-      "damage": "60",
-      "price": "6000",
+      "damage": "90",
+      "price": "10000",
       "grade": "1",
       "iconPath": "Textures/Item/bow"
     },
@@ -85,8 +85,8 @@
       "id": "31",
       "name": "미스릴 검",
       "weaponType": "Melee",
-      "damage": "40",
-      "price": "6000",
+      "damage": "60",
+      "price": "15000",
       "grade": "1",
       "iconPath": "Textures/Item/sword"
     },
@@ -94,8 +94,8 @@
       "id": "32",
       "name": "미스릴 활",
       "weaponType": "Range",
-      "damage": "10",
-      "price": "6000",
+      "damage": "25",
+      "price": "15000",
       "grade": "1",
       "iconPath": "Textures/Item/bow"
     },
@@ -103,8 +103,8 @@
       "id": "33",
       "name": "미스릴 지팡이",
       "weaponType": "Range",
-      "damage": "60",
-      "price": "6000",
+      "damage": "110",
+      "price": "15000",
       "grade": "1",
       "iconPath": "Textures/Item/bow"
     },
@@ -112,8 +112,8 @@
       "id": "41",
       "name": "오리하르콘 검",
       "weaponType": "Melee",
-      "damage": "40",
-      "price": "6000",
+      "damage": "70",
+      "price": "30000",
       "grade": "1",
       "iconPath": "Textures/Item/sword"
     },
@@ -121,8 +121,8 @@
       "id": "42",
       "name": "오리하르콘 활",
       "weaponType": "Range",
-      "damage": "10",
-      "price": "6000",
+      "damage": "30",
+      "price": "30000",
       "grade": "1",
       "iconPath": "Textures/Item/bow"
     },
@@ -130,8 +130,8 @@
       "id": "43",
       "name": "오리하르콘 지팡이",
       "weaponType": "Range",
-      "damage": "60",
-      "price": "6000",
+      "damage": "130",
+      "price": "30000",
       "grade": "1",
       "iconPath": "Textures/Item/bow"
     }
@@ -214,7 +214,7 @@
       "name": "강철 갑옷",
       "armorType": "Armor",
       "defence": "25",
-      "price": "5000",
+      "price": "10000",
       "grade": "2",
       "iconPath": "Textures/Item/armor"
     },
@@ -222,8 +222,8 @@
       "id": "121",
       "name": "강철 투구",
       "armorType": "Helmet",
-      "defence": "15",
-      "price": "3000",
+      "defence": "10",
+      "price": "8000",
       "grade": "2",
       "iconPath": "Textures/Item/helmets"
     },
@@ -231,8 +231,8 @@
       "id": "122",
       "name": "강철 신발",
       "armorType": "Boots",
-      "defence": "15",
-      "price": "3000",
+      "defence": "5",
+      "price": "6000",
       "grade": "2",
       "iconPath": "Textures/Item/boots"
     },
@@ -241,7 +241,7 @@
       "name": "강철 바지",
       "armorType": "Pants",
       "defence": "15",
-      "price": "4000",
+      "price": "8000",
       "grade": "2",
       "iconPath": "Textures/Item/boots"
     },
@@ -249,8 +249,8 @@
       "id": "130",
       "name": "미스릴 갑옷",
       "armorType": "Armor",
-      "defence": "25",
-      "price": "5000",
+      "defence": "40",
+      "price": "15000",
       "grade": "3",
       "iconPath": "Textures/Item/armor"
     },
@@ -259,7 +259,7 @@
       "name": "미스릴 투구",
       "armorType": "Helmet",
       "defence": "15",
-      "price": "3000",
+      "price": "8000",
       "grade": "3",
       "iconPath": "Textures/Item/helmets"
     },
@@ -267,8 +267,8 @@
       "id": "132",
       "name": "미스릴 신발",
       "armorType": "Boots",
-      "defence": "15",
-      "price": "3000",
+      "defence": "10",
+      "price": "6000",
       "grade": "3",
       "iconPath": "Textures/Item/boots"
     },
@@ -276,8 +276,8 @@
       "id": "133",
       "name": "미스릴 바지",
       "armorType": "Pants",
-      "defence": "15",
-      "price": "4000",
+      "defence": "20",
+      "price": "10000",
       "grade": "3",
       "iconPath": "Textures/Item/boots"
     },
@@ -285,8 +285,8 @@
       "id": "140",
       "name": "오리하르콘 갑옷",
       "armorType": "Armor",
-      "defence": "25",
-      "price": "5000",
+      "defence": "50",
+      "price": "3000",
       "grade": "3",
       "iconPath": "Textures/Item/armor"
     },
@@ -294,8 +294,8 @@
       "id": "141",
       "name": "오리하르콘 투구",
       "armorType": "Helmet",
-      "defence": "15",
-      "price": "3000",
+      "defence": "30",
+      "price": "20000",
       "grade": "3",
       "iconPath": "Textures/Item/helmets"
     },
@@ -303,8 +303,8 @@
       "id": "142",
       "name": "오리하르콘 신발",
       "armorType": "Boots",
-      "defence": "15",
-      "price": "3000",
+      "defence": "20",
+      "price": "15000",
       "grade": "3",
       "iconPath": "Textures/Item/boots"
     },
@@ -312,8 +312,8 @@
       "id": "143",
       "name": "오리하르콘 바지",
       "armorType": "Pants",
-      "defence": "15",
-      "price": "4000",
+      "defence": "35",
+      "price": "25000",
       "grade": "3",
       "iconPath": "Textures/Item/boots"
     }

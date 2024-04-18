@@ -98,8 +98,8 @@
         "maxHp": "400",
         "maxMp": "10",
         "speed": "5.0",
-        "attack": "50",
-        "defence": "50",
+        "attack": "70",
+        "defence": "70",
         "totalExp": "100"
       },
       "rewards": [
@@ -143,8 +143,8 @@
         "maxHp": "800",
         "maxMp": "10",
         "speed": "5.0",
-        "attack": "70",
-        "defence": "70",
+        "attack": "100",
+        "defence": "100",
         "totalExp": "200"
       },
       "rewards": [
@@ -188,8 +188,8 @@
         "maxHp": "1000",
         "maxMp": "10",
         "speed": "5.0",
-        "attack": "400",
-        "defence": "400",
+        "attack": "600",
+        "defence": "600",
         "totalExp": "10000"
       },
       "rewards": [
