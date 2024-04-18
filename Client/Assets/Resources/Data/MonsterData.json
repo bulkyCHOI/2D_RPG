@@ -53,8 +53,8 @@
         "maxHp": "200",
         "maxMp": "10",
         "speed": "4.0",
-        "attack": "30",
-        "defence": "30",
+        "attack": "20",
+        "defence": "20",
         "totalExp": "30"
       },
       "rewards": [
@@ -98,8 +98,8 @@
         "maxHp": "400",
         "maxMp": "10",
         "speed": "5.0",
-        "attack": "70",
-        "defence": "70",
+        "attack": "60",
+        "defence": "60",
         "totalExp": "100"
       },
       "rewards": [

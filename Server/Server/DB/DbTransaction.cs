@@ -126,6 +126,7 @@ namespace Server.DB
             }
             if (player.Stat.CurrentExp >= player.Stat.TotalExp)
             {
+                int remainExp = player.Stat.CurrentExp - player.Stat.TotalExp;
                 int level = player.Stat.Level++;
                 StatInfo stat = null;
                 DataManager.StatDict.TryGetValue(level, out stat);
@@ -138,8 +139,14 @@ namespace Server.DB
                     player.Stat.Attack = stat.Attack;
                     player.Stat.Defence = stat.Defence;
                     player.Stat.TotalExp = stat.TotalExp;
-                    player.Stat.CurrentExp = 0;
+                    player.Stat.CurrentExp = remainExp;
                     player.Stat.Gold = player.Stat.Gold;
+                }
+                else
+                {
+                    //최대 레벨에 도달했다.
+                    player.Stat.CurrentExp = player.Stat.TotalExp;
+                    player.Stat.Level--;
                 }
 
                 //클라이언트에게 스탯이 변경됨을 알린다.

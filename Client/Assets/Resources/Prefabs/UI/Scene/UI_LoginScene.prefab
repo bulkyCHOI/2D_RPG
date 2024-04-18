@@ -8467,6 +8467,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6109578245976901566}
   - component: {fileID: 5457186700594075600}
+  - component: {fileID: 8079967988205517356}
   m_Layer: 5
   m_Name: HomeScene_Popup_Signup
   m_TagString: Untagged
@@ -8508,6 +8509,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   otherPanels:
   - {fileID: 0}
+--- !u!114 &8079967988205517356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3909518044583299155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4267a49c6ecb8d45a09f078914b7bd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputField1: {fileID: 873533523661705515}
+  inputField2: {fileID: 7625201842609819407}
+  InputSelected: 0
 --- !u!1 &4024261143455761003
 GameObject:
   m_ObjectHideFlags: 0
@@ -8586,7 +8602,6 @@ MonoBehaviour:
   loginPopup: {fileID: 6238352404207189131}
   signupPopup: {fileID: 3909518044583299155}
   checkingPopup: {fileID: 2828953501231465944}
-  tabToStart: {fileID: 5582177850548298981}
   loadingPopup: {fileID: 0}
   errorMsg1Popup: {fileID: 4222302887296047419}
   errorMsg2Popup: {fileID: 6661397844667000183}
@@ -20281,6 +20296,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8634029216645743436}
   - component: {fileID: 1764590085119274933}
+  - component: {fileID: 5742092436918799229}
   m_Layer: 5
   m_Name: HomeScene_Popup_Login
   m_TagString: Untagged
@@ -20323,6 +20339,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   otherPanels:
   - {fileID: 0}
+--- !u!114 &5742092436918799229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6238352404207189131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4267a49c6ecb8d45a09f078914b7bd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputField1: {fileID: 5888252332538841465}
+  inputField2: {fileID: 7976836203237405614}
+  InputSelected: 0
 --- !u!1 &6398850776493294005
 GameObject:
   m_ObjectHideFlags: 0

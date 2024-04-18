@@ -98,6 +98,87 @@
       "attack": "70",
       "defence": "70",
       "totalExp": "102400"
+    },
+    {
+      "level": "12",
+      "maxHp": "1300",
+      "maxMp": "650",
+      "speed": "10.0",
+      "attack": "75",
+      "defence": "75",
+      "totalExp": "204800"
+    },
+    {
+      "level": "13",
+      "maxHp": "1400",
+      "maxMp": "700",
+      "speed": "10.0",
+      "attack": "80",
+      "defence": "80",
+      "totalExp": "409600"
+    },
+    {
+      "level": "14",
+      "maxHp": "1500",
+      "maxMp": "750",
+      "speed": "10.0",
+      "attack": "85",
+      "defence": "85",
+      "totalExp": "819200"
+    },
+    {
+      "level": "15",
+      "maxHp": "1600",
+      "maxMp": "800",
+      "speed": "10.0",
+      "attack": "90",
+      "defence": "90",
+      "totalExp": "1638400"
+    },
+    {
+      "level": "16",
+      "maxHp": "1700",
+      "maxMp": "850",
+      "speed": "10.0",
+      "attack": "95",
+      "defence": "95",
+      "totalExp": "3276800"
+    },
+    {
+      "level": "17",
+      "maxHp": "1800",
+      "maxMp": "900",
+      "speed": "10.0",
+      "attack": "100",
+      "defence": "100",
+      "totalExp": "6553600"
+    },
+    {
+      "level": "18",
+      "maxHp": "1900",
+      "maxMp": "950",
+      "speed": "10.0",
+      "attack": "105",
+      "defence": "105",
+      "totalExp": "13107200"
+    },
+    {
+      "level": "19",
+      "maxHp": "2000",
+      "maxMp": "1000",
+      "speed": "10.0",
+      "attack": "110",
+      "defence": "110",
+      "totalExp": "26214400"
+    },
+{
+      "level": "20",
+      "maxHp": "2100",
+      "maxMp": "1050",
+      "speed": "10.0",
+      "attack": "115",
+      "defence": "115",
+      "totalExp": "52428800"
     }
   ]
 } 
