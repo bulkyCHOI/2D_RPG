@@ -60,7 +60,7 @@
       "weaponType": "Melee",
       "damage": "50",
       "price": "10000",
-      "grade": "1",
+      "grade": "2",
       "iconPath": "Textures/Item/sword"
     },
     {
@@ -69,7 +69,7 @@
       "weaponType": "Range",
       "damage": "20",
       "price": "10000",
-      "grade": "1",
+      "grade": "2",
       "iconPath": "Textures/Item/bow"
     },
     {
@@ -78,7 +78,7 @@
       "weaponType": "Range",
       "damage": "90",
       "price": "10000",
-      "grade": "1",
+      "grade": "2",
       "iconPath": "Textures/Item/bow"
     },
     {
@@ -87,7 +87,7 @@
       "weaponType": "Melee",
       "damage": "60",
       "price": "15000",
-      "grade": "1",
+      "grade": "3",
       "iconPath": "Textures/Item/sword"
     },
     {
@@ -96,7 +96,7 @@
       "weaponType": "Range",
       "damage": "25",
       "price": "15000",
-      "grade": "1",
+      "grade": "3",
       "iconPath": "Textures/Item/bow"
     },
     {
@@ -105,7 +105,7 @@
       "weaponType": "Range",
       "damage": "110",
       "price": "15000",
-      "grade": "1",
+      "grade": "3",
       "iconPath": "Textures/Item/bow"
     },
     {
@@ -114,7 +114,7 @@
       "weaponType": "Melee",
       "damage": "70",
       "price": "30000",
-      "grade": "1",
+      "grade": "4",
       "iconPath": "Textures/Item/sword"
     },
     {
@@ -123,7 +123,7 @@
       "weaponType": "Range",
       "damage": "30",
       "price": "30000",
-      "grade": "1",
+      "grade": "4",
       "iconPath": "Textures/Item/bow"
     },
     {
@@ -132,7 +132,7 @@
       "weaponType": "Range",
       "damage": "130",
       "price": "30000",
-      "grade": "1",
+      "grade": "4",
       "iconPath": "Textures/Item/bow"
     }
   ],
@@ -287,7 +287,7 @@
       "armorType": "Armor",
       "defence": "50",
       "price": "3000",
-      "grade": "3",
+      "grade": "4",
       "iconPath": "Textures/Item/armor"
     },
     {
@@ -296,7 +296,7 @@
       "armorType": "Helmet",
       "defence": "30",
       "price": "20000",
-      "grade": "3",
+      "grade": "4",
       "iconPath": "Textures/Item/helmets"
     },
     {
@@ -305,7 +305,7 @@
       "armorType": "Boots",
       "defence": "20",
       "price": "15000",
-      "grade": "3",
+      "grade": "4",
       "iconPath": "Textures/Item/boots"
     },
     {
@@ -314,7 +314,7 @@
       "armorType": "Pants",
       "defence": "35",
       "price": "25000",
-      "grade": "3",
+      "grade": "4",
       "iconPath": "Textures/Item/boots"
     }
   ],
