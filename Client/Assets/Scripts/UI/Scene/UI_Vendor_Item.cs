@@ -9,6 +9,8 @@ public class UI_Vendor_Item : UI_Base
     [SerializeField]
     Image _icon = null;
     [SerializeField]
+    Image _background = null;
+    [SerializeField]
     Image _frame = null;
     [SerializeField]
     Text _text = null;
@@ -16,6 +18,7 @@ public class UI_Vendor_Item : UI_Base
     public int TemplateId { get; private set; }
     public int Slot { get; private set; }
     public int Price { get; private set; }
+    public int Grade { get; private set; }
 
     public override void Init()
     {
@@ -52,9 +55,11 @@ public class UI_Vendor_Item : UI_Base
             TemplateId = 0;
             Slot = 0;
             Price = 0;
-
+            Grade = 0;
+            
             _icon.gameObject.SetActive(false);
             _frame.gameObject.SetActive(false);
+            _background.color = new Color(0, 0, 0, 0.5f);
         }
         else
         {
@@ -64,9 +69,32 @@ public class UI_Vendor_Item : UI_Base
 
             Data.ItemData itemData = null;
             Managers.Data.ItemDict.TryGetValue(TemplateId, out itemData);
+            Grade = itemData.grade;
 
             Sprite icon = Managers.Resource.Load<Sprite>(itemData.iconPath);
             _icon.sprite = icon;
+
+            switch (Grade)
+            {
+                case 0:
+                    _background.color = new Color(0.5f, 0.5f, 0.5f, 0.8f);
+                    break;
+                case 1:
+                    _background.color = new Color(0.1f, 0.7f, 0.1f, 0.8f);
+                    break;
+                case 2:
+                    _background.color = new Color(0f, 0f, 1f, 0.8f);
+                    break;
+                case 3:
+                    _background.color = new Color(1f, 0f, 1f, 0.8f);
+                    break;
+                case 4:
+                    _background.color = new Color(0.9f, 0.5f, 0.1f, 0.8f);
+                    break;
+                case 5:
+                    _background.color = new Color(1f, 0f, 0f, 0.8f);
+                    break;
+            }
 
             _icon.gameObject.SetActive(true);
         }
@@ -76,6 +104,7 @@ public class UI_Vendor_Item : UI_Base
     {
         _icon.gameObject.SetActive(false);
         _frame.gameObject.SetActive(false);
+        _background.color = new Color(0, 0, 0, 0.5f);
         _text.text = "";
     }
 }
