@@ -153,7 +153,7 @@ namespace Server.DB
                 //DB에 저장
                 SavePlayerStatus_Step1(player, gameRoom);
             }
-            Console.WriteLine($"Exp: {exp}: {player.Stat.CurrentExp}/{player.Stat.TotalExp}");
+            //Console.WriteLine($"Exp: {exp}: {player.Stat.CurrentExp}/{player.Stat.TotalExp}");
 
             if (rewardData == null) //획득 아이템이 없다면 패스
                 return;

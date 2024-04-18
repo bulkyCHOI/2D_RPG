@@ -14,39 +14,39 @@
       },
       "rewards": [
         {
-          "probability": "10",
+          "probability": "5",
           "itemId": "1",
           "itemCount": "1"
         },
         {
-          "probability": "10",
+          "probability": "5",
           "itemId": "2",
           "itemCount": "1"
         },
         {
-          "probability": "10",
+          "probability": "5",
           "itemId": "100",
           "itemCount": "1"
         },
         {
-          "probability": "10",
+          "probability": "5",
           "itemId": "101",
           "itemCount": "1"
         },
         {
-          "probability": "10",
+          "probability": "5",
           "itemId": "102",
           "itemCount": "1"
         },
         {
-          "probability": "10",
+          "probability": "5",
           "itemId": "103",
           "itemCount": "1"
         }
       ]
     },
     {
-      "id": "11",
+      "id": "2",
       "name": "대장괴물눈",
       "stat": {
         "level": "2",
@@ -59,39 +59,39 @@
       },
       "rewards": [
         {
-          "probability": "10",
+          "probability": "5",
           "itemId": "11",
           "itemCount": "1"
         },
         {
-          "probability": "10",
+          "probability": "5",
           "itemId": "12",
           "itemCount": "1"
         },
         {
-          "probability": "10",
+          "probability": "5",
           "itemId": "110",
           "itemCount": "1"
         },
         {
-          "probability": "10",
+          "probability": "5",
           "itemId": "111",
           "itemCount": "1"
         },
         {
-          "probability": "10",
+          "probability": "5",
           "itemId": "112",
           "itemCount": "1"
         },
         {
-          "probability": "10",
+          "probability": "5",
           "itemId": "113",
           "itemCount": "1"
         }
       ]
     },
     {
-      "id": "2",
+      "id": "3",
       "name": "아이스골렘",
       "stat": {
         "level": "3",
@@ -104,84 +104,84 @@
       },
       "rewards": [
         {
-          "probability": "10",
-          "itemId": "11",
+          "probability": "5",
+          "itemId": "21",
           "itemCount": "1"
         },
         {
-          "probability": "10",
-          "itemId": "12",
+          "probability": "5",
+          "itemId": "22",
           "itemCount": "1"
         },
         {
-          "probability": "10",
-          "itemId": "110",
+          "probability": "5",
+          "itemId": "120",
           "itemCount": "1"
         },
         {
-          "probability": "10",
-          "itemId": "111",
+          "probability": "5",
+          "itemId": "121",
           "itemCount": "1"
         },
         {
-          "probability": "10",
-          "itemId": "112",
+          "probability": "5",
+          "itemId": "122",
           "itemCount": "1"
         },
         {
-          "probability": "10",
-          "itemId": "113",
+          "probability": "5",
+          "itemId": "123",
           "itemCount": "1"
         }
       ]
     },
     {
-      "id": "12",
+      "id": "4",
       "name": "스노우맨",
       "stat": {
         "level": "4",
         "maxHp": "800",
         "maxMp": "10",
-        "speed": "4.0",
+        "speed": "5.0",
         "attack": "70",
         "defence": "70",
         "totalExp": "200"
       },
       "rewards": [
         {
-          "probability": "10",
-          "itemId": "11",
+          "probability": "5",
+          "itemId": "31",
           "itemCount": "1"
         },
         {
-          "probability": "10",
-          "itemId": "12",
+          "probability": "5",
+          "itemId": "32",
           "itemCount": "1"
         },
         {
-          "probability": "10",
-          "itemId": "110",
+          "probability": "5",
+          "itemId": "130",
           "itemCount": "1"
         },
         {
-          "probability": "10",
-          "itemId": "111",
+          "probability": "5",
+          "itemId": "131",
           "itemCount": "1"
         },
         {
-          "probability": "10",
-          "itemId": "112",
+          "probability": "5",
+          "itemId": "132",
           "itemCount": "1"
         },
         {
-          "probability": "10",
-          "itemId": "113",
+          "probability": "5",
+          "itemId": "133",
           "itemCount": "1"
         }
       ]
     },
     {
-      "id": "3",
+      "id": "5",
       "name": "갓영섭",
       "stat": {
         "level": "5",
@@ -194,33 +194,33 @@
       },
       "rewards": [
         {
-          "probability": "10",
-          "itemId": "11",
+          "probability": "5",
+          "itemId": "41",
           "itemCount": "1"
         },
         {
-          "probability": "10",
-          "itemId": "12",
+          "probability": "5",
+          "itemId": "42",
           "itemCount": "1"
         },
         {
-          "probability": "10",
-          "itemId": "110",
+          "probability": "5",
+          "itemId": "140",
           "itemCount": "1"
         },
         {
-          "probability": "10",
-          "itemId": "111",
+          "probability": "5",
+          "itemId": "141",
           "itemCount": "1"
         },
         {
-          "probability": "10",
-          "itemId": "112",
+          "probability": "5",
+          "itemId": "142",
           "itemCount": "1"
         },
         {
-          "probability": "10",
-          "itemId": "113",
+          "probability": "5",
+          "itemId": "143",
           "itemCount": "1"
         }
       ]

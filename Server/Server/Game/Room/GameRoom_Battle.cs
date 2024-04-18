@@ -54,6 +54,7 @@ namespace Server.Game
                 newRoom.EnterGame(player, randPos: true);   //다시 입장   //push로 하지 않아도 된다. 이 함수는 바로 처리된다.
 
                 //MoveScene 패킷을 보내자
+                //Console.WriteLine($"{mapId} 방으로 이동");
                 S_MoveMap moveMap = new S_MoveMap();
                 moveMap.MapNumber = mapId;
                 player.Session.Send(moveMap);
