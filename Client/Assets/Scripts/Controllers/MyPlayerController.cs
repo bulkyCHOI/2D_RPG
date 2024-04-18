@@ -8,7 +8,8 @@ public class MyPlayerController : PlayerController
 {
     bool _moveKeyPressed = false;
 
-    public int WeaponDamage { get; private set; }
+    public int MeleeDamage { get; private set; }
+    public int RangeDamage { get; private set; }
     public int ArmorDefence { get; private set; }
 
     protected override void Init()
@@ -252,7 +253,8 @@ public class MyPlayerController : PlayerController
 
     public void RefreshAdditionalStat() //공격력/방어력 갱신이 아닌 UI에 표시할 수치를 갱신
     {
-        WeaponDamage = 0;
+        MeleeDamage = 0;
+        RangeDamage = 0;
         ArmorDefence = 0;
 
         foreach (Item item in Managers.Inventory.Items.Values)
@@ -263,7 +265,10 @@ public class MyPlayerController : PlayerController
             switch (item.ItemType)
             {
                 case ItemType.Weapon:
-                    WeaponDamage += ((Weapon)item).Damage;
+                    if (((Weapon)item).WeaponType == WeaponType.Melee)
+                        MeleeDamage += ((Weapon)item).Damage;
+                    else if (((Weapon)item).WeaponType == WeaponType.Range)
+                        RangeDamage += ((Weapon)item).Damage;
                     break;
                 case ItemType.Armor:
                     ArmorDefence += ((Armor)item).Defence;

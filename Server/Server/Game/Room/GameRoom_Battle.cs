@@ -118,7 +118,7 @@ namespace Server.Game
                         Push(EnterGame, arrow, false);//job 방식으로 변경 //randPos = false
 
                         //플레이어 마나 감소
-                        player.Stat.Mp -= 50;
+                        player.Stat.Mp -= 10;
                         S_ChangeMp changeMpPacket = new S_ChangeMp();
                         changeMpPacket.ObjectId = playerInfo.ObjectId;
                         changeMpPacket.Mp = player.Stat.Mp;

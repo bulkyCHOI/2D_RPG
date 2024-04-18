@@ -48,6 +48,8 @@ enum MsgId {
 	C_CREATE_ACCOUNT = 34;
 	S_CREATE_ACCOUNT = 35;
 	S_CHANGE_MP = 36;
+	C_ENCHANT_ITEM = 37;
+	S_ENCHANT_ITEM = 38;
 }
 
 enum CreatureState{
@@ -377,3 +379,12 @@ message S_ChangeMp
 	int32 mp = 2;
 }
 
+message C_EnchantItem
+{
+	int32 itemDbId = 1;
+}
+
+message S_EnchantItem
+{
+	int32 itemDbId = 1;
+}

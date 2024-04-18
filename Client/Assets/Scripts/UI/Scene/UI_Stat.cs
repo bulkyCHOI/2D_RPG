@@ -104,9 +104,11 @@ public class UI_Stat : UI_Base
         player.RefreshAdditionalStat();
 
         Get<Text>((int)Texts.NameText).text = player.name;
-        int totalAttack = player.Stat.Attack + player.WeaponDamage;
+        int totalMeleeAttack = player.Stat.Attack + player.MeleeDamage;
+        int totalRangeAttack = player.Stat.Attack + player.RangeDamage;
         int totalDefence = player.Stat.Defence + player.ArmorDefence;
-        Get<Text>((int)Texts.MeleeValueText).text = $"{totalAttack}(+{player.WeaponDamage})";
+        Get<Text>((int)Texts.MeleeValueText).text = $"{totalMeleeAttack}(+{player.MeleeDamage})";
+        Get<Text>((int)Texts.RangeValueText).text = $"{totalRangeAttack}(+{player.RangeDamage})";
         Get<Text>((int)Texts.DefenceValueText).text = $"{totalDefence}(+{player.ArmorDefence})";
     }
 }
