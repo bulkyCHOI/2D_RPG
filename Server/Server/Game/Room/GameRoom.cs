@@ -70,6 +70,8 @@ namespace Server.Game
             {
                 Monster monster = ObjectManager.Instance.Add<Monster>();
                 monster.Init(monsterNumber);    //임시로 1번 몬스터 셋팅
+                if(i%5==4)
+                    monster.Init(monsterNumber+10);    //5마리당 1마리 꼴로 상위 몬스터 생성
                 //EnterGame(monster);   //job 방식으로 변경
                 Push(EnterGame, monster, true);   //job 방식으로 변경
             }

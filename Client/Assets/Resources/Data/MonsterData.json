@@ -2,7 +2,7 @@
   "monsters": [
     {
       "id": "1",
-      "name": "도플갱어",
+      "name": "괴물눈",
       "stat": {
         "level": "1",
         "maxHp": "100",
@@ -42,27 +42,17 @@
           "probability": "10",
           "itemId": "103",
           "itemCount": "1"
-        },
-        {
-          "probability": "10",
-          "itemId": "200",
-          "itemCount": "1"
-        },
-        {
-          "probability": "10",
-          "itemId": "201",
-          "itemCount": "1"
         }
       ]
     },
     {
-      "id": "2",
-      "name": "도플갱어2",
+      "id": "11",
+      "name": "대장괴물눈",
       "stat": {
         "level": "2",
         "maxHp": "200",
         "maxMp": "10",
-        "speed": "5.0",
+        "speed": "4.0",
         "attack": "30",
         "defence": "30",
         "totalExp": "30"
@@ -97,15 +87,140 @@
           "probability": "10",
           "itemId": "113",
           "itemCount": "1"
-        },
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "name": "아이스골렘",
+      "stat": {
+        "level": "3",
+        "maxHp": "400",
+        "maxMp": "10",
+        "speed": "5.0",
+        "attack": "50",
+        "defence": "50",
+        "totalExp": "100"
+      },
+      "rewards": [
         {
           "probability": "10",
-          "itemId": "202",
+          "itemId": "11",
           "itemCount": "1"
         },
         {
           "probability": "10",
-          "itemId": "203",
+          "itemId": "12",
+          "itemCount": "1"
+        },
+        {
+          "probability": "10",
+          "itemId": "110",
+          "itemCount": "1"
+        },
+        {
+          "probability": "10",
+          "itemId": "111",
+          "itemCount": "1"
+        },
+        {
+          "probability": "10",
+          "itemId": "112",
+          "itemCount": "1"
+        },
+        {
+          "probability": "10",
+          "itemId": "113",
+          "itemCount": "1"
+        }
+      ]
+    },
+    {
+      "id": "12",
+      "name": "스노우맨",
+      "stat": {
+        "level": "4",
+        "maxHp": "800",
+        "maxMp": "10",
+        "speed": "4.0",
+        "attack": "70",
+        "defence": "70",
+        "totalExp": "200"
+      },
+      "rewards": [
+        {
+          "probability": "10",
+          "itemId": "11",
+          "itemCount": "1"
+        },
+        {
+          "probability": "10",
+          "itemId": "12",
+          "itemCount": "1"
+        },
+        {
+          "probability": "10",
+          "itemId": "110",
+          "itemCount": "1"
+        },
+        {
+          "probability": "10",
+          "itemId": "111",
+          "itemCount": "1"
+        },
+        {
+          "probability": "10",
+          "itemId": "112",
+          "itemCount": "1"
+        },
+        {
+          "probability": "10",
+          "itemId": "113",
+          "itemCount": "1"
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "name": "갓영섭",
+      "stat": {
+        "level": "5",
+        "maxHp": "1000",
+        "maxMp": "10",
+        "speed": "5.0",
+        "attack": "400",
+        "defence": "400",
+        "totalExp": "10000"
+      },
+      "rewards": [
+        {
+          "probability": "10",
+          "itemId": "11",
+          "itemCount": "1"
+        },
+        {
+          "probability": "10",
+          "itemId": "12",
+          "itemCount": "1"
+        },
+        {
+          "probability": "10",
+          "itemId": "110",
+          "itemCount": "1"
+        },
+        {
+          "probability": "10",
+          "itemId": "111",
+          "itemCount": "1"
+        },
+        {
+          "probability": "10",
+          "itemId": "112",
+          "itemCount": "1"
+        },
+        {
+          "probability": "10",
+          "itemId": "113",
           "itemCount": "1"
         }
       ]

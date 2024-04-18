@@ -111,6 +111,7 @@ namespace Server
 				GameRoom room1 = GameLogic.Instance.Add(2, 1, 0);	//1번맵은 만들수 없음 map에 기본적으로 0/1로 이동여부를 판단하고, 2부터는 포탈번호임
                 GameRoom room2 = GameLogic.Instance.Add(3, 1, 15);
                 GameRoom room3 = GameLogic.Instance.Add(4, 2, 30);
+                GameRoom room4 = GameLogic.Instance.Add(5, 3, 1);
             });
 
 			// DNS (Domain Name System)
