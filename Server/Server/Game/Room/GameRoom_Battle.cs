@@ -40,8 +40,6 @@ namespace Server.Game
             if (mapId > 0)
             {
                 //Console.WriteLine($"Player({player.Info.Name}) Move to Room({mapId})");
-
-
                 S_Die diePacket = new S_Die();
                 diePacket.ObjectId = player.Info.ObjectId;
                 diePacket.AttackerId = player.Info.ObjectId;

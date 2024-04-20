@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Google.Protobuf;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -49,6 +50,14 @@ namespace Server.Game
             if (_rooms.TryGetValue(roomId, out room))
                 return room;
             return null;
+        }
+
+        public void BroadcastAll(IMessage packet)
+        {
+            foreach (GameRoom room in _rooms.Values)
+            {
+                room.BroadcastAll(packet);
+            }
         }
     }
 }

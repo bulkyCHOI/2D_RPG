@@ -50,7 +50,9 @@ namespace ServerCore
 			else
 			{
 				Debug.Log($"OnConnectCompleted Fail: {args.SocketError}");
-			}
+    //            UI_LoginScene uI_LoginScene = Managers.UI.SceneUI as UI_LoginScene;
+				//uI_LoginScene.SetActiveFalse(uI_LoginScene.errorMsg1Popup, "서버와의 접속이 실패하였습니다.", 100);
+            }
 		}
 	}
 }

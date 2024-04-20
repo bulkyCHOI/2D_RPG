@@ -191,4 +191,20 @@ class PacketHandler
 
         room.Push(room.HandleEnchantItem, player, enchantItemPacket); //Job 방식으로 변경
     }
+
+    public static void C_ChatHandler(PacketSession session, IMessage packet)
+    {
+        C_Chat chatPacket = (C_Chat)packet;
+        ClientSession clientSession = (ClientSession)session;
+
+        Player player = clientSession.MyPlayer;
+        if (player == null)
+            return;
+
+        S_Chat s_Chat = new S_Chat();
+        s_Chat.Name = player.Info.Name;
+        s_Chat.Chat = chatPacket.Chat;
+
+        GameLogic.Instance.BroadcastAll(s_Chat);
+    }
 }

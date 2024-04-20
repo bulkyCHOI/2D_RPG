@@ -35,7 +35,9 @@ public class ServerSession : PacketSession
 	public override void OnDisconnected(EndPoint endPoint)
 	{
 		Debug.Log($"OnDisconnected : {endPoint}");
-	}
+  //      UI_GameScene gameSceneUI = Managers.UI.SceneUI as UI_GameScene;
+		//gameSceneUI.PopupMessage.SetActiveFalse(gameSceneUI.PopupMessage.errorMsg1Popup, "서버와의 접속이 해제되었습니다.", 100);
+    }
 
 	public override void OnRecvPacket(ArraySegment<byte> buffer)
 	{

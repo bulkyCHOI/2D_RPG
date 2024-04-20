@@ -7,9 +7,8 @@ using UnityEngine.Networking;
 
 public class WebManager
 {
-    //public string BaseUrl { get; set; } = "https://localhost:443/api";
-    public string BaseUrl { get; set; } = "http://59.10.202.71/api";
-    //public string BaseUrl { get; set; } = "http://localhost:80/api";
+    public string BaseUrl { get; set; } = "https://localhost:443/api";
+    //public string BaseUrl { get; set; } = $"http://{NetworkManager.AccountServerAddress}/api";
 
     public void SendPostRequest<T>(string uri, object obj, Action<T> res)
     {

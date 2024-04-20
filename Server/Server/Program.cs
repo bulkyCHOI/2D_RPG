@@ -109,8 +109,8 @@ namespace Server
             GameLogic.Instance.Push(() =>	//아직 main thread에서 실행중이므로 안해도 되지만 push로 실행
             {
 				GameRoom room1 = GameLogic.Instance.Add(2, 1, 0);	//1번맵은 만들수 없음 map에 기본적으로 0/1로 이동여부를 판단하고, 2부터는 포탈번호임
-                GameRoom room2 = GameLogic.Instance.Add(3, 1, 15);
-                GameRoom room3 = GameLogic.Instance.Add(4, 3, 30);
+                GameRoom room2 = GameLogic.Instance.Add(3, 1, 10);
+                GameRoom room3 = GameLogic.Instance.Add(4, 3, 20);
                 GameRoom room4 = GameLogic.Instance.Add(5, 5, 1);
             });
 

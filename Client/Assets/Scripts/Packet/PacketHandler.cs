@@ -110,11 +110,8 @@ class PacketHandler
         if (go != null)
         {
             cc.Hp = 0;
-            cc.OnDead();
+            cc.OnDead(diePacket.AttackerId);
         }
-        //죽엇다는 메시지 출력
-        UI_GameScene gameSceneUI = Managers.UI.SceneUI as UI_GameScene;
-        gameSceneUI.PopupMessage.SetActiveFalse(gameSceneUI.PopupMessage.errorMsg1Popup, $"{diePacket.AttackerId}에게 죽음", 5.0f);
     }
 
     public static void S_ConnectedHandler(PacketSession session, IMessage packet)
@@ -468,9 +465,18 @@ class PacketHandler
         
         UI_GameScene gameSceneUI = Managers.UI.SceneUI as UI_GameScene;
         if(item.Enchant > 0)
-            gameSceneUI.PopupMessage.SetActiveFalse(gameSceneUI.PopupMessage.alramMsg1Popup, $"+{item.Enchant}강화 성공!", 2.0f);
+            gameSceneUI.PopupMessage.SetActiveFalse(gameSceneUI.PopupMessage.alramMsg1Popup, $"+{item.Enchant} 강화 성공!", 2.0f);
         else
             gameSceneUI.PopupMessage.SetActiveFalse(gameSceneUI.PopupMessage.errorMsg1Popup, $"강화 실패!", 2.0f);
         gameSceneUI.InvenUI.RefreshUI();
+    }
+
+    public static void S_ChatHandler(PacketSession session, IMessage packet)
+    {
+        S_Chat chatPacket = (S_Chat)packet;
+
+        //서버에서 채팅 패킷이 왔을때 처리해주는 부분
+        UI_GameScene gameSceneUI = Managers.UI.SceneUI as UI_GameScene;
+        gameSceneUI.ChatController.ReceiveChat(chatPacket);
     }
 }

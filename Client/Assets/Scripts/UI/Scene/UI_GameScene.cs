@@ -11,6 +11,7 @@ public class UI_GameScene : UI_Scene
     public UI_Vendor VendorUI { get; private set; }
     public UI_Enchant EnchantUI { get; private set; }
     public UI_Popup_Message PopupMessage { get; private set; }
+    public UI_ChatController ChatController { get; private set; }
 
 
     public override void Init()
@@ -24,6 +25,7 @@ public class UI_GameScene : UI_Scene
         VendorUI = GetComponentInChildren<UI_Vendor>();
         EnchantUI = GetComponentInChildren<UI_Enchant>();
         PopupMessage = GetComponentInChildren<UI_Popup_Message>();
+        ChatController = GetComponentInChildren<UI_ChatController>();
 
         StatUI.gameObject.SetActive(false);
         InvenUI.gameObject.SetActive(false);

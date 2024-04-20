@@ -27,7 +27,7 @@ public class UI_LoginScene : UI_Scene
     public override void Init()
     {
         base.Init();
-        Managers.Network.ConnectToServer("59.10.202.71", 80);
+        Managers.Network.ConnectToServer(NetworkManager.GameServerAddress, 80);
     }
 
     public void OnLoginClick()

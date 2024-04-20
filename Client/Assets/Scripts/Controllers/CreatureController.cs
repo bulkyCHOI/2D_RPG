@@ -85,7 +85,7 @@ public class CreatureController : BaseController
 
 	}
 
-    public virtual void OnDead()
+    public virtual void OnDead(int attackerId)
     {
 		State = CreatureState.Dead;
 

@@ -314,6 +314,14 @@ namespace Server.Game
             }
         }
 
+        public void BroadcastAll(IMessage packet)
+        {
+            foreach (Player p in _players.Values)
+            {
+                p.Session.Send(packet);
+            }
+        }
+
         public List<Player> GetAdjacentPlayers(Vector2Int cellPos, int range)   //주변 존내의 플레이어 목록을 반환
         {
             List<Zone> zones = GetAdjacentZones(cellPos, range);

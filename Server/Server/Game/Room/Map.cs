@@ -226,7 +226,7 @@ namespace Server.Game
                 {
                     now.Projectiles.Remove(p);
                     next.Projectiles.Add(p);    //화살버그로 서버다운 >> 화살이 날아가는 거리를 Zone거리로 조정하자 >> 다음 zone이 없는경우 return false;
-                    Console.WriteLine($"Arrow: Zone({next.IndexX},{next.IndexY}), Pos({p.CellPos.x},{p.CellPos.y})");
+                    //Console.WriteLine($"Arrow: Zone({next.IndexX},{next.IndexY}), Pos({p.CellPos.x},{p.CellPos.y})");
                 }
             }
             else if (type == GameObjectType.Npc)

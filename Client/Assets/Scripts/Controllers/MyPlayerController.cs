@@ -277,5 +277,19 @@ public class MyPlayerController : PlayerController
             }
         }
     }
+
+    public override void OnDead(int attackerId)
+    {
+        base.OnDead(attackerId);
+
+        //나자신이 죽였다면 패스
+        if (attackerId == Managers.Object.MyPlayer.Id)
+            return;
+
+        //죽엇다는 메시지 출력
+        string attackerName = Managers.Object.FindById(attackerId).name;
+        UI_GameScene gameSceneUI = Managers.UI.SceneUI as UI_GameScene;
+        gameSceneUI.PopupMessage.SetActiveFalse(gameSceneUI.PopupMessage.errorMsg1Popup, $"{attackerName}에게 죽음", 5.0f);
+    }
 }
 
