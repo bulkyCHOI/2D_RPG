@@ -97,6 +97,14 @@ public class UI_LoginScene : UI_Scene
         StartCoroutine(ActiveFalse(obj, time));
     }
 
+    public void SetActiveFalse(GameObject obj, string text, float time)
+    {
+        obj.SetActive(true);
+        obj.GetComponentInChildren<TextMeshProUGUI>().text = text;
+        StartCoroutine(ActiveFalse(obj, time));
+    }
+
+
     IEnumerator ActiveFalse(GameObject obj, float time)
     {
         yield return new WaitForSeconds(time);

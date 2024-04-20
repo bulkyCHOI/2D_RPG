@@ -112,6 +112,9 @@ class PacketHandler
             cc.Hp = 0;
             cc.OnDead();
         }
+        //죽엇다는 메시지 출력
+        UI_GameScene gameSceneUI = Managers.UI.SceneUI as UI_GameScene;
+        gameSceneUI.PopupMessage.SetActiveFalse(gameSceneUI.PopupMessage.errorMsg1Popup, $"{diePacket.AttackerId}에게 죽음", 5.0f);
     }
 
     public static void S_ConnectedHandler(PacketSession session, IMessage packet)
@@ -421,17 +424,19 @@ class PacketHandler
             UI_LoginScene loginSceneUI = Managers.UI.SceneUI as UI_LoginScene;
             loginSceneUI.signupPopup.SetActive(false);
             loginSceneUI.loginPopup.SetActive(true);
-            loginSceneUI.alramMsg2Popup.SetActive(true);
-            loginSceneUI.alramMsg2Popup.GetComponentInChildren<TMP_Text>().text = "생성 성공!";
-            loginSceneUI.SetActiveFalse(loginSceneUI.alramMsg2Popup, 2.0f);
+            loginSceneUI.SetActiveFalse(loginSceneUI.alramMsg2Popup, "생성 성공!", 2.0f);
+            //loginSceneUI.alramMsg2Popup.SetActive(true);
+            //loginSceneUI.alramMsg2Popup.GetComponentInChildren<TMP_Text>().text = "생성 성공!";
+            //loginSceneUI.SetActiveFalse(loginSceneUI.alramMsg2Popup, 2.0f);
         }
         else
         {
             Debug.Log("Create Account Fail");
             UI_LoginScene loginSceneUI = Managers.UI.SceneUI as UI_LoginScene;
-            loginSceneUI.errorMsg2Popup.SetActive(true);
-            loginSceneUI.errorMsg2Popup.GetComponentInChildren<TMP_Text>().text = "생성 실패!";
-            loginSceneUI.SetActiveFalse(loginSceneUI.errorMsg2Popup, 2.0f);
+            loginSceneUI.SetActiveFalse(loginSceneUI.errorMsg2Popup, "생성 실패!", 2.0f);
+            //loginSceneUI.errorMsg2Popup.SetActive(true);
+            //loginSceneUI.errorMsg2Popup.GetComponentInChildren<TMP_Text>().text = "생성 실패!";
+            //loginSceneUI.SetActiveFalse(loginSceneUI.errorMsg2Popup, 2.0f);
         }
     }
 
@@ -462,6 +467,10 @@ class PacketHandler
         item.Enchant = enchantPacket.Enchant;
         
         UI_GameScene gameSceneUI = Managers.UI.SceneUI as UI_GameScene;
+        if(item.Enchant > 0)
+            gameSceneUI.PopupMessage.SetActiveFalse(gameSceneUI.PopupMessage.alramMsg1Popup, $"+{item.Enchant}강화 성공!", 2.0f);
+        else
+            gameSceneUI.PopupMessage.SetActiveFalse(gameSceneUI.PopupMessage.errorMsg1Popup, $"강화 실패!", 2.0f);
         gameSceneUI.InvenUI.RefreshUI();
     }
 }
