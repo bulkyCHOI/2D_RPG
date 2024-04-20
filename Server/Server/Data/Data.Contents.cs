@@ -71,6 +71,7 @@ namespace Server.Data
         public ItemType itemType;
         public int price;
         public int grade;
+        public int enchant;
     }
  
     public class WeaponData : ItemData

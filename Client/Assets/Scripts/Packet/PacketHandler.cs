@@ -455,15 +455,13 @@ class PacketHandler
     {
         S_EnchantItem enchantPacket = (S_EnchantItem)packet;
 
-        //서버에서 인챈트 패킷이 왔을때 처리해주는 부분
-        GameObject go = Managers.Object.FindById(enchantPacket.ItemDbId);
-        if (go == null)
+        //서버에서 인챈트 패킷이 왔을때 인벤토리에서 찾아 enchant 변경사항을 처리해주는 부분
+        Item item = Managers.Inventory.Get(enchantPacket.ItemDbId);
+        if (item == null)
             return;
-
-        //CreatureController cc = go.GetComponent<CreatureController>();
-        //if (go != null)
-        //{
-        //    cc.Enchant(enchantPacket.Info);
-        //}
+        item.Enchant = enchantPacket.Enchant;
+        
+        UI_GameScene gameSceneUI = Managers.UI.SceneUI as UI_GameScene;
+        gameSceneUI.InvenUI.RefreshUI();
     }
 }

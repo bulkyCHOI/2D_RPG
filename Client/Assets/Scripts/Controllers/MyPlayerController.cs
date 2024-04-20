@@ -1,4 +1,5 @@
 using Google.Protobuf.Protocol;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -56,8 +57,8 @@ public class MyPlayerController : PlayerController
                         i => i.ItemType == ItemType.Weapon && i.Equipped);
             if(equipedWeapon == null) //맨손
                 skill.Info.SkillId = 1;
-            else if (((Weapon)equipedWeapon).WeaponType == WeaponType.Melee)
-                skill.Info.SkillId = 1;
+            else //if (((Weapon)equipedWeapon).WeaponType == WeaponType.Melee)
+                skill.Info.SkillId = 2;
             //else if (((Weapon)equipedWeapon).WeaponType == WeaponType.Range)
             //    skill.Info.SkillId = 2;
             Managers.Network.Send(skill);
@@ -73,7 +74,7 @@ public class MyPlayerController : PlayerController
             //equipedWeapon = Managers.Inventory.Find(
             //            i => i.ItemType == ItemType.Weapon && i.Equipped);
             //if (((Weapon)equipedWeapon).WeaponType == WeaponType.Range)
-            skill.Info.SkillId = 2; //일단 그냥 스킬 나감
+            skill.Info.SkillId = 3; //일단 그냥 스킬 나감
             Managers.Network.Send(skill);
 
             _coInputCooltime = StartCoroutine(CoInputCooltime(0.2f));
@@ -266,12 +267,12 @@ public class MyPlayerController : PlayerController
             {
                 case ItemType.Weapon:
                     if (((Weapon)item).WeaponType == WeaponType.Melee)
-                        MeleeDamage += ((Weapon)item).Damage;
+                        MeleeDamage += (int)Math.Round(((Weapon)item).Damage * ((((Weapon)item).Enchant * 0.5) + 1));
                     else if (((Weapon)item).WeaponType == WeaponType.Range)
-                        RangeDamage += ((Weapon)item).Damage;
+                        RangeDamage += (int)Math.Round(((Weapon)item).Damage * ((((Weapon)item).Enchant * 0.5) + 1));
                     break;
                 case ItemType.Armor:
-                    ArmorDefence += ((Armor)item).Defence;
+                    ArmorDefence += (int)Math.Round(((Armor)item).Defence * ((((Armor)item).Enchant * 0.5) + 1));
                     break;
             }
         }

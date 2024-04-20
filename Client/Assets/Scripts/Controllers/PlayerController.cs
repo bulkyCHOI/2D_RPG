@@ -98,11 +98,11 @@ public class PlayerController : CreatureController
 
 	public override void UseSkill(int skillId)
 	{
-        if(skillId == 1)
+        if(skillId == 1 || skillId == 2)
 		{
 			_coSkill = StartCoroutine("CoStartPunch");
 		}
-		else if (skillId == 2)
+		else if (skillId == 3)
 		{
 			_coSkill = StartCoroutine("CoStartShootArrow");
 		}

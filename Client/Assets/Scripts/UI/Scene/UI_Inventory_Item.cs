@@ -84,7 +84,6 @@ public class UI_Inventory_Item : UI_Base
             Count = item.Count;
             Grade = item.Grade;
             Equipped = item.Equipped;
-            
 
             Data.ItemData itemData = null;
             Managers.Data.ItemDict.TryGetValue(TemplateId, out itemData);
@@ -119,7 +118,8 @@ public class UI_Inventory_Item : UI_Base
             if (itemData.itemType == ItemType.Consumable)
                 _text.text = Count.ToString();
             else
-                _text.text = "";
+                //enchant가 있다면 표시하기
+               _text.text = item.Enchant > 0 ? $"+{item.Enchant}" : "";
         }
     }
 

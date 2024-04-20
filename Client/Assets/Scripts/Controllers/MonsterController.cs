@@ -26,7 +26,7 @@ public class MonsterController : CreatureController
 
     public override void UseSkill(int skillId)
     {
-        if (skillId == 1)
+        if (skillId == 1 || skillId == 2)
         {
             State = CreatureState.Skill;
         }

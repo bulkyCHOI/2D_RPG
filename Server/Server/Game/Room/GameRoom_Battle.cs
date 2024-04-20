@@ -98,14 +98,14 @@ namespace Server.Game
                     if (target != null)
                     {
                         //Console.WriteLine("Hit GameObject !");
-                        target.OnDamaged(player, player.TotalAttack);
+                        target.OnDamaged(player, player.TotalMeleeAttack);
                     }
                     else
                         return;
                     break;
                 case SkillType.SkillProjectile: //발사체 스킬
                     Arrow arrow = ObjectManager.Instance.Add<Arrow>();
-                    if (arrow != null && player.Stat.Mp >= 50)
+                    if (arrow != null && player.Stat.Mp >= 10)
                     {
                         arrow.Owner = player;
                         arrow.Data = skillData;

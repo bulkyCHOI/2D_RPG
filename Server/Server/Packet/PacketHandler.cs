@@ -189,6 +189,6 @@ class PacketHandler
         if (room == null)
             return;
 
-        //room.Push(room.HandleEnchantItem, player, enchantItemPacket); //Job 방식으로 변경
+        room.Push(room.HandleEnchantItem, player, enchantItemPacket); //Job 방식으로 변경
     }
 }

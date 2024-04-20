@@ -24,7 +24,8 @@ namespace Server.Game
         public PositionInfo PosInfo { get; private set; } = new PositionInfo();
         public StatInfo Stat { get; private set; } = new StatInfo();
 
-        public virtual int TotalAttack{get { return Stat.Attack; }}
+        public virtual int TotalMeleeAttack { get { return Stat.Attack; }}
+        public virtual int TotalRangeAttack { get { return Stat.Attack; }}
         public virtual int TotalDefence { get { return 0; }}
 
         public float Speed

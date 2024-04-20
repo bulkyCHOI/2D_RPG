@@ -88,6 +88,7 @@ namespace Server.Game
                 item.Equipped = itemDb.Equipped;
                 item.Price = itemData.price;
                 item.Grade = itemData.grade;
+                item.Enchant = itemDb.Enchant;
             }
             return item;
         }
@@ -119,6 +120,7 @@ namespace Server.Game
                 IsStackable = false;
                 Price = data.price;
                 Grade = data.grade;
+                Enchant = data.enchant;
             }
         }
     }
@@ -149,6 +151,7 @@ namespace Server.Game
                 IsStackable = false;
                 Price = data.price;
                 Grade = data.grade;
+                Enchant = data.enchant;
             }
         }
     }

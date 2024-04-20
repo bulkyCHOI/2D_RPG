@@ -20,10 +20,12 @@ namespace Server.Game
         public VisionCube Vision { get; private set; }
         public Inventory Inventory { get; private set; } = new Inventory();
 
-        public int WeaponDamage { get; private set; }
+        public int MeleeWeaponDamage { get; private set; }
+        public int RangeWeaponDamage { get; private set; }
         public int ArmorDefence { get; private set; }
 
-        public override int TotalAttack { get { return Stat.Attack + WeaponDamage; } }
+        public override int TotalMeleeAttack { get { return Stat.Attack + MeleeWeaponDamage; } }
+        public override int TotalRangeAttack { get { return Stat.Attack + RangeWeaponDamage; } }
         public override int TotalDefence { get { return ArmorDefence; } }
 
         public Player()
@@ -153,7 +155,8 @@ namespace Server.Game
 
         public void RefreshAdditionalStat()
         {
-            WeaponDamage = 0;
+            MeleeWeaponDamage = 0;
+            RangeWeaponDamage = 0;
             ArmorDefence = 0;
 
             foreach (Item item in Inventory.Items.Values)
@@ -164,13 +167,20 @@ namespace Server.Game
                 switch(item.ItemType)
                 {
                     case ItemType.Weapon:
-                        WeaponDamage += ((Weapon)item).Damage;
+                        if(((Weapon)item).WeaponType == WeaponType.Melee)
+                            //소수점 이하 반올림
+                            MeleeWeaponDamage += (int)Math.Round(((Weapon)item).Damage * ((((Weapon)item).Enchant * 0.5)+1));
+                        else if(((Weapon)item).WeaponType == WeaponType.Range)
+                            RangeWeaponDamage += (int)Math.Round(((Weapon)item).Damage * ((((Weapon)item).Enchant * 0.5)+1));
                         break;
                     case ItemType.Armor:
-                        ArmorDefence += ((Armor)item).Defence;
+                        ArmorDefence += (int)Math.Round(((Armor)item).Defence * ((((Armor)item).Enchant * 0.5)+1));
                         break;
                 }
             }
+            Console.WriteLine($"MeleeWeaponDamage: {MeleeWeaponDamage}");
+            Console.WriteLine($"RangeWeaponDamage: {RangeWeaponDamage}");
+            Console.WriteLine($"ArmorDefence: {ArmorDefence}");
         }
 
         public void HandleUseItem(C_UseItem usePacket)
@@ -289,14 +299,11 @@ namespace Server.Game
             //50% 확률로 강화 성공
             Random random = new Random();
             if (random.Next(0, 2) == 0)
-            {
-                item.Enchant += 1;
-                item.Price *= 2;
-            }
+                item.Enchant ++;
             else
-            {
+                // 실패하면 강화 -1, 0이하로 떨어지지 않게
                 item.Enchant = 0;
-            }
+            item.Price *= item.Enchant+1;
 
             //DB에 적용
             DbTransaction.EnchantItemNoti(this, item);
@@ -304,6 +311,7 @@ namespace Server.Game
             //클라에게 전송
             S_EnchantItem enchantItem = new S_EnchantItem();
             enchantItem.ItemDbId = enchantPacket.ItemDbId;
+            enchantItem.Enchant = item.Enchant;
             Session.Send(enchantItem);
         }
     }

@@ -38,6 +38,11 @@ public class Item   //Item 정보를 메모리에 가지고 있는 클래스
         get { return Info.Equipped; }
         set { Info.Equipped = value; }
     }
+    public int Enchant
+    {
+        get { return Info.Enchant; }
+        set { Info.Enchant = value; }
+    }
 
 
     public ItemType ItemType { get; private set; }
@@ -74,6 +79,7 @@ public class Item   //Item 정보를 메모리에 가지고 있는 클래스
             item.Slot = itemInfo.Slot;
             item.Equipped = itemInfo.Equipped;
             item.Grade = itemInfo.Grade;
+            item.Enchant = itemInfo.Enchant;
         }
         return item;
     }

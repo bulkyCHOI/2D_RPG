@@ -71,6 +71,7 @@ namespace Data
         public string iconPath;
         public int price;
         public int grade;
+        public int enchant;
     }
 
     [Serializable]  //안붙이면 인식을 못하는 문제가 있음

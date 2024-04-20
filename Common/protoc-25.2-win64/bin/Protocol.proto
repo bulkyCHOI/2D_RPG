@@ -388,4 +388,5 @@ message C_EnchantItem
 message S_EnchantItem
 {
 	int32 itemDbId = 1;
+	int32 enchant = 2;
 }
