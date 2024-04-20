@@ -33,7 +33,15 @@ public class UI_ChatController : UI_Base
     public void UpdateChat()
     {
         //대화 입력창에 아무것도 입력되어있지 않으면
-        if (inputField.text.Equals("")) return;
+        if (inputField.text.Equals(""))
+        {
+            OnDeselected();
+            return;
+        }
+        else
+        {
+            OnSelected();
+        }
 
         ////대화를 출력하는 Text UI 프리팹을 생성한다.
         //GameObject clone = Instantiate(textChatPrefab, parentContent);
@@ -80,5 +88,7 @@ public class UI_ChatController : UI_Base
     public void OnDeselected()
     {
         scrollView.SetActive(false);
+        // inputField 포커스 해제
+        inputField.DeactivateInputField();
     }
 }
