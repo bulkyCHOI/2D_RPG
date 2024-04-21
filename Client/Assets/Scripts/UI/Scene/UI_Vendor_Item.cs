@@ -74,6 +74,8 @@ public class UI_Vendor_Item : UI_Base
             Sprite icon = Managers.Resource.Load<Sprite>(itemData.iconPath);
             _icon.sprite = icon;
 
+            _text.text = Price.ToString("N0");  //3자리마다 콤마 찍기, 소수점 제거
+
             switch (Grade)
             {
                 case 0:

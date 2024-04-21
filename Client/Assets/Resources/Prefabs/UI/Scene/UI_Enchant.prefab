@@ -140,9 +140,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC544\uC774\uD15C\uC744 \uD074\uB9AD\uD558\uC2DC\uBA74 50%\uD655\uB960\uB85C
-    \uC131\uACF5\uD569\uB2C8\uB2E4.\n\uC2E4\uD328\uC2DC \uC21C\uC815\uC0C1\uD0DC\uB85C
-    \uB3CC\uC544\uAC11\uB2C8\uB2E4."
+  m_text: "\uC544\uC774\uD15C\uC744 \uD074\uB9AD\uD558\uC2DC\uBA74 50%\uD655\uB960\uB85C\n\uC131\uACF5\uD569\uB2C8\uB2E4.
+    \uC2E4\uD328\uC2DC 0\uC774 \uB429\uB2C8\uB2E4.\n\n\uAC15\uD654\uBE44\uC6A9 =
+    price x grade\ngrade: \uD68C0, \uB1791, \uD30C2, \uBCF43, \uC8FC4, \uBE68 5"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dddb4756dc8a2fe4b8d1efad8b6a5baf, type: 2}
   m_sharedMaterial: {fileID: 7473392196506233929, guid: dddb4756dc8a2fe4b8d1efad8b6a5baf, type: 2}
@@ -169,10 +169,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20
+  m_fontSize: 18
   m_fontSizeBase: 20
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0

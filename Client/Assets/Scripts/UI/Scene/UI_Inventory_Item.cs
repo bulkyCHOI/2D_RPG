@@ -2,6 +2,7 @@ using Google.Protobuf.Protocol;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class UI_Inventory_Item : UI_Base
@@ -23,43 +24,52 @@ public class UI_Inventory_Item : UI_Base
 
     public override void Init()
     {
-        _icon.gameObject.BindEvent((e) =>
+        //_icon.gameObject.BindEvent((e) =>
+        _background.gameObject.BindEvent((e) =>
         {
-            Debug.Log("아이템 클릭");
-
-            Data.ItemData itemData = null;
-            Managers.Data.ItemDict.TryGetValue(TemplateId, out itemData);
-
-            if(itemData == null)
-                return;
-            //TODO: 아이템 사용 >> C_USE_ITEM
-            //if(itemData.itemType == ItemType.Consumable)
-            //    return;
-            UI_GameScene gameSceneUI = Managers.UI.SceneUI as UI_GameScene;
-            UI_Vendor vendorUI = gameSceneUI.VendorUI;
-            UI_Enchant enchantUI = gameSceneUI.EnchantUI;
-
-            if (vendorUI.gameObject.activeSelf == true)
+            //우클릭일 경우
+            if (e.button == PointerEventData.InputButton.Right)
             {
-                Debug.Log("판매");
-                C_SellItem sellPacket = new C_SellItem();
-                sellPacket.ItemDbId = ItemDbId;
-                Managers.Network.Send(sellPacket);
-                RemoveItem();
+                Debug.Log("아이템 우클릭");
+
+                Data.ItemData itemData = null;
+                Managers.Data.ItemDict.TryGetValue(TemplateId, out itemData);
+
+                if(itemData == null)
+                    return;
+                //TODO: 아이템 사용 >> C_USE_ITEM
+                //if(itemData.itemType == ItemType.Consumable)
+                //    return;
+                UI_GameScene gameSceneUI = Managers.UI.SceneUI as UI_GameScene;
+                UI_Vendor vendorUI = gameSceneUI.VendorUI;
+                UI_Enchant enchantUI = gameSceneUI.EnchantUI;
+
+                if (vendorUI.gameObject.activeSelf == true)
+                {
+                    Debug.Log("판매");
+                    C_SellItem sellPacket = new C_SellItem();
+                    sellPacket.ItemDbId = ItemDbId;
+                    Managers.Network.Send(sellPacket);
+                    RemoveItem();
+                }
+                else if (enchantUI.gameObject.activeSelf == true)
+                {
+                    Debug.Log("강화");
+                    C_EnchantItem enchantPacket = new C_EnchantItem();
+                    enchantPacket.ItemDbId = ItemDbId;
+                    Managers.Network.Send(enchantPacket);
+                }
+                else
+                {
+                    C_EquipItem equipPacket = new C_EquipItem();
+                    equipPacket.ItemDbId = ItemDbId;
+                    equipPacket.Equipped = !Equipped;
+                    Managers.Network.Send(equipPacket);
+                }
             }
-            else if (enchantUI.gameObject.activeSelf == true)
+            else if (e.button == PointerEventData.InputButton.Left)
             {
-                Debug.Log("강화");
-                C_EnchantItem enchantPacket = new C_EnchantItem();
-                enchantPacket.ItemDbId = ItemDbId;
-                Managers.Network.Send(enchantPacket);
-            }
-            else
-            {
-                C_EquipItem equipPacket = new C_EquipItem();
-                equipPacket.ItemDbId = ItemDbId;
-                equipPacket.Equipped = !Equipped;
-                Managers.Network.Send(equipPacket);
+                Debug.Log("아이템 좌클릭");
             }
         });
     }
@@ -76,6 +86,7 @@ public class UI_Inventory_Item : UI_Base
 
             _icon.gameObject.SetActive(false);
             _frame.gameObject.SetActive(false);
+            _background.color = new Color(0, 0, 0, 0.5f);
         }
         else
         {
