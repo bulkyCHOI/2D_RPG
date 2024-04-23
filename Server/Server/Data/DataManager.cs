@@ -30,6 +30,23 @@ namespace Server.Data
             VendorDict = LoadJson<Data.VendorLoader, int, Data.VendorData>("VendorData").MakeDict();
         }
 
+        public static void UpdateVendorData()
+        {
+            //price를 ItemData에서 가져와서 VendorData에 업데이트
+            foreach (var kvp in VendorDict)
+            {
+                VendorData vendorData = kvp.Value;
+                foreach (var item in vendorData.items)
+                {
+                    ItemData itemData = null;
+                    if (ItemDict.TryGetValue(item.itemId, out itemData))
+                    {
+                        item.price = itemData.price;
+                    }
+                }
+            }
+        }
+
         static Loader LoadJson<Loader, Key, Value>(string path) where Loader : ILoader<Key, Value>
         {
             //유니티쪽 코드이므로 주석처리

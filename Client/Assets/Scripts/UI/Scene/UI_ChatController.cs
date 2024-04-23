@@ -77,19 +77,18 @@ public class UI_ChatController : UI_Base
         //ID = Managers.Object.MyPlayer.name; //하고 싶지만 초기화가 안되어 있어 null Exception이 발생한다.
         UpdateChat();
         Invoke("ScrollDelay", 0.5f);
+        scrollView.SetActive(false);
     }
 
     public void OnSelected()
     {
         scrollView.SetActive(true);
-        inputField.gameObject.SetActive(true);
         inputField.ActivateInputField();
     }
 
     public void OnDeselected()
     {
         scrollView.SetActive(false);
-        inputField.gameObject.SetActive(false);
-
+        inputField.DeactivateInputField();
     }
 }

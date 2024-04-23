@@ -104,6 +104,7 @@ namespace Server
 		{
 			ConfigManager.LoadConfig();
 			DataManager.LoadData();
+			DataManager.UpdateVendorData();
 
 
             GameLogic.Instance.Push(() =>	//아직 main thread에서 실행중이므로 안해도 되지만 push로 실행

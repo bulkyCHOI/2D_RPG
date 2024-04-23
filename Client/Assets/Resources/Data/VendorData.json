@@ -7,53 +7,43 @@
       "items": [
         {
           "itemId": "200",
-          "slot": "0",
-          "price": "10"
+          "slot": "0"
         },
         {
           "itemId": "201",
-          "slot": "5",
-          "price": "10"
+          "slot": "5"
         },
         {
           "itemId": "202",
-          "slot": "1",
-          "price": "30"
+          "slot": "1"
         },
         {
           "itemId": "203",
-          "slot": "6",
-          "price": "30"
+          "slot": "6"
         },
         {
           "itemId": "204",
-          "slot": "2",
-          "price": "100"
+          "slot": "2"
         },
         {
           "itemId": "205",
-          "slot": "7",
-          "price": "100"
+          "slot": "7"
         },
         {
           "itemId": "206",
-          "slot": "3",
-          "price": "400"
+          "slot": "3"
         },
         {
           "itemId": "207",
-          "slot": "8",
-          "price": "400"
+          "slot": "8"
         },
         {
           "itemId": "208",
-          "slot": "4",
-          "price": "1000"
+          "slot": "4"
         },
         {
           "itemId": "209",
-          "slot": "9",
-          "price": "1000"
+          "slot": "9"
         }
       ]
     },
@@ -64,63 +54,51 @@
       "items": [
         {
           "itemId": "131",
-          "slot": "0",
-          "price": "1000"
+          "slot": "0"
         },
         {
           "itemId": "130",
-          "slot": "5",
-          "price": "1000"
+          "slot": "5"
         },
         {
           "itemId": "133",
-          "slot": "10",
-          "price": "1000"
+          "slot": "10"
         },
         {
           "itemId": "132",
-          "slot": "15",
-          "price": "1000"
+          "slot": "15"
         },
         {
           "itemId": "31",
-          "slot": "20",
-          "price": "1000"
+          "slot": "20"
         },
         {
           "itemId": "32",
-          "slot": "25",
-          "price": "1000"
+          "slot": "25"
         },
         {
           "itemId": "141",
-          "slot": "0",
-          "price": "1000"
+          "slot": "0"
         },
         {
           "itemId": "140",
-          "slot": "5",
-          "price": "1000"
+          "slot": "5"
         },
         {
           "itemId": "143",
-          "slot": "10",
-          "price": "1000"
+          "slot": "10"
         },
         {
           "itemId": "142",
-          "slot": "15",
-          "price": "1000"
+          "slot": "15"
         },
         {
           "itemId": "41",
-          "slot": "20",
-          "price": "1000"
+          "slot": "20"
         },
         {
           "itemId": "42",
-          "slot": "25",
-          "price": "1000"
+          "slot": "25"
         }
       ]
     },
