@@ -21,6 +21,7 @@ public class UI_Inventory : UI_Base
         for(int i = 0; i < 30; i++)
         {
             GameObject go = Managers.Resource.Instantiate("UI/Scene/UI_Inventory_Item", grid.transform);
+            go.name = $"Item_{i:00}";
             UI_Inventory_Item item = go.GetOrAddComponent<UI_Inventory_Item>();
             Items.Add(item);
         }

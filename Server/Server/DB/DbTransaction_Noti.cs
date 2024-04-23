@@ -154,6 +154,36 @@ namespace Server.DB
                 }
             });
         }
+
+        public static void ItemSlotChangeNoti(Player player, Item item)
+        {
+            if (player == null || item == null)
+                return;
+
+            //Me
+            ItemDb itemDb = new ItemDb()
+            {
+                ItemDbId = item.ItemDbId,
+                Slot = item.Slot,
+            };
+
+            //You
+            Instance.Push(() =>
+            {
+                using (AppDbContext db = new AppDbContext())
+                {
+                    db.Entry(itemDb).State = EntityState.Unchanged;
+                    db.Entry(itemDb).Property(nameof(itemDb.Slot)).IsModified = true;
+
+                    bool success = db.SaveChangesEx();
+                    if (success)
+                    {
+                        //Me는 미처리
+                        //실패하면 Kick
+                    }
+                }
+            });
+        }
     }
 }
 

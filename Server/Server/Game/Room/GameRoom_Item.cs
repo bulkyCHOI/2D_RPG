@@ -52,5 +52,13 @@ namespace Server.Game
 
             player.HandleEnchantItem(enchantPacket);
         }
+
+        public void HandleItemSlotChange(Player player, C_ItemSlotChange itemSlotChangePacket)
+        {
+            if (player == null)
+                return;
+
+            player.HandleItemSlotChange(itemSlotChangePacket);
+        }
     }
 }

@@ -207,4 +207,19 @@ class PacketHandler
 
         GameLogic.Instance.BroadcastAll(s_Chat);
     }
+
+    public static void C_ItemSlotChangeHandler(PacketSession session, IMessage packet)
+    {
+        C_ItemSlotChange itemSlotChangePacket = (C_ItemSlotChange)packet;
+        ClientSession clientSession = (ClientSession)session;
+
+        Player player = clientSession.MyPlayer;
+        if (player == null)
+            return;
+        GameRoom room = player.Room;
+        if (room == null)
+            return;
+
+        room.Push(room.HandleItemSlotChange, player, itemSlotChangePacket); //Job 방식으로 변경
+    }
 }

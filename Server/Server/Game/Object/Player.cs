@@ -178,9 +178,9 @@ namespace Server.Game
                         break;
                 }
             }
-            Console.WriteLine($"MeleeWeaponDamage: {MeleeWeaponDamage}");
-            Console.WriteLine($"RangeWeaponDamage: {RangeWeaponDamage}");
-            Console.WriteLine($"ArmorDefence: {ArmorDefence}");
+            //Console.WriteLine($"MeleeWeaponDamage: {MeleeWeaponDamage}");
+            //Console.WriteLine($"RangeWeaponDamage: {RangeWeaponDamage}");
+            //Console.WriteLine($"ArmorDefence: {ArmorDefence}");
         }
 
         public void HandleUseItem(C_UseItem usePacket)
@@ -313,6 +313,37 @@ namespace Server.Game
             enchantItem.ItemDbId = enchantPacket.ItemDbId;
             enchantItem.Enchant = item.Enchant;
             Session.Send(enchantItem);
+        }
+
+        public void HandleItemSlotChange(C_ItemSlotChange itemSlotChangePacket)
+        {
+            //slot이 0-30 사이의 값이어야 한다.
+            if (itemSlotChangePacket.Slot1 < 0 || itemSlotChangePacket.Slot1 > 30)
+                return;
+            if (itemSlotChangePacket.Slot2 < 0 || itemSlotChangePacket.Slot2 > 30)
+                return;
+
+            Item item1 = Inventory.GetItem(itemSlotChangePacket.Item1DbId);
+            Item item2 = Inventory.GetItem(itemSlotChangePacket.Item2DbId);
+            if (item1 == null)
+                return;
+            
+            item1.Slot = itemSlotChangePacket.Slot1;
+            DbTransaction.ItemSlotChangeNoti(this, item1);
+
+            if (item2 != null)
+            {
+                item2.Slot = itemSlotChangePacket.Slot2;
+                DbTransaction.ItemSlotChangeNoti(this, item2);
+            }
+
+            //클라에게 전송
+            S_ItemSlotChange itemSlotChange = new S_ItemSlotChange();
+            itemSlotChange.Item1DbId = itemSlotChangePacket.Item1DbId;
+            itemSlotChange.Item2DbId = itemSlotChangePacket.Item2DbId;
+            itemSlotChange.Slot1 = itemSlotChangePacket.Slot1;
+            itemSlotChange.Slot2 = itemSlotChangePacket.Slot2;
+            Session.Send(itemSlotChange);
         }
     }
 }

@@ -52,6 +52,8 @@ enum MsgId {
 	S_ENCHANT_ITEM = 38;
 	C_CHAT = 39;
 	S_CHAT = 40;
+	C_ITEM_SLOT_CHANGE = 41;
+	S_ITEM_SLOT_CHANGE = 42;
 }
 
 enum CreatureState{
@@ -402,4 +404,20 @@ message S_Chat
 {
 	string name = 1;
 	string chat = 2;
+}
+
+message C_ItemSlotChange
+{
+	int32 item1DbId = 1;
+	int32 slot1 = 2;
+	int32 item2DbId = 3;
+	int32 slot2 = 4;
+}
+
+message S_ItemSlotChange
+{
+	int32 item1DbId = 1;
+	int32 slot1 = 2;
+	int32 item2DbId = 3;
+	int32 slot2 = 4;	
 }

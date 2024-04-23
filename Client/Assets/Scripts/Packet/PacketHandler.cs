@@ -296,7 +296,7 @@ class PacketHandler
     {
         C_Pong pongPacket = new C_Pong();
         Managers.Network.Send(pongPacket);
-        Debug.Log("[Server] PingCheck");
+        //Debug.Log("[Server] PingCheck");
     }
 
     public static void S_MoveMapHandler(PacketSession session, IMessage packet)
@@ -305,7 +305,7 @@ class PacketHandler
 
         //$"Player_{serverSession.DummyId.ToString("0000")}"
         Managers.Map.LoadMap(moveMapPacket.MapNumber);
-        Debug.Log($"Map Size: ({Managers.Map.MinX}, {Managers.Map.MaxX})");
+        //Debug.Log($"Map Size: ({Managers.Map.MinX}, {Managers.Map.MaxX})");
         
         //Managers.Scene.LoadScene($"Game{moveScenePacket.SceneNumber}");
         
@@ -317,7 +317,7 @@ class PacketHandler
 
         //플레이어의 경험치를 증가시킨다.
         Managers.Object.MyPlayer.Stat.CurrentExp += expPacket.Exp;
-        Debug.Log($"경험치 획득: {expPacket.Exp}, 경험치: {Managers.Object.MyPlayer.Stat.CurrentExp}/{Managers.Object.MyPlayer.Stat.TotalExp}");
+        //Debug.Log($"경험치 획득: {expPacket.Exp}, 경험치: {Managers.Object.MyPlayer.Stat.CurrentExp}/{Managers.Object.MyPlayer.Stat.TotalExp}");
 
         UI_GameScene gameSceneUI = Managers.UI.SceneUI as UI_GameScene;
         gameSceneUI.LevelUI.RefreshUI();
@@ -478,5 +478,31 @@ class PacketHandler
         //서버에서 채팅 패킷이 왔을때 처리해주는 부분
         UI_GameScene gameSceneUI = Managers.UI.SceneUI as UI_GameScene;
         gameSceneUI.ChatController.ReceiveChat(chatPacket);
+    }
+
+    public static void S_ItemSlotChangeHandler(PacketSession session, IMessage packet)
+    {
+        S_ItemSlotChange itemSlotChangePacket = (S_ItemSlotChange)packet;
+
+        //서버에서 아이템 슬롯 변경 패킷이 왔을때 처리해주는 부분
+        Item item1 = Managers.Inventory.Get(itemSlotChangePacket.Item1DbId);
+        Item item2 = Managers.Inventory.Get(itemSlotChangePacket.Item2DbId);
+        if (item1 == null)
+            return;
+
+        if (item2 == null)   //item2가 null이면 item1을 item2로 바꾼다.
+        {
+            item1.Slot = itemSlotChangePacket.Slot1;
+            Managers.Inventory.EditItemSlot(item1);
+        }
+        else
+        {
+            item1.Slot = itemSlotChangePacket.Slot1;
+            item2.Slot = itemSlotChangePacket.Slot2;
+            Managers.Inventory.SwitchItemSlot(item1, item2);
+        }
+
+        UI_GameScene gameSceneUI = Managers.UI.SceneUI as UI_GameScene;
+        gameSceneUI.InvenUI.RefreshUI();
     }
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -38,6 +39,19 @@ public class InventoryManager : MonoBehaviour
     {
         //items에서 item.id로 찾아서 count를 변경해준다.
         Items[item.itemDbId].Count = item.Count;
+    }
+
+    public void EditItemSlot(Item item)
+    {
+        //items에서 item.id로 찾아서 slot을 변경해준다.
+        Items[item.itemDbId].Slot = item.Slot;
+    }
+
+    public void SwitchItemSlot(Item item1, Item item2)
+    {
+        //item1과 item2의 slot을 서로 바꿔준다.
+        EditItemSlot(item1);
+        EditItemSlot(item2);
     }
 
     public void Remove(Item item)
