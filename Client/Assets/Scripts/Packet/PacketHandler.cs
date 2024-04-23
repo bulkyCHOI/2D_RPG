@@ -261,7 +261,6 @@ class PacketHandler
         if (Managers.Object.MyPlayer != null)
         {
             Managers.Object.MyPlayer.Stat = new StatInfo(changePacket.StatInfo);
-            Managers.Object.MyPlayer.Stat.CurrentExp = 0;   //경험치 초기화해야만하나? 0인것은 없는 것으로 간주하여 값복사가 일어나지 않는다.
             Managers.Object.MyPlayer.RefreshAdditionalStat();
 
             UI_GameScene gameSceneUI = Managers.UI.SceneUI as UI_GameScene;

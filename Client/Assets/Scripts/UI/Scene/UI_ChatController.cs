@@ -17,8 +17,7 @@ public class UI_ChatController : UI_Base
     {
         //대화 입력창이 포커스 되어있지 않을 때 Enter키를 누르면
         if (Input.GetKeyDown(KeyCode.Return) && inputField.isFocused == false)
-            // 대화 입력창을 활성화 시킨다.
-            inputField.ActivateInputField();
+            OnSelected();
     }
 
     public void OnEndEditEventMethod()
@@ -83,12 +82,14 @@ public class UI_ChatController : UI_Base
     public void OnSelected()
     {
         scrollView.SetActive(true);
+        inputField.gameObject.SetActive(true);
+        inputField.ActivateInputField();
     }
 
     public void OnDeselected()
     {
         scrollView.SetActive(false);
-        // inputField 포커스 해제
-        inputField.DeactivateInputField();
+        inputField.gameObject.SetActive(false);
+
     }
 }

@@ -303,7 +303,6 @@ namespace Server.Game
             else
                 // 실패하면 강화 -1, 0이하로 떨어지지 않게
                 item.Enchant = 0;
-            item.Price *= item.Enchant+1;
 
             //DB에 적용
             DbTransaction.EnchantItemNoti(this, item);
