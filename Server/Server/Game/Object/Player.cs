@@ -118,6 +118,13 @@ namespace Server.Game
                         i => i.ItemType == ItemType.Armor && i.Equipped
                         && armorType == ((Armor)i).ArmorType);
                 }
+                else if(item.ItemType == ItemType.Consumable)
+                {
+                    ConsumableType consumableType = ((Consumable)item).ConsumableType;
+                    unequipItem = Inventory.Find(
+                        i => i.ItemType == ItemType.Consumable && i.Equipped
+                        && consumableType == ((Consumable)i).ConsumableType);
+                }
 
                 if (unequipItem != null) //아이템 해제
                 {
