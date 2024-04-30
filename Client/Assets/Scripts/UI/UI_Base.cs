@@ -59,10 +59,10 @@ public abstract class UI_Base : MonoBehaviour
 				evt.OnClickHandler -= action;
 				evt.OnClickHandler += action;
 				break;
-			case Define.UIEvent.Drag:
-				evt.OnDragHandler -= action;
-				evt.OnDragHandler += action;
-				break;
+			//case Define.UIEvent.Drag:
+			//	evt.OnDragHandler -= action;
+			//	evt.OnDragHandler += action;
+			//	break;
 		}
 	}
 }

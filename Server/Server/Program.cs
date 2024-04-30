@@ -124,8 +124,9 @@ namespace Server
 			IPEndPoint endPoint = new IPEndPoint(ipAddr, 80);
 
 			IpAddress = ipAddr.ToString();
+            Console.WriteLine($"IP: {IpAddress}");
 
-			_listener.Init(endPoint, () => { return SessionManager.Instance.Generate(); });
+            _listener.Init(endPoint, () => { return SessionManager.Instance.Generate(); });
 			Console.WriteLine("Listening...");
 
 			StartServerInfoTask();

@@ -86,7 +86,7 @@ public class UI_Inventory_Item : UI_Base
 
             _icon.gameObject.SetActive(false);
             _frame.gameObject.SetActive(false);
-            _background.color = new Color(0, 0, 0, 0.5f);
+            _background.color = new Color(0, 0, 0, 0);
             _text.text = "";
         }
         else
