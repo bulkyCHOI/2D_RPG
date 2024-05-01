@@ -201,6 +201,8 @@ class PacketHandler
     {
         S_AddItem addItem = (S_AddItem)packet;// as S_AddItem 100% S_AddItem이므로 강제 캐스팅: 성능이 더 좋음
 
+        UI_GameScene gameSceneUI = Managers.UI.SceneUI as UI_GameScene;
+
         foreach (ItemInfo iteminfo in addItem.Items)
         {
             Item item = Item.MakeItem(iteminfo);
@@ -219,17 +221,19 @@ class PacketHandler
             }
             else   //소비아이템이 아니면
                 Managers.Inventory.Add(item);
-            Debug.Log($"{item.itemDbId} 아이템을 획득했습니다.");
+            Debug.Log($"{item.Name} 아이템을 획득했f습니다.");
+            gameSceneUI.PopupMessage.SetActiveFalse(gameSceneUI.PopupMessage.alramMsg1Popup, $"{item.Name} 획득!", 2.0f);
         }
 
 
-        UI_GameScene gameSceneUI = Managers.UI.SceneUI as UI_GameScene;
         gameSceneUI.InvenUI.RefreshUI();
         gameSceneUI.StatUI.RefreshUI();
         gameSceneUI.ActionUI.RefreshUI();
 
         if (Managers.Object.MyPlayer != null)
             Managers.Object.MyPlayer.RefreshAdditionalStat();
+
+        //획득알람 해주자
     }
 
     public static void S_EquipItemHandler(PacketSession session, IMessage packet)
@@ -382,6 +386,9 @@ class PacketHandler
         gameSceneUI.InvenUI.RefreshUI();
         gameSceneUI.ActionUI.RefreshUI();
         //gameSceneUI.VendorUI.RefreshUI(); //굳이 refresh할 필요가 없다. >> items를 받아야 하는데 받기 어려움
+
+        //팝업알림 해주자
+        gameSceneUI.PopupMessage.SetActiveFalse(gameSceneUI.PopupMessage.alramMsg1Popup, $"판매:  + {(itemData.price/2).ToString("N0")} 골드", 2.0f);
     }
 
     public static void S_LoginAccountHandler(PacketSession session, IMessage packet)

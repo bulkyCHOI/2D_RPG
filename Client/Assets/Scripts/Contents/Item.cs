@@ -44,6 +44,8 @@ public class Item   //Item 정보를 메모리에 가지고 있는 클래스
         set { Info.Enchant = value; }
     }
 
+    public string Name { get; protected set; }
+
 
     public ItemType ItemType { get; private set; }
     public bool IsStackable { get; protected set; }
@@ -80,6 +82,7 @@ public class Item   //Item 정보를 메모리에 가지고 있는 클래스
             item.Equipped = itemInfo.Equipped;
             item.Grade = itemInfo.Grade;
             item.Enchant = itemInfo.Enchant;
+            item.Name = itemData.name;
         }
         return item;
     }
