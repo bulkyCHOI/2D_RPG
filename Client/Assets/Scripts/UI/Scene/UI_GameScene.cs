@@ -12,6 +12,7 @@ public class UI_GameScene : UI_Scene
     public UI_Enchant EnchantUI { get; private set; }
     public UI_Popup_Message PopupMessage { get; private set; }
     public UI_ChatController ChatController { get; private set; }
+    public UI_Item_Info ItemInfoUI { get; private set; }
 
 
     public override void Init()
@@ -26,11 +27,14 @@ public class UI_GameScene : UI_Scene
         EnchantUI = GetComponentInChildren<UI_Enchant>();
         PopupMessage = GetComponentInChildren<UI_Popup_Message>();
         ChatController = GetComponentInChildren<UI_ChatController>();
+        ItemInfoUI = GetComponentInChildren<UI_Item_Info>();
 
         StatUI.gameObject.SetActive(false);
         InvenUI.gameObject.SetActive(false);
         VendorUI.gameObject.SetActive(false);
         EnchantUI.gameObject.SetActive(false);
-        //popupMessage.gameObject.SetActive(false); //굳이 할필요 없음
+        //PopupMessage.gameObject.SetActive(false);
+        //ChatController.gameObject.SetActive(false);
+        ItemInfoUI.gameObject.SetActive(false);
     }
 }

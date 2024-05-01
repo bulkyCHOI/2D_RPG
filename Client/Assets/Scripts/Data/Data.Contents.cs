@@ -92,6 +92,7 @@ namespace Data
     public class ConsumableData : ItemData
     {
         public ConsumableType consumableType;
+        public int recoveryAmount;
         public int maxCount;
     }
 

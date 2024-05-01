@@ -144,6 +144,7 @@ public class Armor : Item
 public class Consumable : Item
 {
     public ConsumableType ConsumableType { get; private set; }
+    public int RecoveryAmount { get; private set; }
     public int MaxCount { get; private set; }
 
     public Consumable(int templateId) : base(ItemType.Consumable)
@@ -163,6 +164,7 @@ public class Consumable : Item
             TemplateId = data.id;
             Count = 1;
             ConsumableType = data.consumableType;
+            RecoveryAmount = data.recoveryAmount;
             MaxCount = data.maxCount;
             IsStackable = (data.maxCount > 1);
         }

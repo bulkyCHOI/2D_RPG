@@ -70,6 +70,13 @@ public class UI_Inventory_Item : UI_Base
             else if (e.button == PointerEventData.InputButton.Left)
             {
                 Debug.Log("아이템 좌클릭");
+                
+                if(ItemDbId == 0)
+                    return;
+                UI_GameScene gameSceneUI = Managers.UI.SceneUI as UI_GameScene;
+                UI_Item_Info itemInfoUI = gameSceneUI.ItemInfoUI;
+                itemInfoUI.gameObject.SetActive(true);
+                itemInfoUI.SetItem(Managers.Inventory.Get(ItemDbId));
             }
         });
     }
