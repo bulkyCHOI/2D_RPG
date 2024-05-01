@@ -95,6 +95,13 @@ class PacketHandler
         {
             cc.Hp = changeHpPacket.Hp;
         }
+
+        //패킷이 나의 캐릭터일 경우 LevelUI refrush
+        if (Managers.Object.MyPlayer.Id == changeHpPacket.ObjectId)
+        {
+            UI_GameScene gameSceneUI = Managers.UI.SceneUI as UI_GameScene;
+            gameSceneUI.LevelUI.RefreshUI();
+        }
     }
 
     public static void S_DieHandler(PacketSession session, IMessage packet)
@@ -292,7 +299,7 @@ class PacketHandler
         UI_GameScene gameSceneUI = Managers.UI.SceneUI as UI_GameScene;
         gameSceneUI.InvenUI.RefreshUI();
         gameSceneUI.ActionUI.RefreshUI();
-        
+        gameSceneUI.LevelUI.RefreshUI();
     }
 
     public static void S_PingHandler(PacketSession session, IMessage packet)
@@ -456,6 +463,13 @@ class PacketHandler
         if (go != null)
         {
             cc.Mp = changeMPPacket.Mp;
+        }
+
+        //패킷이 나의 캐릭터일 경우 LevelUI refrush
+        if (Managers.Object.MyPlayer.Id == changeMPPacket.ObjectId)
+        {
+            UI_GameScene gameSceneUI = Managers.UI.SceneUI as UI_GameScene;
+            gameSceneUI.LevelUI.RefreshUI();
         }
     }
 

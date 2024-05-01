@@ -21,7 +21,7 @@ public class UI_EventDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
         Debug.Log("BeginDrag");
         parentAfterDrag = transform.parent;
         //Debug.Log(parentAfterDrag.position);
-        transform.SetParent(transform.root);
+        transform.SetParent(transform.parent.parent);
         transform.SetAsLastSibling();   //드래그하는 아이템을 맨 위로 올린다.
         //gameObject.GetComponent<Image>().raycastTarget = false; //raycastTarget을 false로 해야 OnDrop할때 드래그중인 아이템이 아니라 밑에 선택한 아이템이 detect된다. >> 안됨
         canvasGroup.blocksRaycasts = false; //blocksRaycasts를 false로 해야 OnDrop할때 드래그중인 아이템이 아니라 밑에 선택한 아이템이 detect된다.
