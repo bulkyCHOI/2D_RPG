@@ -16,6 +16,8 @@ namespace Server.Game
         public HashSet<Monster> Monsters { get; set; } = new HashSet<Monster>();
         public HashSet<Projectile> Projectiles { get; set; } = new HashSet<Projectile>();
         public HashSet<NPC> NPCs { get; set; } = new HashSet<NPC>();
+        public HashSet<DropItem> DropItems { get; set; } = new HashSet<DropItem>();
+
 
         public Zone(int y, int x)
         {
@@ -40,6 +42,9 @@ namespace Server.Game
                     break;
                 case GameObjectType.Npc:
                     NPCs.Remove((NPC)gameObject);
+                    break;
+                case GameObjectType.Item:
+                    DropItems.Remove((DropItem)gameObject);
                     break;
             }
         }   

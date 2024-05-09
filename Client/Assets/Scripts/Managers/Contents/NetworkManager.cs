@@ -8,8 +8,9 @@ using Google.Protobuf;
 
 public class NetworkManager
 {
-    public static string GameServerAddress { get; set; } = "61.73.10.119";
-    public static string AccountServerAddress { get; set; } = "61.73.10.119";
+    private static string _ipAddr = "59.10.202.165";
+    public static string GameServerAddress { get; set; } = _ipAddr;
+    public static string AccountServerAddress { get; set; } = _ipAddr;
 
     public int AccountId { get; set; }
     public string AccountName { get; set; }

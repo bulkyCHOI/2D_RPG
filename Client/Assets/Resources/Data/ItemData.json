@@ -141,7 +141,7 @@
       "id": "100",
       "name": "뼈 갑옷",
       "armorType": "Armor",
-      "defence": "10",
+      "defence": "8",
       "price": "1500",
       "grade": "0",
       "iconPath": "Textures/Item/armor"
@@ -159,7 +159,7 @@
       "id": "102",
       "name": "뼈 신발",
       "armorType": "Boots",
-      "defence": "1",
+      "defence": "2",
       "price": "500",
       "grade": "0",
       "iconPath": "Textures/Item/boots"
@@ -195,7 +195,7 @@
       "id": "112",
       "name": "철 신발",
       "armorType": "Boots",
-      "defence": "2",
+      "defence": "3",
       "price": "3000",
       "grade": "1",
       "iconPath": "Textures/Item/boots"
@@ -222,7 +222,7 @@
       "id": "121",
       "name": "강철 투구",
       "armorType": "Helmet",
-      "defence": "10",
+      "defence": "8",
       "price": "8000",
       "grade": "2",
       "iconPath": "Textures/Item/helmets"
@@ -249,7 +249,7 @@
       "id": "130",
       "name": "미스릴 갑옷",
       "armorType": "Armor",
-      "defence": "45",
+      "defence": "35",
       "price": "15000",
       "grade": "3",
       "iconPath": "Textures/Item/armor"
@@ -258,7 +258,7 @@
       "id": "131",
       "name": "미스릴 투구",
       "armorType": "Helmet",
-      "defence": "30",
+      "defence": "12",
       "price": "8000",
       "grade": "3",
       "iconPath": "Textures/Item/helmets"
@@ -267,7 +267,7 @@
       "id": "132",
       "name": "미스릴 신발",
       "armorType": "Boots",
-      "defence": "15",
+      "defence": "8",
       "price": "6000",
       "grade": "3",
       "iconPath": "Textures/Item/boots"
@@ -276,7 +276,7 @@
       "id": "133",
       "name": "미스릴 바지",
       "armorType": "Pants",
-      "defence": "25",
+      "defence": "20",
       "price": "10000",
       "grade": "3",
       "iconPath": "Textures/Item/pants"
@@ -285,7 +285,7 @@
       "id": "140",
       "name": "오리하르콘 갑옷",
       "armorType": "Armor",
-      "defence": "70",
+      "defence": "50",
       "price": "30000",
       "grade": "4",
       "iconPath": "Textures/Item/armor"
@@ -294,7 +294,7 @@
       "id": "141",
       "name": "오리하르콘 투구",
       "armorType": "Helmet",
-      "defence": "50",
+      "defence": "20",
       "price": "20000",
       "grade": "4",
       "iconPath": "Textures/Item/helmets"
@@ -303,7 +303,7 @@
       "id": "142",
       "name": "오리하르콘 신발",
       "armorType": "Boots",
-      "defence": "35",
+      "defence": "15",
       "price": "15000",
       "grade": "4",
       "iconPath": "Textures/Item/boots"
@@ -312,7 +312,7 @@
       "id": "143",
       "name": "오리하르콘 바지",
       "armorType": "Pants",
-      "defence": "40",
+      "defence": "35",
       "price": "25000",
       "grade": "4",
       "iconPath": "Textures/Item/pants"

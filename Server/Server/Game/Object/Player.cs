@@ -42,6 +42,10 @@ namespace Server.Game
         public override void OnDead(GameObject attacker)
         {
             base.OnDead(attacker);
+
+            GameRoom newRoom = GameLogic.Instance.Find(2);  //2번방으로 강제 셋팅
+            newRoom.EnterGame(this, randPos: true);   //다시 입장   //push로 하지 않아도 된다. 이 함수는 바로 처리된다.
+
             //MoveScene 패킷을 보내자
             S_MoveMap moveMap = new S_MoveMap();
             moveMap.MapNumber = 2;
@@ -293,7 +297,7 @@ namespace Server.Game
             if (item.ItemType == ItemType.Consumable)
                 return;
 
-            int enchantPrice = item.Grade * item.Price;
+            int enchantPrice = (item.Grade+1) * item.Price / 2;
             if (Stat.Gold < enchantPrice)
                 return;
 

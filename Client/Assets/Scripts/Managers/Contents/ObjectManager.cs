@@ -1,4 +1,5 @@
-﻿using Google.Protobuf.Protocol;
+﻿using Assets.Scripts.Controllers;
+using Google.Protobuf.Protocol;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -88,6 +89,17 @@ public class ObjectManager
             npc.PosInfo = info.PosInfo;
             npc.Stat = info.StatInfo;
             npc.SyncPos();
+        }
+		else if (type == GameObjectType.Item)
+		{
+            GameObject go = Managers.Resource.Instantiate("Creature/Item");
+            go.name = info.Name;
+            _objects.Add(info.ObjectId, go);
+            ItemController item = go.GetComponent<ItemController>();
+            item.Id = info.ObjectId;
+            item.PosInfo = info.PosInfo;
+            item.Stat = info.StatInfo;
+            item.SyncPos();
         }
     }
 

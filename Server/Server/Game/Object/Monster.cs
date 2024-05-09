@@ -200,7 +200,7 @@ namespace Server.Game
             //TODO : 죽음
         }
 
-        public override void OnDead(GameObject attacker)
+        public override void OnDead(GameObject attacker)  //gameobject에서 OnEnterGame을 하면서 죽은 좌표를 버리므로 받아와야한다.
         {
             // job 취소
             // 이걸 안하면 몬스터가 죽어도 계속 update가 돌아간다.
@@ -214,7 +214,7 @@ namespace Server.Game
             }
 
             base.OnDead(attacker);
-
+            
             // 경험치, 아이템 드랍
             GameObject owner = attacker.GetOwner();
             if(owner != null && owner.ObjectType == GameObjectType.Player)
@@ -225,7 +225,18 @@ namespace Server.Game
                     Player player = (Player)owner;
                     DbTransaction.RewardPlayer(player, reward, Stat.TotalExp, Room);
                 }
+                Console.WriteLine($"Monster Ondead: ({PosInfo.PosX},{PosInfo.PosY})");
+                //아이템 스폰: EnterGame에서 처리
+                DropItem dropItem = ObjectManager.Instance.Add<DropItem>();
+                dropItem.PosInfo.PosX = PosInfo.PosX;
+                dropItem.PosInfo.PosY = PosInfo.PosY;
+                Room.Push(Room.EnterGame, dropItem, false);
             }
+
+            // 리스폰
+            GameRoom room = Room;   //Room에서 나가기 전에 Room을 저장해놓는다.
+            room.LeaveGame(Id); //push로 하지 않아도 된다. 이 함수는 바로 처리된다.
+            room.EnterGame(this, randPos: true);   //다시 입장   //push로 하지 않아도 된다. 이 함수는 바로 처리된다.
         }
 
         RewardData GetRandomReward()

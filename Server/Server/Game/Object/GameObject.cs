@@ -133,6 +133,7 @@ namespace Server.Game
             if(Stat.Hp <= 0)
             {
                 //죽음
+                Console.WriteLine($"OnDead start posInfo: {PosInfo.PosX},{PosInfo.PosY}");
                 OnDead(attacker);
             }
         }
@@ -173,26 +174,30 @@ namespace Server.Game
             diePacket.AttackerId = attacker.Id;
             Room.Broadcast(CellPos, diePacket);
 
-            GameRoom room = Room;   //Room에서 나가기 전에 Room을 저장해놓는다.
-            room.LeaveGame(Id); //push로 하지 않아도 된다. 이 함수는 바로 처리된다.
-            //room.Push(room.LeaveGame, Id); //Job 방식으로 변경
+            //GameRoom room = Room;   //Room에서 나가기 전에 Room을 저장해놓는다.
+            //room.LeaveGame(Id); //push로 하지 않아도 된다. 이 함수는 바로 처리된다.
+            ////room.Push(room.LeaveGame, Id); //Job 방식으로 변경
 
             //이부분은 Job으로 인해 나중에 처리될수 있어 문제가 발생될수 있다.
             //플레이어가 나가지 않은 상태에서 위치나 방향들을 아래처럼 초기화 되면
             //Map에서는 0,0만 null로 밀어버리므로, 마지막 좌표에는 계속 플레이어가 있는 것처럼 된다.
             Stat.Hp = Stat.MaxHp;
+            Stat.Mp = Stat.MaxMp;
             PosInfo.State = CreatureState.Idle;
             PosInfo.MoveDir = MoveDir.Down;
 
-            if (ObjectType == GameObjectType.Player)    //플레이어는 2번방인 마을로
-            {
-                GameRoom newRoom = GameLogic.Instance.Find(2);  //2번방으로 강제 셋팅
-                newRoom.EnterGame(this, randPos:true);   //다시 입장   //push로 하지 않아도 된다. 이 함수는 바로 처리된다.
-            }
-            else    //플레이어 외는 그냥 지금 맵으로 재입장
-            {
-                room.EnterGame(this, randPos:true);   //다시 입장   //push로 하지 않아도 된다. 이 함수는 바로 처리된다.
-            }
+            Console.WriteLine($"GameObject Ondead: ({PosInfo.PosX},{PosInfo.PosY})");
+
+            //EnterGame은 자식에서 처리한다. >> 부모에서 처리했더니, 위치값을 상대참조해가면서 리스폰된 좌표를 가져가는 문제가 발생했다.
+            //if (ObjectType == GameObjectType.Player)    //플레이어는 2번방인 마을로
+            //{
+            //    GameRoom newRoom = GameLogic.Instance.Find(2);  //2번방으로 강제 셋팅
+            //    newRoom.EnterGame(this, randPos:true);   //다시 입장   //push로 하지 않아도 된다. 이 함수는 바로 처리된다.
+            //}
+            //else    //플레이어 외는 그냥 지금 맵으로 재입장
+            //{
+            //    room.EnterGame(this, randPos:true);   //다시 입장   //push로 하지 않아도 된다. 이 함수는 바로 처리된다.
+            //}
             //room.Push(room.EnterGame, this);   //다시 입장  //Job 방식으로 push
 
             //매우중요!!!!

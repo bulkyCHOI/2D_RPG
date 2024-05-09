@@ -24,6 +24,7 @@ namespace Server.Game
         Dictionary<int, Monster> _monsters = new Dictionary<int, Monster>();
         Dictionary<int, Projectile> _projectiles = new Dictionary<int, Projectile>();
         Dictionary<int, NPC> _npcs = new Dictionary<int, NPC>();
+        Dictionary<int, DropItem> _dropItems = new Dictionary<int, DropItem>();
 
         public Zone[,] Zones { get; private set; }
         public int ZoneCells { get; private set; }
@@ -185,6 +186,16 @@ namespace Server.Game
 
                 GetZone(npc.CellPos).NPCs.Add(npc);    //zone에 추가
                 Map.ApplyMove(npc, new Vector2Int(npc.CellPos.x, npc.CellPos.y)); //초기 위치로 이동
+            }
+            else if(type == GameObjectType.Item)
+            {
+                //Console.WriteLine("Item create");
+                DropItem item = gameObject as DropItem;
+                _dropItems.Add(gameObject.Id, item);
+                item.Room = this;
+
+                GetZone(item.CellPos).DropItems.Add(item);    //zone에 추가
+                Map.ApplyMove(item, new Vector2Int(item.CellPos.x, item.CellPos.y)); //초기 위치로 이동
             }
             else
             {

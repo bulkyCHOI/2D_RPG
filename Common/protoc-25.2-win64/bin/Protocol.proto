@@ -76,6 +76,7 @@ enum GameObjectType{
 	MONSTER = 2;
 	PROJECTILE = 3;
 	NPC = 4;
+	ITEM = 5;
 }
 
 enum SkillType
