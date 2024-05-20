@@ -63,6 +63,14 @@ namespace Server.Game.Room
                         continue;
                     objects.Add(npc);
                 }
+                foreach (DropItem dropItem in zone.DropItems)
+                {
+                    int dx = dropItem.CellPos.x - cellPos.x;
+                    int dy = dropItem.CellPos.y - cellPos.y;
+                    if (Math.Abs(dx) > GameRoom.VisionCells || Math.Abs(dy) > GameRoom.VisionCells)
+                        continue;
+                    objects.Add(dropItem);
+                }
             }
 
             return objects;

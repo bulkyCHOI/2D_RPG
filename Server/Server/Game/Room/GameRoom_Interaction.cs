@@ -27,31 +27,43 @@ namespace Server.Game
             Vector2Int vendorPos = player.GetFrontCellPos(playerInfo.PosInfo.MoveDir);
             GameObject target = Map.Find(vendorPos);
             if (target == null) return;
-            if (target.ObjectType != GameObjectType.Npc) return;
-            NPC npc = (NPC)target;
-            //Console.WriteLine($"Interaction with: {npc.VendorType}"); 
-
-            //패킷을 보내자
-            S_VendorInteraction vInteraction = new S_VendorInteraction();
-            vInteraction.VendorType = npc.VendorType;
-            //아이템리스트를 보내야 한다.
-            if (npc.VendorData != null && npc.VendorData.items != null)
+            switch (target.ObjectType)
             {
-                foreach (var item in npc.VendorData.items)
-                {
-                    ItemData itemInfo = null;
-                    DataManager.ItemDict.TryGetValue(item.itemId, out itemInfo);
-                    if (itemInfo == null)
-                        continue;
+                case GameObjectType.Npc:
+                    // NPC와 상호작용
+                    NPC npc = (NPC)target;
+                    //Console.WriteLine($"Interaction with: {npc.VendorType}"); 
 
-                    VendorItemInfo itemData = new VendorItemInfo();
-                    itemData.ItemId = item.itemId;
-                    itemData.Slot = item.slot;
-                    itemData.Price = item.price;
-                    vInteraction.Items.Add(itemData);
-                }
-            }   
-            player.Session.Send(vInteraction);
+                    //패킷을 보내자
+                    S_VendorInteraction vInteraction = new S_VendorInteraction();
+                    vInteraction.VendorType = npc.VendorType;
+                    //아이템리스트를 보내야 한다.
+                    if (npc.VendorData != null && npc.VendorData.items != null)
+                    {
+                        foreach (var item in npc.VendorData.items)
+                        {
+                            ItemData itemInfo = null;
+                            DataManager.ItemDict.TryGetValue(item.itemId, out itemInfo);
+                            if (itemInfo == null)
+                                continue;
+
+                            VendorItemInfo itemData = new VendorItemInfo();
+                            itemData.ItemId = item.itemId;
+                            itemData.Slot = item.slot;
+                            itemData.Price = item.price;
+                            vInteraction.Items.Add(itemData);
+                        }
+                    }
+                    player.Session.Send(vInteraction);
+                    break;
+                case GameObjectType.Item:
+                    // 아이템 줍기
+                    DropItem dropItem = (DropItem)target;
+                    Console.WriteLine($"Interaction with: {dropItem.RewardData.itemId}"); 
+                    break;
+                default: //다른 오브젝트는 무시
+                    break;
+            }
         }
     }
 }

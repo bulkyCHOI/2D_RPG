@@ -225,12 +225,16 @@ namespace Server.Game
                     Player player = (Player)owner;
                     DbTransaction.RewardPlayer(player, reward, Stat.TotalExp, Room);
                 }
-                Console.WriteLine($"Monster Ondead: ({PosInfo.PosX},{PosInfo.PosY})");
+                //Console.WriteLine($"Monster Ondead: ({PosInfo.PosX},{PosInfo.PosY})");
                 //아이템 스폰: EnterGame에서 처리
-                DropItem dropItem = ObjectManager.Instance.Add<DropItem>();
-                dropItem.PosInfo.PosX = PosInfo.PosX;
-                dropItem.PosInfo.PosY = PosInfo.PosY;
-                Room.Push(Room.EnterGame, dropItem, false);
+                if(reward != null)  //드랍아이템이 있으면 드랍
+                {
+                    DropItem dropItem = ObjectManager.Instance.Add<DropItem>();
+                    dropItem.PosInfo.PosX = PosInfo.PosX;
+                    dropItem.PosInfo.PosY = PosInfo.PosY;
+                    dropItem.RewardData = reward;
+                    Room.Push(Room.EnterGame, dropItem, false);
+                }
             }
 
             // 리스폰

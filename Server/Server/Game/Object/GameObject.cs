@@ -123,6 +123,10 @@ namespace Server.Game
                 return;
 
             damage = Math.Max(0, damage - TotalDefence);
+
+            if (damage == 0)
+                return;
+
             Stat.Hp = Math.Max(0, Stat.Hp - damage);
 
             S_ChangeHp changeHpPacket = new S_ChangeHp();
@@ -133,7 +137,7 @@ namespace Server.Game
             if(Stat.Hp <= 0)
             {
                 //죽음
-                Console.WriteLine($"OnDead start posInfo: {PosInfo.PosX},{PosInfo.PosY}");
+                //Console.WriteLine($"OnDead start posInfo: {PosInfo.PosX},{PosInfo.PosY}");
                 OnDead(attacker);
             }
         }
@@ -186,7 +190,7 @@ namespace Server.Game
             PosInfo.State = CreatureState.Idle;
             PosInfo.MoveDir = MoveDir.Down;
 
-            Console.WriteLine($"GameObject Ondead: ({PosInfo.PosX},{PosInfo.PosY})");
+            //Console.WriteLine($"GameObject Ondead: ({PosInfo.PosX},{PosInfo.PosY})");
 
             //EnterGame은 자식에서 처리한다. >> 부모에서 처리했더니, 위치값을 상대참조해가면서 리스폰된 좌표를 가져가는 문제가 발생했다.
             //if (ObjectType == GameObjectType.Player)    //플레이어는 2번방인 마을로

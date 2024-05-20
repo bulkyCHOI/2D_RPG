@@ -95,8 +95,9 @@ namespace Server.Game
         public int SizeY { get { return MaxY - MinY + 1; } }
 
         bool[,] _collision;
-        GameObject[,] _objects;
+        GameObject[,] _objects; 
         int[,] _portal;
+        GameObject[,] _items;
 
         public bool CanGo(Vector2Int cellPos, bool checkObjects=true)
         {
@@ -131,6 +132,9 @@ namespace Server.Game
 
             int x = cellPos.x - MinX;
             int y = MaxY - cellPos.y;
+
+            if (_objects[y, x] == null)
+                return _items[y, x];    //물체가 없으면 아이템을 리턴
             return _objects[y, x];
         }   
         
@@ -156,6 +160,15 @@ namespace Server.Game
                 int y = MaxY - posInfo.PosY;
                 if (_objects[y, x] == gameobject)
                     _objects[y, x] = null;
+            }
+
+            DropItem dropItem = gameobject as DropItem;
+            if (dropItem != null)
+            {
+                int x = posInfo.PosX - MinX;
+                int y = MaxY - posInfo.PosY;
+                if (_items[y, x] == gameobject)
+                    _items[y, x] = null;
             }
 
             return true;
@@ -189,6 +202,21 @@ namespace Server.Game
                     int x = dest.x - MinX;
                     int y = MaxY - dest.y;
                     _objects[y, x] = gameobject;
+                }
+            }
+            else   //collision==false >> item이라고 가정
+            {
+                {   // 기존 좌표 제거
+                    int x = posInfo.PosX - MinX;
+                    int y = MaxY - posInfo.PosY;
+                    if (_items[y, x] == gameobject)
+                        _items[y, x] = null;
+                }
+                {   // 새로운 좌표에 추가
+                    int x = dest.x - MinX;
+                    int y = MaxY - dest.y;
+                    _items[y, x] = gameobject;
+                    Console.WriteLine($"drop position: {y},{x}");
                 }
             }
 
@@ -241,6 +269,17 @@ namespace Server.Game
                     next.NPCs.Add(n);
                 }
             }
+            else if (type == GameObjectType.Item)
+            {
+                DropItem d = (DropItem)gameobject;
+                Zone now = gameobject.Room.GetZone(gameobject.CellPos);
+                Zone next = gameobject.Room.GetZone(dest);
+                if (now != next)
+                {
+                    now.DropItems.Remove(d);
+                    next.DropItems.Add(d);
+                }
+            }
 
             //실제 좌표 이동
             posInfo.PosX = dest.x;
@@ -267,6 +306,7 @@ namespace Server.Game
             _collision = new bool[yCount, xCount];
             _objects = new GameObject[yCount, xCount];
             _portal = new int[yCount, xCount];
+            _items = new GameObject[yCount, xCount];
 
             for (int y = 0; y < yCount; y++)
             {

@@ -35,7 +35,7 @@ namespace Server.Game
             Map.ApplyMove(player, new Vector2Int(movePosInfo.PosX, movePosInfo.PosY)); //이동
 
             int mapId = Map.GetMapId(player.CellPos);
-            Console.WriteLine($"Player Position: ({player.CellPos.x}, {player.CellPos.y})");
+            //Console.WriteLine($"Player Position: ({player.CellPos.x}, {player.CellPos.y})");
             //Console.WriteLine($"MapId: {mapId}");
             if (mapId > 0)
             {

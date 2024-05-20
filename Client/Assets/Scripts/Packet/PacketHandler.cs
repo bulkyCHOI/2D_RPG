@@ -91,10 +91,10 @@ class PacketHandler
             return;
 
         CreatureController cc = go.GetComponent<CreatureController>();
-        if (go != null)
-        {
-            cc.Hp = changeHpPacket.Hp;
-        }
+        if(cc == null)
+            return;
+        
+        cc.Hp = changeHpPacket.Hp;
 
         //패킷이 나의 캐릭터일 경우 LevelUI refrush
         if (Managers.Object.MyPlayer.Id == changeHpPacket.ObjectId)
@@ -114,11 +114,11 @@ class PacketHandler
             return;
 
         CreatureController cc = go.GetComponent<CreatureController>();
-        if (go != null)
-        {
-            cc.Hp = 0;
-            cc.OnDead(diePacket.AttackerId);
-        }
+        if (cc == null)
+            return;
+
+        cc.Hp = 0;
+        cc.OnDead(diePacket.AttackerId);
     }
 
     public static void S_ConnectedHandler(PacketSession session, IMessage packet)

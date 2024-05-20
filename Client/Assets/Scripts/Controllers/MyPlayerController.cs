@@ -171,7 +171,10 @@ public class MyPlayerController : PlayerController
             //캐릭터가 서있는 위치/방향으로 앞에 누가 있는지 확인
             C_VendorInteraction vendorInven = new C_VendorInteraction();
             Managers.Network.Send(vendorInven);
-
+        }
+        else if (Input.GetKeyDown(KeyCode.R))
+        {
+            //루팅
         }
     }
     // 키보드 입력
