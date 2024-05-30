@@ -195,7 +195,7 @@ namespace Server.Game
                 item.Room = this;
 
                 GetZone(item.CellPos).DropItems.Add(item);    //zone에 추가
-                Map.ApplyMove(item, new Vector2Int(item.CellPos.x, item.CellPos.y), collision: false); //collision 체크하지 않음=>아이템은 다른 오브젝트와 충돌하지 않는다.
+                Map.ApplyMove(item, new Vector2Int(item.CellPos.x, item.CellPos.y), collision: false, item: true); //collision 체크하지 않음=>아이템은 다른 오브젝트와 충돌하지 않는다.
             }
             else
             {

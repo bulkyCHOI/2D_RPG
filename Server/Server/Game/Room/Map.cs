@@ -174,7 +174,7 @@ namespace Server.Game
             return true;
         }
 
-        public bool ApplyMove(GameObject gameobject, Vector2Int dest, bool checkObjects=true, bool collision=true)
+        public bool ApplyMove(GameObject gameobject, Vector2Int dest, bool checkObjects=true, bool collision=true, bool item=false)
         {
             if (gameobject == null)
                 return false;
@@ -202,9 +202,10 @@ namespace Server.Game
                     int x = dest.x - MinX;
                     int y = MaxY - dest.y;
                     _objects[y, x] = gameobject;
+                    Console.WriteLine($"move position: {y},{x}");
                 }
             }
-            else   //collision==false >> item이라고 가정
+            if (item)   //collision==false >> item이라고 가정
             {
                 {   // 기존 좌표 제거
                     int x = posInfo.PosX - MinX;
