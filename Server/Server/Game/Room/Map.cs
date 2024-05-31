@@ -133,10 +133,23 @@ namespace Server.Game
             int x = cellPos.x - MinX;
             int y = MaxY - cellPos.y;
 
-            if (_objects[y, x] == null)
-                return _items[y, x];    //물체가 없으면 아이템을 리턴
+            //if (_objects[y, x] == null)
+            //    return _items[y, x];    //물체가 없으면 아이템을 리턴
             return _objects[y, x];
-        }   
+        }
+
+        public GameObject FindItem(Vector2Int cellPos)
+        {
+            if (cellPos.x < MinX || cellPos.x > MaxX)
+                return null;
+            if (cellPos.y < MinY || cellPos.y > MaxY)
+                return null;
+
+            int x = cellPos.x - MinX;
+            int y = MaxY - cellPos.y;
+
+            return _items[y, x];
+        }
         
         public bool ApplyLeave(GameObject gameobject)
         {
@@ -202,7 +215,7 @@ namespace Server.Game
                     int x = dest.x - MinX;
                     int y = MaxY - dest.y;
                     _objects[y, x] = gameobject;
-                    Console.WriteLine($"move position: {y},{x}");
+                    //Console.WriteLine($"move position: {y},{x}");
                 }
             }
             if (item)   //collision==false >> item이라고 가정
@@ -217,7 +230,7 @@ namespace Server.Game
                     int x = dest.x - MinX;
                     int y = MaxY - dest.y;
                     _items[y, x] = gameobject;
-                    Console.WriteLine($"drop position: {y},{x}");
+                    //Console.WriteLine($"drop position: {y},{x}");
                 }
             }
 

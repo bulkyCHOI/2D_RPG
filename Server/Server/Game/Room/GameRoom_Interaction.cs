@@ -2,6 +2,7 @@
 using Google.Protobuf.Protocol;
 using Server.Data;
 using Server.DB;
+using Server.Migrations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,10 +27,16 @@ namespace Server.Game
             //캐릭터 앞에 어떤 gameobject가 있는지 확인
             Vector2Int vendorPos = player.GetFrontCellPos(playerInfo.PosInfo.MoveDir);
             GameObject target = Map.Find(vendorPos);
-            if (target == null) return;
-            switch (target.ObjectType)
+
+            Vector2Int itemPos = player.CellPos;
+            GameObject targetItem = Map.FindItem(itemPos);
+            
+            if (target == null && targetItem == null) return;
+
+            if (target != null)
             {
-                case GameObjectType.Npc:
+                if (target.ObjectType == GameObjectType.Npc)
+                {
                     // NPC와 상호작용
                     NPC npc = (NPC)target;
                     //Console.WriteLine($"Interaction with: {npc.VendorType}"); 
@@ -55,14 +62,19 @@ namespace Server.Game
                         }
                     }
                     player.Session.Send(vInteraction);
-                    break;
-                case GameObjectType.Item:
+                }
+            }
+
+            if (targetItem != null)
+            {
+                if (targetItem.ObjectType == GameObjectType.Item)
+                {
                     // 아이템 줍기
-                    DropItem dropItem = (DropItem)target;
-                    Console.WriteLine($"Interaction with: {dropItem.RewardData.itemId}"); 
-                    break;
-                default: //다른 오브젝트는 무시
-                    break;
+                    DropItem dropItem = (DropItem)targetItem;
+                    Console.WriteLine($"Interaction with: {dropItem.RewardData.itemId}");
+                    DbTransaction.RewardPlayer(player, dropItem.RewardData, 0, this);   //경험치는 0으로 처리
+                    Push(LeaveGame, targetItem.Id); 
+                }
             }
         }
     }

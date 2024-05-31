@@ -242,7 +242,7 @@ namespace Server.Game
                 Map.ApplyLeave(monster);
                 monster.Room = null;
             }
-            else   if (type == GameObjectType.Projectile)
+            else if (type == GameObjectType.Projectile)
             {
                 Projectile projectile = null;
                 if (_projectiles.Remove(objectId, out projectile) == false)
@@ -251,6 +251,26 @@ namespace Server.Game
                 cellPos = projectile.CellPos;
                 Map.ApplyLeave(projectile);
                 projectile.Room = null;
+            }
+            else if (type == GameObjectType.Npc)
+            {
+                NPC npc = null;
+                if (_npcs.Remove(objectId, out npc) == false)
+                    return;
+
+                cellPos = npc.CellPos;
+                Map.ApplyLeave(npc);
+                npc.Room = null;
+            }
+            else if (type == GameObjectType.Item)
+            {
+                DropItem item = null;
+                if (_dropItems.Remove(objectId, out item) == false)
+                    return;
+
+                cellPos = item.CellPos;
+                Map.ApplyLeave(item);
+                item.Room = null;
             }
             else
             {

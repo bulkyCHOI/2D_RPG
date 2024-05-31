@@ -223,7 +223,7 @@ namespace Server.Game
                 //if(reward != null)  //null이어도 경험치는 획득할수 있도록 해준다.
                 {
                     Player player = (Player)owner;
-                    DbTransaction.RewardPlayer(player, reward, Stat.TotalExp, Room);
+                    DbTransaction.RewardPlayer(player, null, Stat.TotalExp, Room);
                 }
                 //Console.WriteLine($"Monster Ondead: ({PosInfo.PosX},{PosInfo.PosY})");
                 //아이템 스폰: EnterGame에서 처리
